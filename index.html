@@ -1,0 +1,1943 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Esther — ECO STAR 💫</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#050507;
+    --white:#faf7f3;
+    --muted:#aaa3ac;
+    --pink:#ff5d91;
+    --pink2:#ff94b6;
+    --purple:#8e72ff;
+    --gold:#f3d28a;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:"Manrope",sans-serif;
+    overflow-x:hidden;
+}
+
+#space{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-20;
+}
+
+.light{
+    position:fixed;
+    width:650px;
+    height:650px;
+    border-radius:50%;
+    filter:blur(130px);
+    pointer-events:none;
+    opacity:.13;
+    z-index:-10;
+}
+
+.light.one{
+    background:#ff397d;
+    top:-350px;
+    left:-300px;
+}
+
+.light.two{
+    background:#7957ff;
+    right:-350px;
+    top:30%;
+}
+
+.light.three{
+    background:#f2b86b;
+    left:25%;
+    bottom:-450px;
+}
+
+.grid{
+    position:fixed;
+    inset:0;
+    z-index:-8;
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    pointer-events:none;
+    opacity:.035;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+/* HEARTS */
+
+#heartLayer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:80;
+    overflow:hidden;
+}
+
+.heart{
+    position:absolute;
+    bottom:-70px;
+
+    animation:
+        riseHeart linear forwards;
+
+    opacity:0;
+
+    filter:
+        drop-shadow(
+            0 0 12px rgba(255,70,130,.6)
+        );
+}
+
+@keyframes riseHeart{
+
+    0%{
+        transform:
+            translateY(0)
+            translateX(0)
+            rotate(0)
+            scale(.5);
+
+        opacity:0;
+    }
+
+    10%{
+        opacity:.85;
+    }
+
+    70%{
+        opacity:.7;
+    }
+
+    100%{
+        transform:
+            translateY(-115vh)
+            translateX(var(--drift))
+            rotate(var(--rotation))
+            scale(1.25);
+
+        opacity:0;
+    }
+}
+
+/* ENTRY */
+
+#entry{
+    position:fixed;
+    inset:0;
+
+    z-index:200;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,70,130,.09),
+            transparent 35%
+        ),
+        #050507;
+
+    transition:
+        opacity 1.3s ease,
+        visibility 1.3s ease;
+}
+
+#entry.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.entryContent{
+    width:min(900px,90%);
+    text-align:center;
+}
+
+.entrySmall{
+    color:#aaa3ad;
+
+    font-size:10px;
+
+    letter-spacing:6px;
+
+    text-transform:uppercase;
+
+    margin-bottom:35px;
+}
+
+.starRing{
+    width:150px;
+    height:150px;
+
+    margin:auto;
+    margin-bottom:40px;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    box-shadow:
+        0 0 80px rgba(255,70,130,.12),
+        inset 0 0 50px rgba(255,255,255,.025);
+
+    animation:
+        floatingStar 4s ease-in-out infinite;
+}
+
+.starRing::before{
+    content:"";
+
+    position:absolute;
+
+    width:185px;
+    height:185px;
+
+    border-radius:50%;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.08);
+
+    animation:
+        rotateRing 15s linear infinite;
+}
+
+.starRing span{
+    font-size:72px;
+
+    filter:
+        drop-shadow(0 0 20px white)
+        drop-shadow(0 0 45px #ff5790);
+}
+
+@keyframes floatingStar{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-13px);
+    }
+}
+
+@keyframes rotateRing{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.entryTitle{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            80px,
+            13vw,
+            180px
+        );
+
+    line-height:.7;
+
+    font-weight:400;
+
+    letter-spacing:-6px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #fff,
+            #ffb6ca,
+            #fff,
+            #f4d48e
+        );
+
+    background-size:300% 300%;
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:
+        gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove{
+
+    0%,100%{
+        background-position:0 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+}
+
+.entrySub{
+    margin-top:28px;
+
+    font-size:12px;
+
+    letter-spacing:9px;
+
+    font-weight:800;
+
+    color:#ff82a9;
+}
+
+.enterButton{
+    margin-top:50px;
+
+    padding:19px 38px;
+
+    border-radius:999px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    backdrop-filter:blur(20px);
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+    box-shadow:
+        0 15px 60px
+        rgba(255,60,120,.1);
+}
+
+.enterButton:hover{
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    border-color:
+        rgba(255,140,175,.7);
+
+    box-shadow:
+        0 20px 80px
+        rgba(255,60,120,.25);
+}
+
+.entryDate{
+    margin-top:25px;
+
+    color:#66616a;
+
+    font-size:8px;
+
+    letter-spacing:5px;
+}
+
+/* NAV */
+
+nav{
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:50;
+
+    padding:
+        25px 6%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    mix-blend-mode:screen;
+}
+
+.logo{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:28px;
+}
+
+.date{
+    color:#aaa;
+
+    font-size:9px;
+
+    letter-spacing:4px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+        150px 7% 100px;
+}
+
+.heroInner{
+    max-width:1200px;
+}
+
+.kicker{
+    font-size:10px;
+
+    letter-spacing:7px;
+
+    color:#ff83a8;
+
+    margin-bottom:35px;
+}
+
+.hero h1{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            70px,
+            14vw,
+            210px
+        );
+
+    font-weight:400;
+
+    line-height:.74;
+
+    letter-spacing:-7px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff,
+            #ffcbd9 50%,
+            #86717d
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.heroDescription{
+    max-width:650px;
+
+    margin:
+        55px auto 0;
+
+    color:#a6a0a8;
+
+    line-height:2;
+
+    font-size:15px;
+}
+
+/* SPECIAL */
+
+.special{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:120px 8%;
+}
+
+.specialInner{
+    max-width:1000px;
+}
+
+.label{
+    color:#ff82a8;
+
+    font-size:10px;
+
+    letter-spacing:7px;
+
+    margin-bottom:35px;
+}
+
+.special h2{
+    font-family:"Cormorant Garamond",serif;
+
+    font-weight:400;
+
+    font-size:
+        clamp(
+            60px,
+            10vw,
+            145px
+        );
+
+    line-height:.8;
+
+    letter-spacing:-5px;
+}
+
+.special h2 span{
+    color:#ff709e;
+}
+
+.special p{
+    max-width:650px;
+
+    margin:
+        50px auto 0;
+
+    color:#a39da6;
+
+    line-height:2;
+}
+
+/* CARDS */
+
+.cardsSection{
+    padding:
+        130px 7%;
+}
+
+.cardsTitle{
+    text-align:center;
+
+    margin-bottom:70px;
+}
+
+.cardsTitle h3{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            55px,
+            8vw,
+            100px
+        );
+
+    font-weight:400;
+
+    line-height:.8;
+}
+
+.cards{
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.card{
+    min-height:370px;
+
+    padding:40px;
+
+    border-radius:28px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.012)
+        );
+
+    backdrop-filter:blur(20px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    transition:
+        transform .5s ease,
+        border-color .5s ease,
+        box-shadow .5s ease;
+}
+
+.card:hover{
+    transform:
+        translateY(-12px);
+
+    border-color:
+        rgba(255,130,165,.35);
+
+    box-shadow:
+        0 30px 80px
+        rgba(255,50,120,.08);
+}
+
+.cardNumber{
+    color:#ff719e;
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    margin-bottom:auto;
+}
+
+.card h4{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:46px;
+
+    font-weight:400;
+
+    margin-bottom:18px;
+}
+
+.card p{
+    color:#99939c;
+
+    line-height:1.8;
+
+    font-size:13px;
+}
+
+/* ECO */
+
+.eco{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:120px 7%;
+}
+
+.ecoInner{
+    max-width:1200px;
+}
+
+.ecoTitle{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            80px,
+            17vw,
+            230px
+        );
+
+    line-height:.65;
+
+    font-weight:400;
+
+    letter-spacing:-8px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #fff,
+            #ff719f,
+            #f5d58b,
+            #fff
+        );
+
+    background-size:300% 300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradientMove 8s ease infinite;
+}
+
+.ecoText{
+    max-width:650px;
+
+    margin:
+        60px auto 0;
+
+    color:#aaa3ab;
+
+    line-height:2;
+}
+
+/* LETTER */
+
+.letterSection{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+        120px 7%;
+}
+
+.letter{
+    width:min(900px,100%);
+
+    padding:
+        clamp(35px,7vw,80px);
+
+    border-radius:35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.015)
+        );
+
+    box-shadow:
+        0 40px 120px
+        rgba(0,0,0,.45);
+}
+
+.letterSmall{
+    color:#ff82a8;
+
+    font-size:10px;
+
+    letter-spacing:5px;
+
+    margin-bottom:30px;
+}
+
+.letter h5{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            75px
+        );
+
+    font-weight:400;
+
+    line-height:.9;
+
+    margin-bottom:40px;
+}
+
+.letter p{
+    color:#aaa4ac;
+
+    line-height:2;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+}
+
+.signature{
+    color:#fff;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:28px;
+
+    margin-top:40px;
+}
+
+/* SURPRISE */
+
+.surprise{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+        120px 7%;
+}
+
+.surpriseInner{
+    max-width:1000px;
+}
+
+.surprise h6{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            60px,
+            10vw,
+            140px
+        );
+
+    font-weight:400;
+
+    line-height:.75;
+
+    letter-spacing:-5px;
+}
+
+.surprise p{
+    max-width:600px;
+
+    margin:
+        45px auto;
+
+    color:#a29ca5;
+
+    line-height:2;
+}
+
+.surpriseLink{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    padding:
+        21px 35px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff477f,
+            #a57aff
+        );
+
+    box-shadow:
+        0 20px 70px
+        rgba(255,60,120,.25);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.surpriseLink:hover{
+    transform:
+        translateY(-6px)
+        scale(1.05);
+
+    box-shadow:
+        0 25px 100px
+        rgba(255,60,120,.45);
+}
+
+.arrow{
+    font-size:18px;
+
+    transition:
+        transform .3s ease;
+}
+
+.surpriseLink:hover .arrow{
+    transform:
+        translateX(5px);
+}
+
+/* FOOTER */
+
+footer{
+    padding:
+        60px 7%;
+
+    text-align:center;
+
+    color:#55515a;
+
+    font-size:8px;
+
+    letter-spacing:4px;
+}
+
+/* REVEAL */
+
+.reveal{
+    opacity:0;
+
+    transform:
+        translateY(45px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:none;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        min-height:300px;
+    }
+
+    .hero h1{
+        letter-spacing:-4px;
+    }
+
+    .special h2{
+        letter-spacing:-3px;
+    }
+
+    .ecoTitle{
+        letter-spacing:-5px;
+    }
+
+    .surprise h6{
+        letter-spacing:-3px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    nav{
+        padding:20px;
+    }
+
+    .date{
+        font-size:7px;
+        letter-spacing:2px;
+    }
+
+    .entryTitle{
+        letter-spacing:-4px;
+    }
+
+    .starRing{
+        width:125px;
+        height:125px;
+    }
+
+    .starRing span{
+        font-size:58px;
+    }
+
+    .heroDescription{
+        font-size:13px;
+    }
+
+    .card{
+        padding:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="space"></canvas>
+
+<div class="light one"></div>
+<div class="light two"></div>
+<div class="light three"></div>
+
+<div class="grid"></div>
+<div class="noise"></div>
+
+<div id="heartLayer"></div>
+
+
+<!-- ENTRY -->
+
+<section id="entry">
+
+    <div class="entryContent">
+
+        <div class="entrySmall">
+            A little universe made for someone special
+        </div>
+
+        <div class="starRing">
+            <span>💫</span>
+        </div>
+
+        <div class="entryTitle">
+            Esther.
+        </div>
+
+        <div class="entrySub">
+            ECO STAR
+        </div>
+
+        <button
+            class="enterButton"
+            id="enterButton"
+        >
+            ENTER THE MOMENT ↗
+        </button>
+
+        <div class="entryDate">
+            OCTOBER 07 · ECO STAR DAY
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NAV -->
+
+<nav>
+
+    <div class="logo">
+        E.
+    </div>
+
+    <div class="date">
+        07 · 10 · ECO STAR
+    </div>
+
+</nav>
+
+
+<main>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="heroInner reveal">
+
+        <div class="kicker">
+            For the birthday girl
+        </div>
+
+        <h1>
+            Happy<br>
+            Birthday,<br>
+            Esther.
+        </h1>
+
+        <p class="heroDescription">
+            Today isn't just another date on the calendar.
+            It's the day the world got one more reason
+            to shine.
+            <br><br>
+            So this isn't just a birthday website.
+            It's a little universe built around one
+            very special ECO STAR.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SPECIAL -->
+
+<section class="special">
+
+    <div class="specialInner reveal">
+
+        <div class="label">
+            THIS IS YOUR MOMENT
+        </div>
+
+        <h2>
+            Some people deserve<br>
+            more than a simple<br>
+            <span>Happy Birthday.</span>
+        </h2>
+
+        <p>
+            They deserve a reminder that their presence
+            matters, their laughter matters, their dreams
+            matter, and the memories they create with
+            people matter.
+            <br><br>
+            Esther, today is your reminder.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CARDS -->
+
+<section class="cardsSection">
+
+    <div class="cardsTitle reveal">
+
+        <div class="label">
+            A FEW THINGS
+        </div>
+
+        <h3>
+            Why today<br>
+            feels different.
+        </h3>
+
+    </div>
+
+
+    <div class="cards">
+
+        <article class="card reveal">
+
+            <div class="cardNumber">
+                01
+            </div>
+
+            <h4>
+                The laughs.
+            </h4>
+
+            <p>
+                The random conversations, unexpected
+                jokes, and little moments that somehow
+                become the memories you remember most.
+            </p>
+
+        </article>
+
+
+        <article class="card reveal">
+
+            <div class="cardNumber">
+                02
+            </div>
+
+            <h4>
+                The friendship.
+            </h4>
+
+            <p>
+                The kind of friendship where you don't
+                need everything to be perfect for the
+                moment to be worth remembering.
+            </p>
+
+        </article>
+
+
+        <article class="card reveal">
+
+            <div class="cardNumber">
+                03
+            </div>
+
+            <h4>
+                The memories.
+            </h4>
+
+            <p>
+                Some moments disappear with time.
+                Others stay quietly in your heart.
+                Those are the ones worth keeping.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- ECO STAR -->
+
+<section class="eco">
+
+    <div class="ecoInner reveal">
+
+        <div class="label">
+            HER NAME FOR THE NIGHT
+        </div>
+
+        <div class="ecoTitle">
+            ECO<br>
+            STAR
+        </div>
+
+        <p class="ecoText">
+            Not because stars are perfect.
+            <br><br>
+            But because they shine anyway.
+            <br><br>
+            And that's the energy this birthday
+            deserves.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- LETTER -->
+
+<section class="letterSection">
+
+    <div class="letter reveal">
+
+        <div class="letterSmall">
+            A LITTLE LETTER
+        </div>
+
+        <h5>
+            Esther,
+            <br>
+            this one's for you.
+        </h5>
+
+        <p>
+            Happy Birthday to one of the people who
+            makes life a little brighter just by being
+            part of it.
+        </p>
+
+        <p>
+            I hope you never become so busy growing
+            into the person you're becoming that you
+            forget to appreciate the person you already
+            are.
+        </p>
+
+        <p>
+            Keep dreaming big. Keep laughing loudly.
+            Keep discovering new things about yourself.
+            Keep becoming better without losing the
+            beautiful parts of who you are today.
+        </p>
+
+        <p>
+            And whenever life gets busy, I hope you
+            remember the simple moments too — the
+            conversations, the jokes, the random
+            memories, and the people who genuinely
+            care about you.
+        </p>
+
+        <p>
+            Today is yours.
+            <br>
+            Enjoy every second of it.
+        </p>
+
+        <div class="signature">
+            — For ECO STAR 💫
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SURPRISE -->
+
+<section class="surprise">
+
+    <div class="surpriseInner reveal">
+
+        <div class="label">
+            BUT WAIT...
+        </div>
+
+        <h6>
+            You didn't<br>
+            think that was<br>
+            <span style="color:#ff719e;">
+                everything,
+            </span><br>
+            did you?
+        </h6>
+
+        <p>
+            There's one more place I made for you.
+            <br><br>
+            And honestly...
+            <br>
+            this is where the real surprise begins.
+        </p>
+
+        <!-- PAGE 2 LINK -->
+
+        <a
+            href="surprise.html"
+            class="surpriseLink"
+        >
+            OPEN THE SURPRISE
+
+            <span class="arrow">
+                💫
+            </span>
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+    MADE WITH ❤️ FOR ECO STAR · OCTOBER 07
+</footer>
+
+
+<script>
+
+/* =========================================
+   STARFIELD
+========================================= */
+
+const canvas =
+    document.getElementById("space");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars=[];
+
+
+function resizeCanvas(){
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function createStars(){
+
+    stars=[];
+
+    const amount =
+        Math.min(
+            280,
+            Math.floor(
+                window.innerWidth *
+                window.innerHeight /
+                6500
+            )
+        );
+
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
+
+        stars.push({
+
+            x:
+                Math.random() *
+                canvas.width,
+
+            y:
+                Math.random() *
+                canvas.height,
+
+            size:
+                Math.random()*1.7+.2,
+
+            speed:
+                Math.random()*.35+.04,
+
+            alpha:
+                Math.random()*.75+.2
+
+        });
+
+    }
+
+}
+
+createStars();
+
+
+function animateStars(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    stars.forEach(star=>{
+
+        star.y += star.speed;
+
+        if(
+            star.y >
+            canvas.height
+        ){
+
+            star.y=-5;
+
+            star.x=
+                Math.random()*
+                canvas.width;
+
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle=
+            `rgba(
+                255,
+                255,
+                255,
+                ${star.alpha}
+            )`;
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(
+        animateStars
+    );
+
+}
+
+animateStars();
+
+
+/* =========================================
+   RISING HEARTS
+========================================= */
+
+const heartLayer =
+    document.getElementById(
+        "heartLayer"
+    );
+
+const heartTypes=[
+    "❤️",
+    "🩷",
+    "💗",
+    "💖",
+    "💕"
+];
+
+
+function createHeart(){
+
+    const heart =
+        document.createElement(
+            "div"
+        );
+
+    heart.className="heart";
+
+    heart.textContent =
+        heartTypes[
+            Math.floor(
+                Math.random()*
+                heartTypes.length
+            )
+        ];
+
+    heart.style.left =
+        Math.random()*100+"%";
+
+    heart.style.fontSize =
+        12+
+        Math.random()*25+
+        "px";
+
+    heart.style.setProperty(
+        "--drift",
+        ((Math.random()-.5)*180)+"px"
+    );
+
+    heart.style.setProperty(
+        "--rotation",
+        ((Math.random()-.5)*80)+"deg"
+    );
+
+    const duration =
+        7+
+        Math.random()*8;
+
+    heart.style.animationDuration=
+        duration+"s";
+
+    heartLayer.appendChild(
+        heart
+    );
+
+    setTimeout(
+        ()=>{
+            heart.remove();
+        },
+        duration*1000
+    );
+
+}
+
+
+let heartInterval;
+
+
+function startHearts(){
+
+    if(heartInterval)
+        return;
+
+    heartInterval =
+        setInterval(
+            createHeart,
+            600
+        );
+
+}
+
+
+/* =========================================
+   BIRTHDAY MUSIC
+   Starts after ENTER THE MOMENT is clicked
+========================================= */
+
+let audioContext = null;
+let musicStarted = false;
+
+
+function playBirthdayMelody(){
+
+    if(musicStarted)
+        return;
+
+    musicStarted = true;
+
+    audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+    const master =
+        audioContext.createGain();
+
+    master.gain.value = 0.18;
+
+    master.connect(
+        audioContext.destination
+    );
+
+
+    const notes = [
+
+        261.63,
+        261.63,
+        293.66,
+        261.63,
+        349.23,
+        329.63,
+
+        261.63,
+        261.63,
+        293.66,
+        261.63,
+        392.00,
+        349.23,
+
+        261.63,
+        261.63,
+        523.25,
+        440.00,
+        349.23,
+        329.63,
+        293.66,
+
+        466.16,
+        466.16,
+        440.00,
+        349.23,
+        392.00,
+        349.23
+
+    ];
+
+
+    let startTime =
+        audioContext.currentTime + .2;
+
+
+    notes.forEach(
+        (frequency,index)=>{
+
+            const oscillator =
+                audioContext.createOscillator();
+
+            const gain =
+                audioContext.createGain();
+
+
+            oscillator.type =
+                "sine";
+
+            oscillator.frequency.value =
+                frequency;
+
+
+            gain.gain.setValueAtTime(
+                0,
+                startTime
+            );
+
+            gain.gain.linearRampToValueAtTime(
+                .8,
+                startTime + .04
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                .001,
+                startTime + .62
+            );
+
+
+            oscillator.connect(gain);
+
+            gain.connect(master);
+
+
+            oscillator.start(
+                startTime
+            );
+
+            oscillator.stop(
+                startTime + .7
+            );
+
+
+            startTime += .68;
+
+        }
+    );
+
+
+    /* soft second layer */
+
+    setTimeout(
+        ()=>{
+
+            if(!audioContext)
+                return;
+
+            const second =
+                audioContext.createOscillator();
+
+            const secondGain =
+                audioContext.createGain();
+
+
+            second.type =
+                "triangle";
+
+            second.frequency.value =
+                523.25;
+
+            secondGain.gain.value =
+                .025;
+
+
+            second.connect(
+                secondGain
+            );
+
+            secondGain.connect(
+                master
+            );
+
+
+            second.start();
+
+            second.stop(
+                audioContext.currentTime + 4
+            );
+
+        },
+        900
+    );
+
+}
+
+
+/* =========================================
+   ENTRY
+========================================= */
+
+const entry =
+    document.getElementById(
+        "entry"
+    );
+
+const enterButton =
+    document.getElementById(
+        "enterButton"
+    );
+
+
+enterButton.addEventListener(
+    "click",
+    ()=>{
+
+        entry.classList.add(
+            "hide"
+        );
+
+        startHearts();
+
+
+        for(
+            let i=0;
+            i<12;
+            i++
+        ){
+
+            setTimeout(
+                createHeart,
+                i*80
+            );
+
+        }
+
+
+        /* MUSIC STARTS HERE */
+
+        playBirthdayMelody();
+
+    }
+);
+
+
+/* =========================================
+   SCROLL REVEALS
+========================================= */
+
+const reveals =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        entries=>{
+
+            entries.forEach(
+                entry=>{
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+reveals.forEach(
+    element =>
+        observer.observe(element)
+);
+
+
+/* =========================================
+   EXTRA HEART BURSTS
+========================================= */
+
+window.addEventListener(
+    "scroll",
+    ()=>{
+
+        const position =
+            window.scrollY;
+
+        const height =
+            document.documentElement
+            .scrollHeight;
+
+        const screen =
+            window.innerHeight;
+
+
+        if(
+            position + screen >
+            height - 150
+        ){
+
+            for(
+                let i=0;
+                i<5;
+                i++
+            ){
+
+                setTimeout(
+                    createHeart,
+                    i*120
+                );
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
