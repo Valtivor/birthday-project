@@ -4,23 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Esther — ECO STAR 💫</title>
+<title>Esther — ECO STAR ⭐</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
-    --bg:#050507;
-    --white:#faf7f3;
-    --muted:#aaa3ac;
-    --pink:#ff5d91;
-    --pink2:#ff94b6;
-    --purple:#8e72ff;
-    --gold:#f3d28a;
-}
 
 *{
     margin:0;
@@ -33,1016 +23,636 @@ html{
 }
 
 body{
-    background:var(--bg);
-    color:var(--white);
+    background:#050507;
+    color:white;
     font-family:"Manrope",sans-serif;
     overflow-x:hidden;
 }
 
-#space{
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:"";
     position:fixed;
     inset:0;
-    width:100%;
-    height:100%;
-    z-index:-20;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,70,150,.16),transparent 28%),
+        radial-gradient(circle at 80% 30%,rgba(130,70,255,.13),transparent 30%),
+        radial-gradient(circle at 50% 90%,rgba(255,180,70,.10),transparent 30%);
+    z-index:-5;
 }
 
-.light{
-    position:fixed;
-    width:650px;
-    height:650px;
-    border-radius:50%;
-    filter:blur(130px);
-    pointer-events:none;
-    opacity:.13;
-    z-index:-10;
-}
-
-.light.one{
-    background:#ff397d;
-    top:-350px;
-    left:-300px;
-}
-
-.light.two{
-    background:#7957ff;
-    right:-350px;
-    top:30%;
-}
-
-.light.three{
-    background:#f2b86b;
-    left:25%;
-    bottom:-450px;
-}
-
-.grid{
+body::after{
+    content:"";
     position:fixed;
     inset:0;
-    z-index:-8;
-    pointer-events:none;
-
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
     background-size:70px 70px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            black 20%,
-            black 80%,
-            transparent
-        );
+    pointer-events:none;
+    z-index:-3;
 }
 
 .noise{
     position:fixed;
     inset:0;
-    z-index:100;
     pointer-events:none;
     opacity:.035;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    z-index:20;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-/* HEARTS */
+/* ================= STARFIELD ================= */
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:-4;
+}
+
+/* ================= HEARTS ================= */
 
 #heartLayer{
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:80;
     overflow:hidden;
+    z-index:30;
 }
 
 .heart{
     position:absolute;
-    bottom:-70px;
-
-    animation:
-        riseHeart linear forwards;
-
+    bottom:-50px;
     opacity:0;
-
-    filter:
-        drop-shadow(
-            0 0 12px rgba(255,70,130,.6)
-        );
+    animation:riseHeart linear forwards;
+    filter:drop-shadow(0 0 10px rgba(255,100,180,.4));
 }
 
 @keyframes riseHeart{
 
     0%{
-        transform:
-            translateY(0)
-            translateX(0)
-            rotate(0)
-            scale(.5);
-
+        transform:translateY(0) translateX(0) rotate(0deg) scale(.6);
         opacity:0;
     }
 
     10%{
-        opacity:.85;
+        opacity:.8;
     }
 
-    70%{
-        opacity:.7;
+    50%{
+        opacity:.65;
     }
 
     100%{
         transform:
-            translateY(-115vh)
+            translateY(-110vh)
             translateX(var(--drift))
-            rotate(var(--rotation))
-            scale(1.25);
-
+            rotate(var(--rotate))
+            scale(1.2);
         opacity:0;
     }
 }
 
-/* ENTRY */
+/* ================= ENTRY ================= */
 
 #entry{
     position:fixed;
     inset:0;
-
-    z-index:200;
-
+    z-index:50;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(255,70,130,.09),
-            transparent 35%
-        ),
-        #050507;
-
-    transition:
-        opacity 1.3s ease,
-        visibility 1.3s ease;
+    text-align:center;
+    background:#040406;
+    transition:1.3s ease;
 }
 
 #entry.hide{
     opacity:0;
     visibility:hidden;
+    pointer-events:none;
 }
 
 .entryContent{
-    width:min(900px,90%);
-    text-align:center;
+    position:relative;
+    z-index:2;
+    padding:30px;
 }
 
 .entrySmall{
-    color:#aaa3ad;
-
-    font-size:10px;
-
     letter-spacing:6px;
-
+    font-size:10px;
     text-transform:uppercase;
-
-    margin-bottom:35px;
+    opacity:.55;
+    margin-bottom:30px;
 }
 
 .starRing{
-    width:150px;
-    height:150px;
-
+    width:120px;
+    height:120px;
     margin:auto;
-    margin-bottom:40px;
-
     border:1px solid rgba(255,255,255,.18);
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     position:relative;
-
+    animation:spin 18s linear infinite;
     box-shadow:
-        0 0 80px rgba(255,70,130,.12),
-        inset 0 0 50px rgba(255,255,255,.025);
+        0 0 40px rgba(255,100,180,.15),
+        inset 0 0 30px rgba(255,255,255,.04);
+}
 
-    animation:
-        floatingStar 4s ease-in-out infinite;
+.starRing::before,
+.starRing::after{
+    content:"";
+    position:absolute;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
 }
 
 .starRing::before{
-    content:"";
+    inset:-14px;
+}
 
-    position:absolute;
-
-    width:185px;
-    height:185px;
-
-    border-radius:50%;
-
-    border:
-        1px dashed
-        rgba(255,255,255,.08);
-
-    animation:
-        rotateRing 15s linear infinite;
+.starRing::after{
+    inset:14px;
 }
 
 .starRing span{
-    font-size:72px;
-
-    filter:
-        drop-shadow(0 0 20px white)
-        drop-shadow(0 0 45px #ff5790);
+    font-size:42px;
+    animation:counterSpin 18s linear infinite;
 }
 
-@keyframes floatingStar{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-13px);
-    }
+@keyframes spin{
+    to{transform:rotate(360deg);}
 }
 
-@keyframes rotateRing{
-
-    to{
-        transform:rotate(360deg);
-    }
+@keyframes counterSpin{
+    to{transform:rotate(-360deg);}
 }
 
 .entryTitle{
     font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            80px,
-            13vw,
-            180px
-        );
-
-    line-height:.7;
-
-    font-weight:400;
-
-    letter-spacing:-6px;
-
-    background:
-        linear-gradient(
-            120deg,
-            #fff,
-            #ffb6ca,
-            #fff,
-            #f4d48e
-        );
-
-    background-size:300% 300%;
-
-    -webkit-background-clip:text;
-    color:transparent;
-
-    animation:
-        gradientMove 6s ease infinite;
+    font-size:clamp(70px,12vw,160px);
+    line-height:.8;
+    margin-top:40px;
+    font-weight:500;
+    letter-spacing:-5px;
 }
 
-@keyframes gradientMove{
-
-    0%,100%{
-        background-position:0 50%;
-    }
-
-    50%{
-        background-position:100% 50%;
-    }
-}
-
-.entrySub{
-    margin-top:28px;
-
-    font-size:12px;
-
-    letter-spacing:9px;
-
-    font-weight:800;
-
-    color:#ff82a9;
-}
-
-.enterButton{
-    margin-top:50px;
-
-    padding:19px 38px;
-
-    border-radius:999px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(255,255,255,.09),
-            rgba(255,255,255,.025)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.2);
-
-    backdrop-filter:blur(20px);
-
-    font-size:10px;
-
-    letter-spacing:3px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.4s;
-
-    box-shadow:
-        0 15px 60px
-        rgba(255,60,120,.1);
-}
-
-.enterButton:hover{
-    transform:
-        translateY(-5px)
-        scale(1.04);
-
-    border-color:
-        rgba(255,140,175,.7);
-
-    box-shadow:
-        0 20px 80px
-        rgba(255,60,120,.25);
-}
-
-.entryDate{
+.entrySubtitle{
     margin-top:25px;
-
-    color:#66616a;
-
-    font-size:8px;
-
-    letter-spacing:5px;
+    letter-spacing:9px;
+    font-size:12px;
+    color:#ffb6d7;
 }
 
-/* NAV */
+.entryText{
+    margin-top:22px;
+    opacity:.55;
+    font-size:13px;
+}
+
+.enterBtn{
+    margin-top:42px;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(255,255,255,.035);
+    color:white;
+    padding:17px 30px;
+    border-radius:50px;
+    letter-spacing:3px;
+    font-size:11px;
+    cursor:pointer;
+    transition:.4s;
+    backdrop-filter:blur(15px);
+}
+
+.enterBtn:hover{
+    transform:translateY(-4px);
+    background:white;
+    color:black;
+    box-shadow:0 15px 50px rgba(255,255,255,.15);
+}
+
+/* ================= NAV ================= */
 
 nav{
     position:fixed;
-
     top:0;
     left:0;
     right:0;
-
-    z-index:50;
-
-    padding:
-        25px 6%;
-
+    height:80px;
     display:flex;
-
     align-items:center;
     justify-content:space-between;
-
+    padding:0 6%;
+    z-index:15;
     mix-blend-mode:screen;
 }
 
 .logo{
     font-family:"Cormorant Garamond",serif;
-
-    font-size:28px;
+    font-size:30px;
 }
 
-.date{
-    color:#aaa;
-
+.navText{
     font-size:9px;
-
-    letter-spacing:4px;
+    letter-spacing:3px;
+    opacity:.55;
 }
 
-/* HERO */
+/* ================= HERO ================= */
 
 .hero{
     min-height:100vh;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     text-align:center;
-
-    padding:
-        150px 7% 100px;
+    padding:100px 20px;
+    position:relative;
 }
 
-.heroInner{
-    max-width:1200px;
+.heroGlow{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(255,80,160,.08);
+    filter:blur(100px);
 }
 
-.kicker{
+.heroContent{
+    position:relative;
+    z-index:2;
+}
+
+.mini{
     font-size:10px;
-
     letter-spacing:7px;
-
-    color:#ff83a8;
-
-    margin-bottom:35px;
+    color:#ffafd0;
+    margin-bottom:25px;
 }
 
 .hero h1{
     font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            70px,
-            14vw,
-            210px
-        );
-
-    font-weight:400;
-
-    line-height:.74;
-
+    font-size:clamp(75px,14vw,190px);
+    line-height:.75;
+    font-weight:500;
     letter-spacing:-7px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff,
-            #ffcbd9 50%,
-            #86717d
-        );
-
-    -webkit-background-clip:text;
-
-    color:transparent;
 }
 
-.heroDescription{
-    max-width:650px;
+.hero h1 span{
+    display:block;
+    font-style:italic;
+}
 
-    margin:
-        55px auto 0;
-
-    color:#a6a0a8;
-
+.heroDesc{
+    max-width:600px;
+    margin:40px auto 0;
+    font-size:14px;
     line-height:2;
-
-    font-size:15px;
+    opacity:.55;
 }
 
-/* SPECIAL */
+/* ================= SECTIONS ================= */
 
-.special{
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:120px 8%;
+section{
+    position:relative;
+    padding:150px 7%;
 }
 
-.specialInner{
-    max-width:1000px;
-}
-
-.label{
-    color:#ff82a8;
-
-    font-size:10px;
-
-    letter-spacing:7px;
-
-    margin-bottom:35px;
-}
-
-.special h2{
-    font-family:"Cormorant Garamond",serif;
-
-    font-weight:400;
-
-    font-size:
-        clamp(
-            60px,
-            10vw,
-            145px
-        );
-
-    line-height:.8;
-
-    letter-spacing:-5px;
-}
-
-.special h2 span{
-    color:#ff709e;
-}
-
-.special p{
-    max-width:650px;
-
-    margin:
-        50px auto 0;
-
-    color:#a39da6;
-
-    line-height:2;
-}
-
-/* CARDS */
-
-.cardsSection{
-    padding:
-        130px 7%;
-}
-
-.cardsTitle{
-    text-align:center;
-
-    margin-bottom:70px;
-}
-
-.cardsTitle h3{
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            55px,
-            8vw,
-            100px
-        );
-
-    font-weight:400;
-
-    line-height:.8;
-}
-
-.cards{
-    max-width:1200px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.card{
-    min-height:370px;
-
-    padding:40px;
-
-    border-radius:28px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.012)
-        );
-
-    backdrop-filter:blur(20px);
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-end;
-
-    transition:
-        transform .5s ease,
-        border-color .5s ease,
-        box-shadow .5s ease;
-}
-
-.card:hover{
-    transform:
-        translateY(-12px);
-
-    border-color:
-        rgba(255,130,165,.35);
-
-    box-shadow:
-        0 30px 80px
-        rgba(255,50,120,.08);
-}
-
-.cardNumber{
-    color:#ff719e;
-
-    font-size:10px;
-
-    letter-spacing:4px;
-
-    margin-bottom:auto;
-}
-
-.card h4{
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:46px;
-
-    font-weight:400;
-
-    margin-bottom:18px;
-}
-
-.card p{
-    color:#99939c;
-
-    line-height:1.8;
-
-    font-size:13px;
-}
-
-/* ECO */
-
-.eco{
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:120px 7%;
-}
-
-.ecoInner{
-    max-width:1200px;
-}
-
-.ecoTitle{
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            80px,
-            17vw,
-            230px
-        );
-
-    line-height:.65;
-
-    font-weight:400;
-
-    letter-spacing:-8px;
-
-    background:
-        linear-gradient(
-            110deg,
-            #fff,
-            #ff719f,
-            #f5d58b,
-            #fff
-        );
-
-    background-size:300% 300%;
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-
-    animation:
-        gradientMove 8s ease infinite;
-}
-
-.ecoText{
-    max-width:650px;
-
-    margin:
-        60px auto 0;
-
-    color:#aaa3ab;
-
-    line-height:2;
-}
-
-/* LETTER */
-
-.letterSection{
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:
-        120px 7%;
-}
-
-.letter{
-    width:min(900px,100%);
-
-    padding:
-        clamp(35px,7vw,80px);
-
-    border-radius:35px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.06),
-            rgba(255,255,255,.015)
-        );
-
-    box-shadow:
-        0 40px 120px
-        rgba(0,0,0,.45);
-}
-
-.letterSmall{
-    color:#ff82a8;
-
-    font-size:10px;
-
+.sectionLabel{
+    font-size:9px;
     letter-spacing:5px;
-
+    color:#ffafd0;
     margin-bottom:30px;
 }
 
-.letter h5{
+.bigText{
     font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            45px,
-            7vw,
-            75px
-        );
-
-    font-weight:400;
-
-    line-height:.9;
-
-    margin-bottom:40px;
-}
-
-.letter p{
-    color:#aaa4ac;
-
-    line-height:2;
-
-    font-size:14px;
-
-    margin-bottom:20px;
-}
-
-.signature{
-    color:#fff;
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:28px;
-
-    margin-top:40px;
-}
-
-/* SURPRISE */
-
-.surprise{
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    padding:
-        120px 7%;
-}
-
-.surpriseInner{
-    max-width:1000px;
-}
-
-.surprise h6{
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:
-        clamp(
-            60px,
-            10vw,
-            140px
-        );
-
-    font-weight:400;
-
-    line-height:.75;
-
+    font-size:clamp(60px,10vw,150px);
+    font-weight:500;
+    line-height:.85;
     letter-spacing:-5px;
 }
 
-.surprise p{
+.special{
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+}
+
+.special p{
     max-width:600px;
-
-    margin:
-        45px auto;
-
-    color:#a29ca5;
-
+    margin-top:45px;
     line-height:2;
+    opacity:.58;
+    font-size:15px;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:70px;
+}
+
+.card{
+    min-height:300px;
+    padding:35px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.025);
+    backdrop-filter:blur(20px);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    transition:.5s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,160,210,.3);
+    box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+
+.cardNumber{
+    font-size:10px;
+    opacity:.35;
+    margin-bottom:auto;
+}
+
+.card h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:40px;
+    font-weight:500;
+}
+
+.card p{
+    font-size:12px;
+    line-height:1.8;
+    opacity:.5;
+    margin-top:12px;
+}
+
+/* ================= ECO STAR ================= */
+
+.eco{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.ecoWord{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(80px,18vw,260px);
+    letter-spacing:-10px;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(255,255,255,.2);
+    position:absolute;
+    white-space:nowrap;
+}
+
+.ecoCenter{
+    position:relative;
+    z-index:2;
+}
+
+.ecoStar{
+    font-size:70px;
+    margin-bottom:25px;
+    animation:floatStar 4s ease-in-out infinite;
+}
+
+@keyframes floatStar{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+}
+
+.ecoCenter h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:70px;
+    font-weight:500;
+}
+
+.ecoCenter p{
+    margin-top:15px;
+    opacity:.5;
+    font-size:12px;
+    letter-spacing:3px;
+}
+
+/* ================= LITTLE MESSAGE ================= */
+
+.letterSection{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
+
+.letter{
+    max-width:900px;
+}
+
+.letter h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(60px,9vw,130px);
+    line-height:.85;
+    font-weight:500;
+}
+
+.letterBody{
+    max-width:650px;
+    margin-top:55px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:26px;
+    line-height:1.6;
+    color:rgba(255,255,255,.75);
+}
+
+.signature{
+    margin-top:40px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:30px;
+    font-style:italic;
+    color:#ffafd0;
+}
+
+/* MUSIC INDICATOR */
+
+.musicIndicator{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:40;
+    padding:12px 17px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(10,10,14,.65);
+    backdrop-filter:blur(15px);
+    border-radius:30px;
+    font-size:9px;
+    letter-spacing:2px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:.5s;
+}
+
+.musicIndicator.active{
+    opacity:.8;
+    transform:translateY(0);
+}
+
+.musicBars{
+    display:inline-flex;
+    gap:3px;
+    margin-right:8px;
+    vertical-align:middle;
+}
+
+.musicBars span{
+    display:block;
+    width:2px;
+    height:10px;
+    background:#ffafd0;
+    animation:bars .7s infinite alternate;
+}
+
+.musicBars span:nth-child(2){animation-delay:.2s;}
+.musicBars span:nth-child(3){animation-delay:.4s;}
+
+@keyframes bars{
+    from{height:4px;}
+    to{height:14px;}
+}
+
+/* ================= SURPRISE ================= */
+
+.surpriseSection{
+    min-height:85vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.surpriseBox{
+    max-width:800px;
+}
+
+.surpriseBox h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(60px,9vw,120px);
+    font-weight:500;
+}
+
+.surpriseBox p{
+    margin:30px auto;
+    max-width:500px;
+    line-height:2;
+    opacity:.5;
 }
 
 .surpriseLink{
     display:inline-flex;
-
     align-items:center;
-
-    justify-content:center;
-
-    gap:12px;
-
-    padding:
-        21px 35px;
-
-    border-radius:999px;
-
+    gap:15px;
     text-decoration:none;
-
-    color:#fff;
-
-    font-size:10px;
-
-    font-weight:800;
-
+    color:white;
+    padding:20px 35px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:50px;
     letter-spacing:3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff477f,
-            #a57aff
-        );
-
-    box-shadow:
-        0 20px 70px
-        rgba(255,60,120,.25);
-
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease;
+    font-size:10px;
+    background:rgba(255,255,255,.03);
+    transition:.5s;
 }
 
 .surpriseLink:hover{
-    transform:
-        translateY(-6px)
-        scale(1.05);
-
-    box-shadow:
-        0 25px 100px
-        rgba(255,60,120,.45);
+    background:white;
+    color:#050507;
+    transform:translateY(-5px) scale(1.03);
+    box-shadow:0 20px 70px rgba(255,100,180,.2);
 }
 
 .arrow{
-    font-size:18px;
-
-    transition:
-        transform .3s ease;
+    font-size:20px;
 }
 
-.surpriseLink:hover .arrow{
-    transform:
-        translateX(5px);
-}
-
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer{
-    padding:
-        60px 7%;
-
+    padding:80px 7%;
     text-align:center;
+    border-top:1px solid rgba(255,255,255,.06);
+}
 
-    color:#55515a;
+footer h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:45px;
+    font-weight:500;
+}
 
-    font-size:8px;
-
+footer p{
+    margin-top:15px;
+    opacity:.35;
+    font-size:9px;
     letter-spacing:4px;
 }
 
-/* REVEAL */
+/* ================= REVEAL ================= */
 
 .reveal{
     opacity:0;
-
-    transform:
-        translateY(45px);
-
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
+    transform:translateY(50px);
+    transition:1.2s ease;
 }
 
-.reveal.visible{
+.reveal.show{
     opacity:1;
-
-    transform:none;
+    transform:translateY(0);
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:800px){
+
+    nav{
+        padding:0 25px;
+    }
+
+    section{
+        padding:110px 25px;
+    }
 
     .cards{
         grid-template-columns:1fr;
     }
 
     .card{
-        min-height:300px;
-    }
-
-    .hero h1{
-        letter-spacing:-4px;
-    }
-
-    .special h2{
-        letter-spacing:-3px;
-    }
-
-    .ecoTitle{
-        letter-spacing:-5px;
-    }
-
-    .surprise h6{
-        letter-spacing:-3px;
-    }
-
-}
-
-@media(max-width:500px){
-
-    nav{
-        padding:20px;
-    }
-
-    .date{
-        font-size:7px;
-        letter-spacing:2px;
+        min-height:250px;
     }
 
     .entryTitle{
-        letter-spacing:-4px;
+        font-size:80px;
     }
 
-    .starRing{
-        width:125px;
-        height:125px;
+    .hero h1{
+        font-size:80px;
     }
 
-    .starRing span{
-        font-size:58px;
+    .letterBody{
+        font-size:22px;
     }
 
-    .heroDescription{
-        font-size:13px;
-    }
-
-    .card{
-        padding:30px;
+    .ecoWord{
+        font-size:100px;
     }
 
 }
@@ -1052,21 +662,15 @@ footer{
 
 <body>
 
-<canvas id="space"></canvas>
-
-<div class="light one"></div>
-<div class="light two"></div>
-<div class="light three"></div>
-
-<div class="grid"></div>
 <div class="noise"></div>
+
+<canvas id="stars"></canvas>
 
 <div id="heartLayer"></div>
 
+<!-- ================= ENTRY ================= -->
 
-<!-- ENTRY -->
-
-<section id="entry">
+<div id="entry">
 
     <div class="entryContent">
 
@@ -1082,27 +686,28 @@ footer{
             Esther.
         </div>
 
-        <div class="entrySub">
+        <div class="entrySubtitle">
             ECO STAR
         </div>
 
-        <button
-            class="enterButton"
-            id="enterButton"
-        >
+        <div class="entryText">
+            Before you continue... I made something special for you.
+        </div>
+
+        <button class="enterBtn" id="enterBtn">
             ENTER THE MOMENT ↗
         </button>
 
-        <div class="entryDate">
+        <div class="entrySmall" style="margin-top:35px;margin-bottom:0;">
             OCTOBER 07 · ECO STAR DAY
         </div>
 
     </div>
 
-</section>
+</div>
 
 
-<!-- NAV -->
+<!-- ================= NAV ================= -->
 
 <nav>
 
@@ -1110,40 +715,51 @@ footer{
         E.
     </div>
 
-    <div class="date">
+    <div class="navText">
         07 · 10 · ECO STAR
     </div>
 
 </nav>
 
 
+<!-- MUSIC STATUS -->
+
+<div class="musicIndicator" id="musicIndicator">
+
+    <span class="musicBars">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+
+    A LITTLE MUSIC FOR YOU
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
 <main>
-
-
-<!-- HERO -->
 
 <section class="hero">
 
-    <div class="heroInner reveal">
+    <div class="heroGlow"></div>
 
-        <div class="kicker">
-            For the birthday girl
+    <div class="heroContent reveal">
+
+        <div class="mini">
+            OCTOBER 07 · 2026
         </div>
 
         <h1>
-            Happy<br>
-            Birthday,<br>
-            Esther.
+            Happy Birthday,
+            <span>Esther.</span>
         </h1>
 
-        <p class="heroDescription">
+        <p class="heroDesc">
             Today isn't just another date on the calendar.
-            It's the day the world got one more reason
-            to shine.
-            <br><br>
-            So this isn't just a birthday website.
-            It's a little universe built around one
-            very special ECO STAR.
+            It's the day the world got a little brighter
+            because you were born.
         </p>
 
     </div>
@@ -1151,29 +767,26 @@ footer{
 </section>
 
 
-<!-- SPECIAL -->
+<!-- ================= SPECIAL ================= -->
 
 <section class="special">
 
-    <div class="specialInner reveal">
+    <div class="reveal">
 
-        <div class="label">
-            THIS IS YOUR MOMENT
+        <div class="sectionLabel">
+            THIS IS FOR YOU
         </div>
 
-        <h2>
-            Some people deserve<br>
-            more than a simple<br>
-            <span>Happy Birthday.</span>
-        </h2>
+        <div class="bigText">
+            Some people<br>
+            deserve more.
+        </div>
 
         <p>
-            They deserve a reminder that their presence
-            matters, their laughter matters, their dreams
-            matter, and the memories they create with
-            people matter.
-            <br><br>
-            Esther, today is your reminder.
+            A normal birthday message didn't feel like enough.
+            So instead of just saying Happy Birthday,
+            I wanted to create a little world around those words.
+            Something you could open and remember.
         </p>
 
     </div>
@@ -1181,109 +794,88 @@ footer{
 </section>
 
 
-<!-- CARDS -->
+<!-- ================= MEMORIES ================= -->
 
-<section class="cardsSection">
+<section>
 
-    <div class="cardsTitle reveal">
+    <div class="reveal">
 
-        <div class="label">
-            A FEW THINGS
+        <div class="sectionLabel">
+            THE GOOD STUFF
         </div>
 
-        <h3>
-            Why today<br>
-            feels different.
-        </h3>
+        <div class="bigText">
+            Things that<br>
+            make you...
+        </div>
 
-    </div>
+        <div class="cards">
 
+            <div class="card">
+                <div class="cardNumber">01</div>
 
-    <div class="cards">
+                <h3>The laughs.</h3>
 
-        <article class="card reveal">
-
-            <div class="cardNumber">
-                01
+                <p>
+                    The random moments, ridiculous conversations,
+                    and those little things that somehow become
+                    the memories you never forget.
+                </p>
             </div>
 
-            <h4>
-                The laughs.
-            </h4>
 
-            <p>
-                The random conversations, unexpected
-                jokes, and little moments that somehow
-                become the memories you remember most.
-            </p>
+            <div class="card">
+                <div class="cardNumber">02</div>
 
-        </article>
+                <h3>The friendship.</h3>
 
-
-        <article class="card reveal">
-
-            <div class="cardNumber">
-                02
+                <p>
+                    Some friendships just feel different.
+                    Easy. Genuine. Comfortable.
+                    The kind where you can simply be yourself.
+                </p>
             </div>
 
-            <h4>
-                The friendship.
-            </h4>
 
-            <p>
-                The kind of friendship where you don't
-                need everything to be perfect for the
-                moment to be worth remembering.
-            </p>
+            <div class="card">
+                <div class="cardNumber">03</div>
 
-        </article>
+                <h3>The memories.</h3>
 
-
-        <article class="card reveal">
-
-            <div class="cardNumber">
-                03
+                <p>
+                    Not every great memory has to be dramatic.
+                    Sometimes it's the tiny moments that stay
+                    with you the longest.
+                </p>
             </div>
 
-            <h4>
-                The memories.
-            </h4>
-
-            <p>
-                Some moments disappear with time.
-                Others stay quietly in your heart.
-                Those are the ones worth keeping.
-            </p>
-
-        </article>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- ECO STAR -->
+<!-- ================= ECO STAR ================= -->
 
 <section class="eco">
 
-    <div class="ecoInner reveal">
+    <div class="ecoWord">
+        ECO STAR
+    </div>
 
-        <div class="label">
-            HER NAME FOR THE NIGHT
+    <div class="ecoCenter reveal">
+
+        <div class="ecoStar">
+            💫
         </div>
 
-        <div class="ecoTitle">
-            ECO<br>
-            STAR
-        </div>
+        <h2>
+            ECO STAR
+        </h2>
 
-        <p class="ecoText">
-            Not because stars are perfect.
-            <br><br>
-            But because they shine anyway.
-            <br><br>
-            And that's the energy this birthday
-            deserves.
+        <p>
+            BECAUSE SOME PEOPLE JUST HAVE THAT LIGHT.
         </p>
 
     </div>
@@ -1291,58 +883,67 @@ footer{
 </section>
 
 
-<!-- LETTER -->
+<!-- ================= LITTLE MESSAGE ================= -->
 
 <section class="letterSection">
 
     <div class="letter reveal">
 
-        <div class="letterSmall">
-            A LITTLE LETTER
+        <div class="sectionLabel">
+            A LITTLE MESSAGE
         </div>
 
-        <h5>
+        <h2>
+            Just something<br>
+            I wanted you to know.
+        </h2>
+
+        <div class="letterBody">
+
             Esther,
+
+            <br><br>
+
+            Happy Birthday to someone genuinely special.
+
+            <br><br>
+
+            I hope this new chapter of your life brings you
+            beautiful moments, genuine happiness, amazing
+            opportunities, and countless reasons to smile.
+
+            <br><br>
+
+            Never forget that you are capable of becoming
+            everything you dream about. Keep growing.
+            Keep learning. Keep laughing. Keep being yourself.
+
+            <br><br>
+
+            And whenever life gets busy and everything starts
+            moving too quickly, I hope you remember the little
+            moments that made you smile along the way.
+
+            <br><br>
+
+            Today is your day.
+
+            <br><br>
+
+            So enjoy it.
+
             <br>
-            this one's for you.
-        </h5>
 
-        <p>
-            Happy Birthday to one of the people who
-            makes life a little brighter just by being
-            part of it.
-        </p>
+            Celebrate yourself.
 
-        <p>
-            I hope you never become so busy growing
-            into the person you're becoming that you
-            forget to appreciate the person you already
-            are.
-        </p>
-
-        <p>
-            Keep dreaming big. Keep laughing loudly.
-            Keep discovering new things about yourself.
-            Keep becoming better without losing the
-            beautiful parts of who you are today.
-        </p>
-
-        <p>
-            And whenever life gets busy, I hope you
-            remember the simple moments too — the
-            conversations, the jokes, the random
-            memories, and the people who genuinely
-            care about you.
-        </p>
-
-        <p>
-            Today is yours.
             <br>
-            Enjoy every second of it.
-        </p>
+
+            And keep shining, ECO STAR. 💫
+
+        </div>
 
         <div class="signature">
-            — For ECO STAR 💫
+            — From someone who thinks you're pretty amazing.
         </div>
 
     </div>
@@ -1350,130 +951,95 @@ footer{
 </section>
 
 
-<!-- SURPRISE -->
+<!-- ================= SURPRISE ================= -->
 
-<section class="surprise">
+<section class="surpriseSection">
 
-    <div class="surpriseInner reveal">
+    <div class="surpriseBox reveal">
 
-        <div class="label">
-            BUT WAIT...
+        <div class="sectionLabel">
+            ONE MORE THING
         </div>
 
-        <h6>
-            You didn't<br>
-            think that was<br>
-            <span style="color:#ff719e;">
-                everything,
-            </span><br>
-            did you?
-        </h6>
+        <h2>
+            You thought<br>
+            that was everything?
+        </h2>
 
         <p>
-            There's one more place I made for you.
+            Nope.
+
             <br><br>
-            And honestly...
-            <br>
-            this is where the real surprise begins.
+
+            There's one more little universe waiting for you.
         </p>
 
-        <!-- PAGE 2 LINK -->
-
-        <a
-            href="surprise.html"
-            class="surpriseLink"
-        >
+        <a href="surprise.html" class="surpriseLink">
             OPEN THE SURPRISE
-
-            <span class="arrow">
-                💫
-            </span>
+            <span class="arrow">💫</span>
         </a>
 
     </div>
 
 </section>
 
-
 </main>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
-    MADE WITH ❤️ FOR ECO STAR · OCTOBER 07
+
+    <h3>
+        Happy Birthday, Esther.
+    </h3>
+
+    <p>
+        ECO STAR ⭐ · OCTOBER 07
+    </p>
+
 </footer>
 
 
 <script>
 
-/* =========================================
+/* =========================================================
    STARFIELD
-========================================= */
+========================================================= */
 
-const canvas =
-    document.getElementById("space");
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-    canvas.getContext("2d");
-
-let stars=[];
-
+let stars = [];
 
 function resizeCanvas(){
 
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
 }
 
 resizeCanvas();
 
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
+window.addEventListener("resize",resizeCanvas);
 
 function createStars(){
 
     stars=[];
 
-    const amount =
-        Math.min(
-            280,
-            Math.floor(
-                window.innerWidth *
-                window.innerHeight /
-                6500
-            )
-        );
-
-    for(
-        let i=0;
-        i<amount;
-        i++
-    ){
+    for(let i=0;i<180;i++){
 
         stars.push({
 
-            x:
-                Math.random() *
-                canvas.width,
+            x:Math.random()*canvas.width,
 
-            y:
-                Math.random() *
-                canvas.height,
+            y:Math.random()*canvas.height,
 
-            size:
-                Math.random()*1.7+.2,
+            r:Math.random()*1.5,
 
-            speed:
-                Math.random()*.35+.04,
+            speed:Math.random()*.3+.05,
 
-            alpha:
-                Math.random()*.75+.2
+            opacity:Math.random()*.8+.1
 
         });
 
@@ -1483,74 +1049,48 @@ function createStars(){
 
 createStars();
 
-
 function animateStars(){
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
     stars.forEach(star=>{
 
-        star.y += star.speed;
+        star.y-=star.speed;
 
-        if(
-            star.y >
-            canvas.height
-        ){
-
-            star.y=-5;
-
-            star.x=
-                Math.random()*
-                canvas.width;
-
+        if(star.y<0){
+            star.y=canvas.height;
         }
 
         ctx.beginPath();
 
-        ctx.fillStyle=
-            `rgba(
-                255,
-                255,
-                255,
-                ${star.alpha}
-            )`;
-
         ctx.arc(
             star.x,
             star.y,
-            star.size,
+            star.r,
             0,
             Math.PI*2
         );
+
+        ctx.fillStyle=`rgba(255,255,255,${star.opacity})`;
 
         ctx.fill();
 
     });
 
-    requestAnimationFrame(
-        animateStars
-    );
+    requestAnimationFrame(animateStars);
 
 }
 
 animateStars();
 
 
-/* =========================================
+/* =========================================================
    RISING HEARTS
-========================================= */
+========================================================= */
 
-const heartLayer =
-    document.getElementById(
-        "heartLayer"
-    );
+const heartLayer = document.getElementById("heartLayer");
 
-const heartTypes=[
+const heartSymbols = [
     "❤️",
     "🩷",
     "💗",
@@ -1558,31 +1098,25 @@ const heartTypes=[
     "💕"
 ];
 
-
 function createHeart(){
 
-    const heart =
-        document.createElement(
-            "div"
-        );
+    const heart=document.createElement("div");
 
     heart.className="heart";
 
-    heart.textContent =
-        heartTypes[
-            Math.floor(
-                Math.random()*
-                heartTypes.length
-            )
+    heart.innerText=
+        heartSymbols[
+            Math.floor(Math.random()*heartSymbols.length)
         ];
 
-    heart.style.left =
-        Math.random()*100+"%";
+    heart.style.left=
+        Math.random()*100+"vw";
 
-    heart.style.fontSize =
-        12+
-        Math.random()*25+
-        "px";
+    heart.style.fontSize=
+        (10+Math.random()*18)+"px";
+
+    heart.style.animationDuration=
+        (7+Math.random()*7)+"s";
 
     heart.style.setProperty(
         "--drift",
@@ -1590,353 +1124,417 @@ function createHeart(){
     );
 
     heart.style.setProperty(
-        "--rotation",
-        ((Math.random()-.5)*80)+"deg"
+        "--rotate",
+        ((Math.random()-.5)*90)+"deg"
     );
 
-    const duration =
-        7+
-        Math.random()*8;
+    heartLayer.appendChild(heart);
 
-    heart.style.animationDuration=
-        duration+"s";
-
-    heartLayer.appendChild(
-        heart
-    );
-
-    setTimeout(
-        ()=>{
-            heart.remove();
-        },
-        duration*1000
-    );
+    setTimeout(()=>{
+        heart.remove();
+    },15000);
 
 }
 
-
-let heartInterval;
-
+let heartTimer;
 
 function startHearts(){
 
-    if(heartInterval)
-        return;
+    if(heartTimer) return;
 
-    heartInterval =
-        setInterval(
-            createHeart,
-            600
-        );
+    heartTimer=setInterval(
+        createHeart,
+        500
+    );
 
 }
 
 
-/* =========================================
-   BIRTHDAY MUSIC
-   Starts after ENTER THE MOMENT is clicked
-========================================= */
+/* =========================================================
+   ORIGINAL BIRTHDAY MUSIC
+   Loops while the little message is being read.
+========================================================= */
 
-let audioContext = null;
-let musicStarted = false;
+let audioContext;
+let masterGain;
+let musicTimer=null;
+let musicStarted=false;
 
+const notes = {
 
-function playBirthdayMelody(){
+    C4:261.63,
+    D4:293.66,
+    E4:329.63,
+    F4:349.23,
+    G4:392.00,
+    A4:440.00,
+    B4:493.88,
 
-    if(musicStarted)
-        return;
+    C5:523.25,
+    D5:587.33,
+    E5:659.25,
+    F5:698.46,
+    G5:783.99,
+    A5:880.00
 
-    musicStarted = true;
+};
+
+const melody = [
+
+    ["C4",.45],
+    ["C4",.45],
+    ["D4",.7],
+    ["C4",.7],
+    ["F4",.7],
+    ["E4",1],
+
+    ["C4",.45],
+    ["C4",.45],
+    ["D4",.7],
+    ["C4",.7],
+    ["G4",.7],
+    ["F4",1],
+
+    ["C4",.45],
+    ["C4",.45],
+    ["C5",.7],
+    ["A4",.7],
+    ["F4",.7],
+    ["E4",.7],
+    ["D4",1],
+
+    ["A4",.45],
+    ["A4",.45],
+    ["G4",.7],
+    ["F4",.7],
+    ["G4",.7],
+    ["F4",1]
+];
+
+function setupAudio(){
+
+    if(audioContext) return;
 
     audioContext =
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
+        new (window.AudioContext || window.webkitAudioContext)();
 
-    const master =
+    masterGain =
         audioContext.createGain();
 
-    master.gain.value = 0.18;
+    masterGain.gain.value=0.0001;
 
-    master.connect(
+    masterGain.connect(
         audioContext.destination
     );
 
-
-    const notes = [
-
-        261.63,
-        261.63,
-        293.66,
-        261.63,
-        349.23,
-        329.63,
-
-        261.63,
-        261.63,
-        293.66,
-        261.63,
-        392.00,
-        349.23,
-
-        261.63,
-        261.63,
-        523.25,
-        440.00,
-        349.23,
-        329.63,
-        293.66,
-
-        466.16,
-        466.16,
-        440.00,
-        349.23,
-        392.00,
-        349.23
-
-    ];
+}
 
 
-    let startTime =
-        audioContext.currentTime + .2;
+/* PLAY ONE NOTE */
 
+function playNote(name,time,duration,volume=.055){
 
-    notes.forEach(
-        (frequency,index)=>{
+    if(!audioContext) return;
 
-            const oscillator =
-                audioContext.createOscillator();
+    const oscillator =
+        audioContext.createOscillator();
 
-            const gain =
-                audioContext.createGain();
+    const gain =
+        audioContext.createGain();
 
+    oscillator.type="sine";
 
-            oscillator.type =
-                "sine";
+    oscillator.frequency.value=
+        notes[name];
 
-            oscillator.frequency.value =
-                frequency;
+    oscillator.connect(gain);
 
+    gain.connect(masterGain);
 
-            gain.gain.setValueAtTime(
-                0,
-                startTime
-            );
-
-            gain.gain.linearRampToValueAtTime(
-                .8,
-                startTime + .04
-            );
-
-            gain.gain.exponentialRampToValueAtTime(
-                .001,
-                startTime + .62
-            );
-
-
-            oscillator.connect(gain);
-
-            gain.connect(master);
-
-
-            oscillator.start(
-                startTime
-            );
-
-            oscillator.stop(
-                startTime + .7
-            );
-
-
-            startTime += .68;
-
-        }
+    gain.gain.setValueAtTime(
+        0.0001,
+        time
     );
 
+    gain.gain.exponentialRampToValueAtTime(
+        volume,
+        time+.04
+    );
 
-    /* soft second layer */
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        time+duration-.04
+    );
 
-    setTimeout(
-        ()=>{
+    oscillator.start(time);
 
-            if(!audioContext)
-                return;
-
-            const second =
-                audioContext.createOscillator();
-
-            const secondGain =
-                audioContext.createGain();
-
-
-            second.type =
-                "triangle";
-
-            second.frequency.value =
-                523.25;
-
-            secondGain.gain.value =
-                .025;
-
-
-            second.connect(
-                secondGain
-            );
-
-            secondGain.connect(
-                master
-            );
-
-
-            second.start();
-
-            second.stop(
-                audioContext.currentTime + 4
-            );
-
-        },
-        900
+    oscillator.stop(
+        time+duration
     );
 
 }
 
 
-/* =========================================
-   ENTRY
-========================================= */
+/* CREATE ONE LOOP */
 
-const entry =
-    document.getElementById(
-        "entry"
-    );
+function scheduleMelody(){
 
-const enterButton =
-    document.getElementById(
-        "enterButton"
-    );
+    if(!audioContext) return;
 
+    const now =
+        audioContext.currentTime + .08;
 
-enterButton.addEventListener(
-    "click",
-    ()=>{
+    let position=now;
 
-        entry.classList.add(
-            "hide"
+    melody.forEach(note=>{
+
+        playNote(
+            note[0],
+            position,
+            note[1]
         );
 
-        startHearts();
+        position+=note[1];
 
+    });
 
-        for(
-            let i=0;
-            i<12;
-            i++
-        ){
+    const totalDuration =
+        melody.reduce(
+            (sum,n)=>sum+n[1],
+            0
+        );
 
-            setTimeout(
-                createHeart,
-                i*80
-            );
-
-        }
-
-
-        /* MUSIC STARTS HERE */
-
-        playBirthdayMelody();
-
-    }
-);
-
-
-/* =========================================
-   SCROLL REVEALS
-========================================= */
-
-const reveals =
-    document.querySelectorAll(
-        ".reveal"
+    musicTimer=setTimeout(
+        scheduleMelody,
+        totalDuration*1000
     );
 
+}
 
-const observer =
+
+/* START MUSIC */
+
+function startMusic(){
+
+    setupAudio();
+
+    if(audioContext.state==="suspended"){
+        audioContext.resume();
+    }
+
+    if(musicStarted) return;
+
+    musicStarted=true;
+
+    masterGain.gain.cancelScheduledValues(
+        audioContext.currentTime
+    );
+
+    masterGain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    masterGain.gain.exponentialRampToValueAtTime(
+        0.065,
+        audioContext.currentTime+2
+    );
+
+    scheduleMelody();
+
+    document
+        .getElementById("musicIndicator")
+        .classList.add("active");
+
+}
+
+
+/* STOP MUSIC */
+
+function stopMusic(){
+
+    if(!audioContext || !musicStarted)
+        return;
+
+    clearTimeout(musicTimer);
+
+    musicTimer=null;
+
+    masterGain.gain.cancelScheduledValues(
+        audioContext.currentTime
+    );
+
+    masterGain.gain.setValueAtTime(
+        masterGain.gain.value,
+        audioContext.currentTime
+    );
+
+    masterGain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime+1.5
+    );
+
+    musicStarted=false;
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("musicIndicator")
+            .classList.remove("active");
+
+    },1500);
+
+}
+
+
+/* =========================================================
+   ENTRY
+========================================================= */
+
+const entry =
+    document.getElementById("entry");
+
+const enterBtn =
+    document.getElementById("enterBtn");
+
+enterBtn.addEventListener("click",()=>{
+
+    /*
+       This click unlocks the browser's audio permission.
+       The music itself does NOT start yet.
+    */
+
+    setupAudio();
+
+    if(audioContext.state==="suspended"){
+        audioContext.resume();
+    }
+
+    entry.classList.add("hide");
+
+    startHearts();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
+
+const reveals =
+    document.querySelectorAll(".reveal");
+
+const revealObserver =
     new IntersectionObserver(
+
         entries=>{
 
-            entries.forEach(
-                entry=>{
+            entries.forEach(entry=>{
 
-                    if(
-                        entry.isIntersecting
-                    ){
+                if(entry.isIntersecting){
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                    }
+                    entry.target.classList.add("show");
 
                 }
-            );
+
+            });
 
         },
+
         {
             threshold:.12
         }
+
     );
 
-
 reveals.forEach(
-    element =>
-        observer.observe(element)
+    element=>revealObserver.observe(element)
 );
 
 
-/* =========================================
-   EXTRA HEART BURSTS
-========================================= */
+/* =========================================================
+   MUSIC FOLLOWS THE LITTLE MESSAGE
+========================================================= */
 
-window.addEventListener(
-    "scroll",
-    ()=>{
+const letterSection =
+    document.querySelector(".letterSection");
 
-        const position =
-            window.scrollY;
+const musicObserver =
+    new IntersectionObserver(
 
-        const height =
-            document.documentElement
-            .scrollHeight;
+        entries=>{
 
-        const screen =
-            window.innerHeight;
+            entries.forEach(entry=>{
 
+                if(entry.isIntersecting){
 
-        if(
-            position + screen >
-            height - 150
-        ){
+                    /*
+                       Esther reaches the little message.
+                       Music starts here and continues underneath
+                       the message.
+                    */
 
-            for(
-                let i=0;
-                i<5;
-                i++
-            ){
+                    startMusic();
 
-                setTimeout(
-                    createHeart,
-                    i*120
-                );
+                }else{
 
-            }
+                    /*
+                       When she leaves the message,
+                       the music gently fades away.
+                    */
 
+                    stopMusic();
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.35
         }
 
+    );
+
+musicObserver.observe(letterSection);
+
+
+/* =========================================================
+   EXTRA HEART BURSTS
+========================================================= */
+
+function heartBurst(){
+
+    for(let i=0;i<25;i++){
+
+        setTimeout(
+            createHeart,
+            i*80
+        );
+
     }
-);
+
+}
+
+
+/* =========================================================
+   START A FEW FLOATING HEARTS AFTER ENTER
+========================================================= */
+
+setTimeout(()=>{
+
+    if(!entry.classList.contains("hide"))
+        return;
+
+},1000);
 
 </script>
 
 </body>
 </html>
-
