@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Esther — The Secret ✦</title>
 
@@ -21,1113 +21,1195 @@
 
 html{
     scroll-behavior:smooth;
-    background:#03040a;
 }
 
 body{
-    margin:0;
-    background:
-        radial-gradient(circle at 50% 20%,rgba(92,65,170,.18),transparent 35%),
-        radial-gradient(circle at 20% 70%,rgba(35,90,150,.12),transparent 30%),
-        #03040a;
-    color:#fff;
-    font-family:"Manrope",sans-serif;
+    background:#030306;
+    color:white;
+    font-family:'Manrope',sans-serif;
     overflow-x:hidden;
 }
+
+/* ================= BACKGROUND ================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:999;
-    opacity:.045;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    z-index:-10;
+
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,80,160,.13),transparent 30%),
+        radial-gradient(circle at 80% 25%,rgba(100,80,255,.15),transparent 32%),
+        radial-gradient(circle at 50% 90%,rgba(255,170,80,.08),transparent 35%);
 }
 
-::selection{
-    background:#fff;
-    color:#03040a;
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-8;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+
+    background-size:80px 80px;
 }
 
-canvas#stars{
+#stars{
     position:fixed;
     inset:0;
     width:100%;
     height:100%;
-    z-index:-3;
-    pointer-events:none;
+    z-index:-7;
 }
 
-.grid{
-    position:fixed;
-    inset:0;
-    z-index:-2;
-    pointer-events:none;
-    opacity:.12;
-    background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-    background-size:70px 70px;
-    mask-image:linear-gradient(to bottom,transparent,black 20%,black 80%,transparent);
-}
-
-.bg-glow{
-    position:fixed;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(120px);
-    opacity:.14;
-    pointer-events:none;
-    z-index:-1;
-}
-
-.bg-glow.one{
-    background:#5c45ff;
-    top:-200px;
-    left:-200px;
-}
-
-.bg-glow.two{
-    background:#00aaff;
-    bottom:-250px;
-    right:-200px;
-}
-
-#hearts{
+.noise{
     position:fixed;
     inset:0;
     pointer-events:none;
     z-index:100;
+    opacity:.035;
+
+    background-image:url(
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E"
+    );
+}
+
+/* ================= HEARTS ================= */
+
+#heartLayer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
     overflow:hidden;
+    z-index:90;
 }
 
 .heart{
     position:absolute;
     bottom:-50px;
-    animation:heartRise linear forwards;
     opacity:0;
-    user-select:none;
+
+    animation:riseHeart linear forwards;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,100,180,.45)
+        );
 }
 
-@keyframes heartRise{
+@keyframes riseHeart{
+
     0%{
-        transform:translateY(0) scale(.5) rotate(0);
+        transform:
+            translateY(0)
+            translateX(0)
+            scale(.5)
+            rotate(0deg);
         opacity:0;
     }
+
     10%{
-        opacity:.8;
+        opacity:.9;
     }
+
     80%{
-        opacity:.65;
+        opacity:.7;
     }
+
     100%{
-        transform:translateY(-110vh) translateX(var(--drift)) scale(1.2) rotate(var(--rotation));
+        transform:
+            translateY(-115vh)
+            translateX(var(--drift))
+            scale(1.15)
+            rotate(var(--rotation));
         opacity:0;
     }
 }
 
+/* ================= ENTRY ================= */
 
-/* =========================================================
-   ENTRY SCREEN
-========================================================= */
-
-#entry{
+#secretEntry{
     position:fixed;
     inset:0;
-    z-index:500;
+    z-index:200;
+
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
+
     text-align:center;
-    padding:25px;
+
     background:
-        radial-gradient(circle at center,rgba(65,45,130,.25),transparent 40%),
-        #03040a;
+        radial-gradient(
+            circle at center,
+            rgba(255,90,170,.13),
+            transparent 28%
+        ),
+        #030306;
+
     transition:
-        opacity 1.4s ease,
-        visibility 1.4s ease;
+        opacity 1.5s ease,
+        visibility 1.5s ease;
 }
 
-#entry.hidden{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
+.secret-content{
+    width:min(950px,90%);
 }
 
-.entry-inner{
-    width:min(800px,100%);
-}
-
-.entry-small{
-    font-size:11px;
-    letter-spacing:5px;
-    color:rgba(255,255,255,.55);
-    margin-bottom:35px;
+.secret-top{
+    font-size:10px;
+    letter-spacing:.5em;
+    color:rgba(255,255,255,.5);
     text-transform:uppercase;
+    margin-bottom:35px;
 }
 
-.star-ring{
-    width:145px;
-    height:145px;
-    margin:0 auto 35px;
+.secret-star{
+    width:150px;
+    height:150px;
+
+    margin:auto;
+
+    border:1px solid rgba(255,255,255,.18);
     border-radius:50%;
-    border:1px solid rgba(255,255,255,.25);
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     position:relative;
+
+    animation:
+        celestialSpin 18s linear infinite;
+
     box-shadow:
-        0 0 50px rgba(130,100,255,.15),
-        inset 0 0 35px rgba(255,255,255,.03);
-    animation:ringPulse 4s ease-in-out infinite;
+        0 0 70px rgba(255,100,180,.12),
+        inset 0 0 50px rgba(255,255,255,.04);
 }
 
-.star-ring::before,
-.star-ring::after{
+.secret-star::before{
     content:"";
     position:absolute;
-    border-radius:50%;
+    inset:15px;
     border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
 }
 
-.star-ring::before{
-    inset:12px;
+.secret-star::after{
+    content:"";
+    position:absolute;
+    inset:32px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:50%;
 }
 
-.star-ring::after{
-    inset:-10px;
+.secret-star span{
+    font-size:50px;
+    animation:starPulse 2.5s ease-in-out infinite;
 }
 
-.star-ring span{
-    font-size:55px;
-    animation:starFloat 3s ease-in-out infinite;
+@keyframes celestialSpin{
+    to{
+        transform:rotate(360deg);
+    }
 }
 
-@keyframes ringPulse{
+@keyframes starPulse{
+
     0%,100%{
         transform:scale(1);
-        box-shadow:0 0 50px rgba(130,100,255,.15);
     }
+
     50%{
-        transform:scale(1.04);
-        box-shadow:0 0 80px rgba(130,100,255,.3);
+        transform:scale(1.2);
     }
 }
 
-@keyframes starFloat{
-    0%,100%{transform:translateY(0) rotate(0deg)}
-    50%{transform:translateY(-8px) rotate(8deg)}
+.secret-name{
+    margin-top:55px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(85px,16vw,210px);
+
+    line-height:.75;
+    letter-spacing:-.08em;
 }
 
-.entry-title{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(55px,10vw,110px);
-    line-height:.8;
-    font-weight:500;
-    letter-spacing:-4px;
-    margin-bottom:20px;
+.secret-sub{
+    margin-top:28px;
+
+    font-size:11px;
+    letter-spacing:.6em;
+    color:#f2a4c9;
 }
 
-.entry-name{
-    font-size:13px;
-    letter-spacing:8px;
-    text-transform:uppercase;
-    color:rgba(255,255,255,.6);
-    margin-bottom:35px;
-}
+.secret-enter{
+    margin-top:55px;
 
-.entry-text{
-    color:rgba(255,255,255,.62);
-    font-size:14px;
-    line-height:1.8;
-    max-width:470px;
-    margin:0 auto 35px;
-}
+    padding:18px 36px;
 
-.enter-button{
-    border:1px solid rgba(255,255,255,.25);
-    background:rgba(255,255,255,.04);
-    color:#fff;
-    padding:17px 28px;
-    border-radius:999px;
-    letter-spacing:3px;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:100px;
+
+    background:rgba(255,255,255,.035);
+
+    color:white;
+
     font-size:10px;
-    font-weight:700;
+    letter-spacing:.25em;
+
     cursor:pointer;
-    transition:.4s ease;
-    backdrop-filter:blur(15px);
+
+    transition:.5s;
+
+    backdrop-filter:blur(20px);
 }
 
-.enter-button:hover{
-    background:#fff;
-    color:#03040a;
-    transform:translateY(-3px);
-    box-shadow:0 15px 50px rgba(255,255,255,.15);
+.secret-enter:hover{
+
+    background:white;
+    color:#030306;
+
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    box-shadow:
+        0 20px 70px
+        rgba(255,100,180,.22);
 }
 
-.entry-date{
+.secret-date{
     margin-top:30px;
+
     font-size:9px;
-    letter-spacing:4px;
-    color:rgba(255,255,255,.32);
+    letter-spacing:.4em;
+
+    color:rgba(255,255,255,.3);
 }
 
-
-/* =========================================================
-   MAIN
-========================================================= */
+/* ================= MAIN ================= */
 
 main{
     opacity:0;
-    visibility:hidden;
-    transition:opacity 1.5s ease;
+    transition:opacity 2s ease;
 }
 
 main.visible{
     opacity:1;
-    visibility:visible;
 }
 
+/* ================= NAV ================= */
+
 nav{
+
     position:fixed;
     top:0;
     left:0;
     right:0;
-    z-index:200;
+
+    z-index:50;
+
+    padding:28px 5%;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:25px 5%;
-    mix-blend-mode:screen;
 }
 
 .nav-logo{
-    font-family:"Cormorant Garamond",serif;
-    font-size:28px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:30px;
 }
 
-.nav-date{
+.nav-text{
+
     font-size:9px;
-    letter-spacing:3px;
-    color:rgba(255,255,255,.55);
+    letter-spacing:.3em;
+
+    color:rgba(255,255,255,.45);
 }
 
-section{
-    position:relative;
+/* ================= MUSIC ================= */
+
+.music-status{
+
+    position:fixed;
+
+    left:25px;
+    bottom:25px;
+
+    z-index:60;
+
+    padding:11px 17px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:100px;
+
+    background:rgba(0,0,0,.35);
+
+    backdrop-filter:blur(18px);
+
+    font-size:9px;
+    letter-spacing:.2em;
+
+    color:rgba(255,255,255,.55);
+
+    transition:.5s;
 }
+
+.music-status.playing{
+
+    color:white;
+
+    border-color:
+        rgba(255,160,200,.4);
+
+    box-shadow:
+        0 0 30px
+        rgba(255,100,180,.15);
+}
+
+/* ================= HERO ================= */
 
 .hero{
+
     min-height:100vh;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
-    padding:100px 7%;
+
+    padding:130px 7%;
 }
 
-.hero-content{
-    max-width:1000px;
+.hero-inner{
+    max-width:1200px;
 }
 
-.kicker{
+.hero-kicker{
+
     font-size:10px;
-    letter-spacing:6px;
-    color:rgba(255,255,255,.42);
-    text-transform:uppercase;
-    margin-bottom:30px;
+    letter-spacing:.55em;
+
+    color:#f2a4c9;
+
+    margin-bottom:35px;
 }
 
 .hero h1{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(70px,13vw,170px);
-    font-weight:400;
-    letter-spacing:-7px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(80px,14vw,190px);
+
+    font-weight:500;
+
     line-height:.75;
+
+    letter-spacing:-.08em;
 }
 
 .hero h1 span{
+
     display:block;
     font-style:italic;
 }
 
-.hero p{
-    max-width:520px;
-    margin:40px auto 0;
-    color:rgba(255,255,255,.58);
+.hero-text{
+
+    max-width:580px;
+
+    margin:50px auto 0;
+
+    color:rgba(255,255,255,.55);
+
     font-size:14px;
-    line-height:1.9;
+    line-height:2;
 }
 
-
-/* =========================================================
-   PHOTO
-========================================================= */
-
-.photo-section{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:100px 7%;
-}
-
-.photo-wrap{
-    width:min(650px,90vw);
-    position:relative;
-}
-
-.photo-frame{
-    position:relative;
-    padding:10px;
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.025);
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.5),
-        0 0 100px rgba(80,60,200,.12);
-}
-
-.photo-frame img{
-    width:100%;
-    display:block;
-    aspect-ratio:4/5;
-    object-fit:cover;
-    filter:saturate(.95) contrast(1.05);
-}
-
-.photo-caption{
-    display:flex;
-    justify-content:space-between;
-    padding:18px 5px 0;
-    font-size:10px;
-    letter-spacing:2px;
-    color:rgba(255,255,255,.45);
-    text-transform:uppercase;
-}
-
-
-/* =========================================================
-   SOMETHING
-========================================================= */
-
-.something{
-    padding:160px 8%;
-}
-
-.small-label{
-    font-size:9px;
-    letter-spacing:5px;
-    color:rgba(255,255,255,.35);
-    text-transform:uppercase;
-    margin-bottom:25px;
-}
-
-.big-statement{
-    max-width:950px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(45px,7vw,100px);
-    line-height:.95;
-    font-weight:400;
-    letter-spacing:-3px;
-}
-
-.big-statement em{
-    color:rgba(255,255,255,.45);
-}
-
-
-/* =========================================================
-   ORBIT
-========================================================= */
+/* ================= ORBIT ================= */
 
 .orbit-section{
+
     min-height:100vh;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:100px 5%;
+
+    padding:120px 5%;
+}
+
+.orbit-wrap{
+
+    width:min(650px,85vw);
+
+    aspect-ratio:1;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .orbit{
-    width:min(700px,85vw);
-    aspect-ratio:1;
-    position:relative;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:50%;
-}
 
-.orbit::before,
-.orbit::after{
-    content:"";
     position:absolute;
-    border:1px solid rgba(255,255,255,.055);
+
+    inset:0;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
     border-radius:50%;
-    inset:12%;
+
+    animation:
+        orbitRotate 20s linear infinite;
 }
 
-.orbit::after{
-    inset:25%;
+.orbit::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 0 20px #fff,
+        0 0 40px rgba(255,100,180,.8);
+
+    top:-4px;
+    left:50%;
+}
+
+.orbit.two{
+
+    inset:70px;
+
+    animation-duration:28s;
+
+    animation-direction:reverse;
+}
+
+.orbit.three{
+
+    inset:140px;
+
+    animation-duration:36s;
+}
+
+@keyframes orbitRotate{
+
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .orbit-center{
-    position:absolute;
-    inset:38%;
+
+    width:190px;
+    height:190px;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:50px;
-    background:rgba(255,255,255,.025);
-    box-shadow:0 0 80px rgba(100,70,255,.15);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,120,190,.2),
+            rgba(255,255,255,.025) 55%,
+            transparent 70%
+        );
+
+    box-shadow:
+        0 0 100px
+        rgba(255,90,170,.14);
 }
 
-.orbit-item{
+.orbit-center span{
+
+    font-size:75px;
+
+    animation:
+        starPulse 2.5s ease-in-out infinite;
+}
+
+.orbit-label{
+
     position:absolute;
-    font-size:9px;
-    letter-spacing:4px;
-    color:rgba(255,255,255,.4);
-    text-transform:uppercase;
+
+    font-size:10px;
+
+    letter-spacing:.25em;
+
+    color:rgba(255,255,255,.45);
+
+    white-space:nowrap;
 }
 
-.orbit-item.one{
+.label-top{
     top:5%;
     left:50%;
     transform:translateX(-50%);
 }
 
-.orbit-item.two{
-    right:-25px;
+.label-right{
+    right:-2%;
     top:50%;
     transform:translateY(-50%);
 }
 
-.orbit-item.three{
+.label-bottom{
     bottom:5%;
     left:50%;
     transform:translateX(-50%);
 }
 
-.orbit-item.four{
-    left:-25px;
+.label-left{
+    left:-2%;
     top:50%;
     transform:translateY(-50%);
 }
 
+/* ================= MESSAGE ================= */
 
-/* =========================================================
-   CARDS
-========================================================= */
+.message{
 
-.cards-section{
-    padding:150px 7%;
-}
+    min-height:100vh;
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.card{
-    min-height:380px;
-    padding:35px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.025);
-    position:relative;
-    overflow:hidden;
-    transition:.5s ease;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(255,255,255,.25);
-    background:rgba(255,255,255,.045);
-}
-
-.card-number{
-    font-size:10px;
-    color:rgba(255,255,255,.3);
-    letter-spacing:3px;
-}
-
-.card h3{
-    font-family:"Cormorant Garamond",serif;
-    font-size:45px;
-    font-weight:400;
-    margin-top:80px;
-}
-
-.card p{
-    color:rgba(255,255,255,.48);
-    line-height:1.8;
-    font-size:13px;
-    margin-top:20px;
-}
-
-
-/* =========================================================
-   ECO STAR TYPE
-========================================================= */
-
-.eco-type{
-    min-height:80vh;
     display:flex;
+    align-items:center;
     justify-content:center;
-    align-items:center;
-    overflow:hidden;
+
+    text-align:center;
+
+    padding:120px 7%;
 }
 
-.eco-type h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(90px,19vw,260px);
-    font-weight:400;
-    white-space:nowrap;
-    letter-spacing:-12px;
-    color:transparent;
-    -webkit-text-stroke:1px rgba(255,255,255,.2);
+.message-inner{
+    max-width:1000px;
 }
 
+.message-small{
 
-/* =========================================================
-   LETTER
-========================================================= */
+    font-size:10px;
 
-.letter-section{
-    padding:160px 7%;
-}
+    letter-spacing:.5em;
 
-.letter{
-    max-width:1050px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1.3fr;
-    gap:80px;
-    align-items:center;
-}
+    color:#f2a4c9;
 
-.letter-photo{
-    position:relative;
-}
-
-.letter-photo img{
-    width:100%;
-    max-width:420px;
-    aspect-ratio:1;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-    margin:auto;
-    filter:saturate(.9);
-    box-shadow:0 0 80px rgba(90,60,200,.15);
-}
-
-.letter-content h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:70px;
-    font-weight:400;
-    line-height:.9;
     margin-bottom:35px;
 }
 
-.letter-content p{
-    color:rgba(255,255,255,.58);
-    font-size:14px;
-    line-height:2;
-    margin-bottom:20px;
+.message h2{
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(60px,10vw,130px);
+
+    line-height:.8;
+
+    font-weight:500;
+
+    letter-spacing:-.07em;
 }
 
+.message h2 span{
 
-/* =========================================================
-   FROM BESTIE
-========================================================= */
+    display:block;
 
-.bestie{
-    padding:180px 8%;
-    text-align:center;
+    font-style:italic;
 }
 
-.bestie h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(55px,9vw,120px);
-    font-weight:400;
-    line-height:.85;
-}
+.message p{
 
-.bestie-text{
     max-width:650px;
+
     margin:50px auto 0;
+
     color:rgba(255,255,255,.58);
-    font-size:14px;
+
     line-height:2;
+
+    font-size:14px;
 }
 
-.signature{
-    margin-top:50px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:28px;
-}
-
-
-/* =========================================================
-   VOICE
-========================================================= */
+/* ================= VOICE ================= */
 
 .voice-section{
-    padding:130px 7%;
+
+    min-height:80vh;
+
     display:flex;
+    align-items:center;
     justify-content:center;
+
+    padding:120px 7%;
+
+    text-align:center;
 }
 
 .voice-card{
-    width:min(650px,100%);
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.025);
-    padding:50px;
-    text-align:center;
-    backdrop-filter:blur(15px);
+
+    width:min(800px,100%);
+
+    padding:70px 45px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.015)
+        );
+
+    backdrop-filter:blur(25px);
+
+    position:relative;
+
+    overflow:hidden;
 }
 
-.voice-card h3{
-    font-family:"Cormorant Garamond",serif;
-    font-size:48px;
-    font-weight:400;
+.voice-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,90,170,.12);
+
+    filter:blur(70px);
+
+    top:-120px;
+    right:-100px;
+}
+
+.voice-label{
+
+    font-size:10px;
+
+    letter-spacing:.5em;
+
+    color:#f2a4c9;
+
+    margin-bottom:25px;
+}
+
+.voice-card h2{
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(55px,8vw,90px);
+
+    font-weight:500;
+
+    line-height:.9;
 }
 
 .voice-card p{
-    color:rgba(255,255,255,.45);
-    font-size:12px;
+
+    max-width:520px;
+
+    margin:30px auto;
+
+    color:rgba(255,255,255,.5);
+
     line-height:1.8;
-    margin:15px auto 30px;
 }
 
 .voice-button{
-    border:1px solid rgba(255,255,255,.2);
-    background:rgba(255,255,255,.04);
-    color:#fff;
-    padding:15px 25px;
-    border-radius:999px;
-    font-size:9px;
-    letter-spacing:3px;
+
+    padding:17px 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius:100px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:white;
+
     cursor:pointer;
-    transition:.4s;
+
+    font-size:10px;
+
+    letter-spacing:.2em;
+
+    transition:.5s;
 }
 
 .voice-button:hover{
-    background:#fff;
-    color:#000;
+
+    background:white;
+
+    color:#030306;
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(255,100,180,.2);
 }
 
-.voice-status{
-    min-height:20px;
-    margin-top:18px;
-    color:rgba(255,255,255,.38);
-    font-size:9px;
-    letter-spacing:2px;
+.voice-button:disabled{
+    cursor:default;
+    opacity:.8;
 }
 
+/* ================= FINAL ================= */
 
-/* =========================================================
-   SURPRISE PAGE LINK
-========================================================= */
+.final{
 
-.surprise-section{
-    min-height:80vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:100px 7%;
-}
-
-.surprise-inner{
-    max-width:700px;
-}
-
-.surprise-inner h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(60px,9vw,120px);
-    font-weight:400;
-}
-
-.surprise-inner p{
-    color:rgba(255,255,255,.45);
-    margin:25px auto 35px;
-    line-height:1.8;
-    font-size:13px;
-}
-
-.surprise-link{
-    display:inline-block;
-    text-decoration:none;
-    color:#fff;
-    border:1px solid rgba(255,255,255,.2);
-    padding:17px 28px;
-    border-radius:999px;
-    font-size:9px;
-    letter-spacing:3px;
-    transition:.4s;
-}
-
-.surprise-link:hover{
-    background:#fff;
-    color:#000;
-}
-
-
-/* =========================================================
-   FOOTER / APPARENT ENDING
-========================================================= */
-
-.final-section{
     min-height:100vh;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
-    padding:100px 7%;
+
+    padding:100px 5%;
 }
 
-.final-section h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(70px,13vw,180px);
-    font-weight:400;
-    line-height:.8;
+.final-inner{
+    max-width:1300px;
 }
 
-.final-section p{
-    color:rgba(255,255,255,.3);
-    margin-top:35px;
+.final-top{
+
     font-size:10px;
-    letter-spacing:4px;
+
+    letter-spacing:.5em;
+
+    color:#f2a4c9;
+
+    margin-bottom:40px;
 }
 
-footer{
-    padding:70px 7% 100px;
-    text-align:center;
-    border-top:1px solid rgba(255,255,255,.06);
+.final h2{
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(85px,17vw,230px);
+
+    line-height:.7;
+
+    letter-spacing:-.09em;
+
+    font-weight:500;
 }
 
-footer h3{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(60px,12vw,150px);
-    font-weight:400;
-    color:rgba(255,255,255,.09);
-}
+.final h2 span{
 
-footer p{
-    margin-top:30px;
-    color:rgba(255,255,255,.25);
-    font-size:9px;
-    letter-spacing:3px;
-}
-
-
-/* =========================================================
-   HIDDEN FINAL SURPRISE
-========================================================= */
-
-.final-trigger{
-    min-height:28vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:80px 20px 120px;
-}
-
-.keep-going{
-    color:rgba(255,255,255,.3);
-    font-size:9px;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    animation:softBlink 2.8s ease-in-out infinite;
-}
-
-.keep-going span{
     display:block;
-    font-size:22px;
-    margin-top:14px;
-    animation:arrowDown 1.8s ease-in-out infinite;
+
+    font-style:italic;
 }
 
-@keyframes softBlink{
-    0%,100%{opacity:.35}
-    50%{opacity:.8}
-}
+.final-sub{
 
-@keyframes arrowDown{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(8px)}
-}
+    margin-top:55px;
 
-#finalReveal{
-    min-height:120vh;
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    background:
-        radial-gradient(circle at center,rgba(91,67,190,.12),transparent 35%),
-        #03040a;
-}
+    font-size:10px;
 
-.final-cover{
-    position:absolute;
-    inset:0;
-    background:#03040a;
-    z-index:10;
-    transition:
-        opacity 2.2s ease,
-        transform 2.2s ease;
-}
+    letter-spacing:.45em;
 
-#finalReveal.unlocked .final-cover{
-    opacity:0;
-    transform:scale(1.08);
-    pointer-events:none;
-}
-
-.final-stars{
-    position:absolute;
-    inset:0;
-    background:
-        radial-gradient(circle at 50% 50%,rgba(255,255,255,.12) 0 1px,transparent 2px),
-        radial-gradient(circle at 30% 30%,rgba(255,255,255,.08) 0 1px,transparent 2px),
-        radial-gradient(circle at 70% 65%,rgba(255,255,255,.08) 0 1px,transparent 2px);
-    background-size:170px 170px,240px 240px,310px 310px;
-    opacity:.5;
-    animation:starsMove 20s linear infinite;
-}
-
-@keyframes starsMove{
-    from{transform:scale(1)}
-    50%{transform:scale(1.12)}
-    to{transform:scale(1)}
-}
-
-.final-content{
-    position:relative;
-    z-index:5;
-    width:min(850px,90%);
-    transform:translateY(30px);
-    opacity:0;
-    transition:
-        opacity 2s ease 1s,
-        transform 2s ease 1s;
-}
-
-#finalReveal.unlocked .final-content{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.final-whisper{
-    font-size:9px;
-    letter-spacing:6px;
     color:rgba(255,255,255,.4);
-    text-transform:uppercase;
-    margin-bottom:35px;
 }
 
-.final-star{
-    font-size:85px;
-    display:block;
-    margin-bottom:30px;
-    filter:drop-shadow(0 0 30px rgba(255,255,255,.35));
-    animation:finalStar 4s ease-in-out infinite;
-}
+/* ================= HEART EXPLOSION ================= */
 
-@keyframes finalStar{
-    0%,100%{
-        transform:scale(1) rotate(0);
-        filter:drop-shadow(0 0 25px rgba(255,255,255,.2));
-    }
-    50%{
-        transform:scale(1.08) rotate(7deg);
-        filter:drop-shadow(0 0 60px rgba(255,255,255,.55));
-    }
-}
+.explosion-heart{
 
-.final-content h2{
-    font-family:"Cormorant Garamond",serif;
-    font-weight:400;
-    font-size:clamp(60px,10vw,130px);
-    line-height:.8;
-    letter-spacing:-4px;
-    margin-bottom:45px;
-}
+    position:fixed;
 
-.final-message{
-    max-width:700px;
-    margin:auto;
-    color:rgba(255,255,255,.67);
-    font-size:15px;
-    line-height:2;
-}
+    left:50%;
+    top:50%;
 
-.final-message strong{
-    color:#fff;
-    font-weight:600;
-}
+    pointer-events:none;
 
-.final-signature{
-    margin-top:50px;
-    font-family:"Cormorant Garamond",serif;
+    z-index:150;
+
     font-size:30px;
+
+    animation:
+        explodeHeart 2.5s ease-out forwards;
 }
 
-.final-date{
-    margin-top:30px;
-    font-size:9px;
-    letter-spacing:4px;
-    color:rgba(255,255,255,.3);
+@keyframes explodeHeart{
+
+    0%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(.2);
+
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+
+        transform:
+            translate(
+                calc(-50% + var(--x)),
+                calc(-50% + var(--y))
+            )
+            scale(1.2)
+            rotate(var(--rot));
+
+        opacity:0;
+    }
 }
 
-
-/* =========================================================
-   REVEAL ANIMATION
-========================================================= */
+/* ================= REVEAL ================= */
 
 .reveal{
+
     opacity:0;
-    transform:translateY(40px);
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
+
+    transform:translateY(60px);
+
+    transition:1.3s ease;
 }
 
 .reveal.show{
+
     opacity:1;
+
     transform:translateY(0);
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    padding:60px 7%;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:rgba(255,255,255,.3);
+
+    font-size:9px;
+
+    letter-spacing:.25em;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .secret-name{
+        font-size:90px;
+    }
+
+    .secret-star{
+        width:120px;
+        height:120px;
+    }
+
+    .orbit-wrap{
+        width:90vw;
+    }
+
+    .orbit.two{
+        inset:45px;
+    }
+
+    .orbit.three{
+        inset:90px;
+    }
+
+    .orbit-center{
+        width:130px;
+        height:130px;
+    }
+
+    .orbit-center span{
+        font-size:55px;
+    }
+
+    .label-right{
+        right:-5%;
+    }
+
+    .label-left{
+        left:-5%;
+    }
+
+    .voice-card{
+        padding:55px 25px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .music-status{
+        left:15px;
+        bottom:15px;
+    }
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   HIDDEN FINAL MOMENT
 ========================================================= */
 
-@media(max-width:800px){
-
-    nav{
-        padding:20px 6%;
-    }
-
-    .nav-date{
-        font-size:7px;
-        letter-spacing:2px;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .card{
-        min-height:300px;
-    }
-
-    .letter{
-        grid-template-columns:1fr;
-        gap:60px;
-    }
-
-    .letter-content h2{
-        font-size:60px;
-    }
-
-    .orbit{
-        width:90vw;
-    }
-
-    .orbit-item{
-        letter-spacing:2px;
-        font-size:7px;
-    }
-
-    .orbit-item.two{
-        right:-5px;
-    }
-
-    .orbit-item.four{
-        left:-5px;
-    }
-
-    .voice-card{
-        padding:35px 25px;
-    }
-
-    .final-message{
-        font-size:13px;
-        line-height:1.9;
-    }
+.final-trigger{
+    min-height:72vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    padding:100px 24px;
 }
 
-@media(max-width:500px){
+.final-trigger-inner{
+    max-width:760px;
+    opacity:.92;
+}
 
-    .entry-small{
-        font-size:8px;
-        letter-spacing:3px;
-    }
+.final-trigger-kicker{
+    font-size:11px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    opacity:.5;
+    margin-bottom:24px;
+}
 
-    .star-ring{
-        width:115px;
-        height:115px;
-    }
+.final-trigger-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(42px,8vw,82px);
+    line-height:.95;
+    margin:0;
+}
 
-    .star-ring span{
-        font-size:42px;
-    }
+.final-trigger-title span{
+    display:block;
+    font-style:italic;
+    opacity:.7;
+}
 
-    .entry-title{
-        font-size:60px;
-        letter-spacing:-2px;
-    }
+.scroll-whisper{
+    margin-top:52px;
+    font-size:10px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    opacity:.42;
+    animation:whisper 2.4s ease-in-out infinite;
+}
 
-    .hero h1{
-        font-size:72px;
-        letter-spacing:-4px;
-    }
+@keyframes whisper{
+    0%,100%{transform:translateY(0);opacity:.28}
+    50%{transform:translateY(10px);opacity:.72}
+}
 
-    .something{
-        padding:120px 7%;
-    }
+.final-reveal{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:110px 22px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,.075), transparent 18%),
+      radial-gradient(circle at 50% 50%, rgba(120,90,255,.10), transparent 42%),
+      rgba(0,0,0,.34);
+}
 
-    .big-statement{
-        font-size:48px;
-    }
+.final-reveal::before{
+    content:'';
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    box-shadow:
+      8vw -12vh 0 1px rgba(255,255,255,.7),
+      -12vw 8vh 0 1px rgba(255,255,255,.5),
+      20vw 18vh 0 1px rgba(255,255,255,.55),
+      -24vw -18vh 0 1px rgba(255,255,255,.6),
+      30vw -5vh 0 1px rgba(255,255,255,.4),
+      -32vw 22vh 0 1px rgba(255,255,255,.45),
+      15vw -28vh 0 1px rgba(255,255,255,.5),
+      -18vw -28vh 0 1px rgba(255,255,255,.4);
+    opacity:.8;
+}
 
-    .eco-type h2{
-        font-size:95px;
-        letter-spacing:-7px;
-    }
+.final-reveal-inner{
+    position:relative;
+    z-index:2;
+    max-width:850px;
+}
 
-    .letter-section{
-        padding:120px 7%;
-    }
+.final-reveal-kicker{
+    font-size:10px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    opacity:.45;
+    margin-bottom:30px;
+}
 
-    .bestie{
-        padding:130px 7%;
-    }
+.final-reveal h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(58px,12vw,135px);
+    line-height:.78;
+    margin:0 0 38px;
+    font-weight:500;
+}
 
-    .final-section h2{
-        font-size:75px;
-    }
+.final-reveal h2 span{
+    display:block;
+    font-style:italic;
+    opacity:.72;
+}
 
-    #finalReveal{
-        min-height:110vh;
-    }
+.final-message{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(20px,3vw,30px);
+    line-height:1.55;
+    opacity:.82;
+    max-width:720px;
+    margin:0 auto;
+}
 
-    .final-star{
-        font-size:65px;
-    }
+.final-signature{
+    margin-top:42px;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    opacity:.5;
+}
 
-    .final-content h2{
-        font-size:65px;
-    }
+.final-star-burst{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:20px;
+    height:20px;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+
+.final-star-burst i{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:rgba(255,255,255,.9);
+    box-shadow:0 0 14px rgba(255,255,255,.9);
+    animation:starFly 2.8s ease-out infinite;
+    animation-delay:calc(var(--d) * 1s);
+}
+
+@keyframes starFly{
+    0%{transform:translate(-50%,-50%) scale(.3);opacity:0}
+    15%{opacity:1}
+    100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(0);opacity:0}
+}
+
+.final-reveal.hidden-final{
+    opacity:0;
+    transform:scale(.985);
+    transition:opacity 1.6s ease,transform 1.6s ease;
+}
+
+.final-reveal.hidden-final.unlocked{
+    opacity:1;
+    transform:scale(1);
+}
+
+.final-reveal .reveal-line{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 1s ease,transform 1s ease;
+}
+
+.final-reveal.unlocked .reveal-line:nth-child(1){transition-delay:.15s}
+.final-reveal.unlocked .reveal-line:nth-child(2){transition-delay:.4s}
+.final-reveal.unlocked .reveal-line:nth-child(3){transition-delay:.7s}
+.final-reveal.unlocked .reveal-line:nth-child(4){transition-delay:1s}
+.final-reveal.unlocked .reveal-line{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:700px){
+    .final-trigger{min-height:62vh;padding:80px 20px}
+    .scroll-whisper{margin-top:38px}
+    .final-reveal{min-height:92vh;padding:90px 20px}
+    .final-message{font-size:21px;line-height:1.48}
+    .final-signature{letter-spacing:2.5px}
 }
 
 </style>
@@ -1135,50 +1217,47 @@ footer p{
 
 <body>
 
-<div class="bg-glow one"></div>
-<div class="bg-glow two"></div>
-
-<div class="grid"></div>
+<div class="noise"></div>
 
 <canvas id="stars"></canvas>
 
-<div id="hearts"></div>
+<div id="heartLayer"></div>
 
 
-<!-- ========================================================
+<!-- =====================================================
      ENTRY
-========================================================= -->
+===================================================== -->
 
-<div id="entry">
+<div id="secretEntry">
 
-    <div class="entry-inner">
+    <div class="secret-content">
 
-        <div class="entry-small">
-            A LITTLE UNIVERSE MADE FOR SOMEONE SPECIAL
+        <div class="secret-top">
+            YOU FOUND THE HIDDEN SIDE OF THE UNIVERSE
         </div>
 
-        <div class="star-ring">
+        <div class="secret-star">
             <span>💫</span>
         </div>
 
-        <div class="entry-title">
+        <div class="secret-name">
             Esther.
         </div>
 
-        <div class="entry-name">
+        <div class="secret-sub">
             ECO STAR
         </div>
 
-        <div class="entry-text">
-            Before you continue... I made something special for you.
-        </div>
+        <button
+            class="secret-enter"
+            id="secretEnter">
 
-        <button class="enter-button" id="enterButton">
-            ENTER THE MOMENT ↗
+            ENTER THE SECRET ✦
+
         </button>
 
-        <div class="entry-date">
-            OCTOBER · 07 · ECO STAR DAY
+        <div class="secret-date">
+            OCTOBER 07 · THIS ONE IS JUST FOR YOU
         </div>
 
     </div>
@@ -1186,18 +1265,41 @@ footer p{
 </div>
 
 
-<!-- ========================================================
+<!-- =====================================================
+     PIANO RECORDING
+===================================================== -->
+
+<audio
+    id="pianoRecording"
+    src="happy-birthday-piano.mp3"
+    preload="auto">
+</audio>
+
+
+<div
+    class="music-status"
+    id="musicStatus">
+
+    YOUR PIANO 🎹
+
+</div>
+
+
+<!-- =====================================================
      MAIN
-========================================================= -->
+===================================================== -->
 
 <main id="main">
 
+
 <nav>
 
-    <div class="nav-logo">E.</div>
+    <div class="nav-logo">
+        E.
+    </div>
 
-    <div class="nav-date">
-        07 · 10 · ECO STAR
+    <div class="nav-text">
+        THE SECRET · ECO STAR
     </div>
 
 </nav>
@@ -1207,74 +1309,26 @@ footer p{
 
 <section class="hero">
 
-    <div class="hero-content reveal">
+    <div class="hero-inner reveal">
 
-        <div class="kicker">
-            For someone unforgettable
+        <div class="hero-kicker">
+            YOU MADE IT HERE
         </div>
 
         <h1>
-            Happy Birthday,
+            Happy Birthday.
             <span>Esther.</span>
         </h1>
 
-        <p>
-            Today isn't just another day on the calendar.
-            It's the day the world got a little brighter because you arrived.
-            Happy Birthday, ECO STAR. ⭐
+        <p class="hero-text">
+
+            This is the part I couldn't fit into the first page.
+
+            The part where the birthday message gets a little
+            bigger, the stars get a little brighter, and the
+            ECO STAR gets her own universe. 💫
+
         </p>
-
-    </div>
-
-</section>
-
-
-<!-- PHOTO -->
-
-<section class="photo-section">
-
-    <div class="photo-wrap reveal">
-
-        <div class="photo-frame">
-
-            <img src="ECO.jpg" alt="Esther">
-
-        </div>
-
-        <div class="photo-caption">
-
-            <span>
-                The ECO STAR, herself. ♡
-            </span>
-
-            <span>
-                07 · 10
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SOMETHING -->
-
-<section class="something">
-
-    <div class="reveal">
-
-        <div class="small-label">
-            A LITTLE SOMETHING
-        </div>
-
-        <div class="big-statement">
-
-            Some people deserve more
-            than a simple
-            <em>“Happy Birthday.”</em>
-
-        </div>
 
     </div>
 
@@ -1285,89 +1339,35 @@ footer p{
 
 <section class="orbit-section">
 
-    <div class="orbit reveal">
+    <div class="orbit-wrap reveal">
 
-        <div class="orbit-center">
-            💫
-        </div>
+        <div class="orbit"></div>
 
-        <div class="orbit-item one">
+        <div class="orbit two"></div>
+
+        <div class="orbit three"></div>
+
+        <div class="orbit-label label-top">
             LAUGHS
         </div>
 
-        <div class="orbit-item two">
+        <div class="orbit-label label-right">
             MEMORIES
         </div>
 
-        <div class="orbit-item three">
+        <div class="orbit-label label-bottom">
             FRIENDSHIP
         </div>
 
-        <div class="orbit-item four">
+        <div class="orbit-label label-left">
             CHAOS
         </div>
 
-    </div>
+        <div class="orbit-center">
 
-</section>
-
-
-<!-- CARDS -->
-
-<section class="cards-section">
-
-    <div class="cards">
-
-        <div class="card reveal">
-
-            <div class="card-number">
-                01
-            </div>
-
-            <h3>
-                The laughs.
-            </h3>
-
-            <p>
-                The random conversations, ridiculous moments,
-                and all the times we've laughed until nothing made sense anymore.
-            </p>
-
-        </div>
-
-
-        <div class="card reveal">
-
-            <div class="card-number">
-                02
-            </div>
-
-            <h3>
-                The friendship.
-            </h3>
-
-            <p>
-                Some friendships don't need to be forced.
-                They just happen naturally, and somehow become one of the best parts of life.
-            </p>
-
-        </div>
-
-
-        <div class="card reveal">
-
-            <div class="card-number">
-                03
-            </div>
-
-            <h3>
-                The memories.
-            </h3>
-
-            <p>
-                The moments we've already had are special,
-                but I honestly think the best ones haven't happened yet.
-            </p>
+            <span>
+                💫
+            </span>
 
         </div>
 
@@ -1376,109 +1376,44 @@ footer p{
 </section>
 
 
-<!-- ECO STAR -->
+<!-- MESSAGE -->
 
-<section class="eco-type">
+<section class="message">
 
-    <h2>
-        ECO STAR
-    </h2>
+    <div class="message-inner reveal">
 
-</section>
-
-
-<!-- LETTER -->
-
-<section class="letter-section">
-
-    <div class="letter">
-
-        <div class="letter-photo reveal">
-
-            <img src="ECO.jpg" alt="Esther">
-
-        </div>
-
-
-        <div class="letter-content reveal">
-
-            <div class="small-label">
-                A LETTER
-            </div>
-
-            <h2>
-                Dear<br>
-                Esther.
-            </h2>
-
-            <p>
-                Happy Birthday to a truly special person.
-                Today is your day, ECO STAR.
-            </p>
-
-            <p>
-                I hope this new chapter of your life brings you happiness,
-                beautiful memories, big opportunities, and many reasons to smile.
-            </p>
-
-            <p>
-                Never forget how amazing it is to simply be yourself.
-                Keep shining, keep dreaming, keep growing,
-                and keep being the wonderful person you are.
-            </p>
-
-            <p>
-                May your birthday be as special as you are.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FROM BESTIE -->
-
-<section class="bestie">
-
-    <div class="reveal">
-
-        <div class="small-label">
-            FROM YOUR BESTIE ❤️
+        <div class="message-small">
+            THE LITTLE MESSAGE
         </div>
 
         <h2>
-            For you,<br>
-            ECO STAR.
+
+            Some people
+            <span>are simply special.</span>
+
         </h2>
 
-        <div class="bestie-text">
+        <p>
 
-            For all the laughs, all the random moments,
-            and all the memories still waiting to happen.
+            Esther, today is your day.
 
-            <br><br>
-
-            I hope this birthday reminds you just how special you are.
-            Thank you for being the kind of person who makes friendship
-            feel easy, fun, genuine, and worth remembering.
+            I hope this new chapter of your life brings you happiness,
+            beautiful memories, exciting opportunities,
+            genuine friendships, and countless reasons to smile.
 
             <br><br>
 
-            There are still plenty of laughs ahead,
-            plenty of stories we haven't told yet,
-            and plenty of memories waiting for us.
+            Keep shining.
+            Keep dreaming.
+            Keep growing.
 
             <br><br>
 
-            Happy Birthday, ECO STAR. 💫
+            And most importantly...
 
-        </div>
+            never forget that you are someone's ECO STAR. 💫
 
-        <div class="signature">
-            — Your Bestie ❤️
-        </div>
+        </p>
 
     </div>
 
@@ -1491,225 +1426,129 @@ footer p{
 
     <div class="voice-card reveal">
 
-        <div class="small-label">
-            A MESSAGE FROM ME
-        </div>
-
-        <h3>
-            Hear this one.
-        </h3>
-
-        <p>
-            Because sometimes hearing someone's voice
-            makes a message feel a little more real.
-        </p>
-
-        <button
-            class="voice-button"
-            id="voiceButton">
-            HEAR YOUR MESSAGE 🎙️
-        </button>
-
-        <div
-            class="voice-status"
-            id="voiceStatus">
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SURPRISE PAGE -->
-
-<section class="surprise-section">
-
-    <div class="surprise-inner reveal">
-
-        <div class="small-label">
-            THERE'S SOMETHING WAITING
+        <div class="voice-label">
+            ONE MORE THING
         </div>
 
         <h2>
-            One more thing.
+            Hear this
+            from me.
         </h2>
 
         <p>
-            I saved something special for you.
-        </p>
 
-        <a
-            class="surprise-link"
-            href="surprise.html">
-            OPEN THE SURPRISE 💫
-        </a>
+            I wanted this part to feel a little more personal.
+
+            Press the button and let the birthday message
+            speak for itself.
+
+        </p>
 
     </div>
 
 </section>
 
 
-<!-- APPARENT ENDING -->
+<!-- FINAL -->
 
-<section class="final-section">
+<section class="final">
 
-    <div class="reveal">
+    <div class="final-inner reveal">
 
-        <div class="small-label">
-            UNTIL THE NEXT MEMORY
+        <div class="final-top">
+            FOR THE ONE AND ONLY
         </div>
 
         <h2>
-            Happy<br>
-            Birthday.
+
+            HAPPY
+            <span>BIRTHDAY.</span>
+
         </h2>
 
-        <p>
-            SOME MOMENTS DESERVE TO BE REMEMBERED
-        </p>
+        <div class="final-sub">
+
+            ESTHER · ECO STAR ⭐ · OCTOBER 07
+
+        </div>
 
     </div>
 
 </section>
 
+
+
+<!-- =====================================================
+     THE MOMENT SHE THINKS IT IS OVER
+===================================================== -->
+
+<section class="final-trigger" id="finalTrigger">
+    <div class="final-trigger-inner">
+        <div class="final-trigger-kicker">Before you leave</div>
+        <h2 class="final-trigger-title">
+            That's all I wanted to say.
+            <span>...or maybe not.</span>
+        </h2>
+        <div class="scroll-whisper">keep going ↓</div>
+    </div>
+</section>
+
+<!-- =====================================================
+     HIDDEN FINAL EXPERIENCE
+===================================================== -->
+
+<section class="final-reveal hidden-final" id="finalReveal">
+
+    <div class="final-star-burst" aria-hidden="true">
+        <i style="--x:240px;--y:-160px;--d:.0"></i>
+        <i style="--x:-260px;--y:-130px;--d:.2"></i>
+        <i style="--x:310px;--y:70px;--d:.35"></i>
+        <i style="--x:-300px;--y:90px;--d:.5"></i>
+        <i style="--x:100px;--y:-250px;--d:.7"></i>
+        <i style="--x:-120px;--y:250px;--d:.9"></i>
+        <i style="--x:350px;--y:-30px;--d:1.1"></i>
+        <i style="--x:-350px;--y:-40px;--d:1.25"></i>
+    </div>
+
+    <div class="final-reveal-inner">
+        <div class="final-reveal-kicker reveal-line">One last moment</div>
+
+        <h2 class="reveal-line">
+            ECO
+            <span>STAR ⭐</span>
+        </h2>
+
+        <p class="final-message reveal-line">
+            And through life's hardest storms, I want you to remember this:
+            God's grace and mercy will always be greater than the storm.
+            And whenever those difficult seasons come, I hope you remember
+            that you don't have to face them alone.
+            By God's grace, I'll always be here for you — through the good days,
+            the difficult days, the laughter, and everything in between.
+            Keep trusting God. Keep shining. Keep becoming everything He created
+            you to be.
+        </p>
+
+        <div class="final-signature reveal-line">
+            Happy Birthday, Esther · From your bestie ❤️
+        </div>
+    </div>
+
+</section>
 
 <footer>
 
-    <h3>
-        Happy Birthday
-    </h3>
+    <div>
+        MADE WITH CARE
+    </div>
 
-    <p>
-        MADE WITH LOVE FOR ECO STAR ⭐
-    </p>
+    <div>
+        FOR ESTHER 💫
+    </div>
 
 </footer>
 
-
-<!-- ========================================================
-     SUBTLE SCROLL CUE
-========================================================= -->
-
-<section
-    class="final-trigger"
-    id="finalTrigger">
-
-    <div class="keep-going">
-
-        Keep going
-
-        <span>↓</span>
-
-    </div>
-
-</section>
-
-
-<!-- ========================================================
-     HIDDEN FINAL EXPERIENCE
-========================================================= -->
-
-<section
-    id="finalReveal">
-
-    <div class="final-cover"></div>
-
-    <div class="final-stars"></div>
-
-    <div class="final-content">
-
-        <div class="final-whisper">
-            One last moment.
-        </div>
-
-        <span class="final-star">
-            ⭐
-        </span>
-
-        <h2>
-            Happy Birthday,<br>
-            Esther.
-        </h2>
-
-        <div class="final-message">
-
-            And through life's hardest storms,
-            I want you to remember this:
-
-            <br><br>
-
-            <strong>
-                God's grace and mercy will always be greater than the storm.
-            </strong>
-
-            <br><br>
-
-            When life gets difficult, when things don't go the way you hoped,
-            and when the road ahead feels uncertain,
-            I hope you remember that you don't have to face those moments alone.
-
-            <br><br>
-
-            By God's grace, I'll always be here for you —
-            through the good days, the difficult days,
-            the laughter, the tears, the unexpected moments,
-            and everything in between.
-
-            <br><br>
-
-            Keep trusting God.
-            Keep praying.
-            Keep shining.
-            Keep dreaming.
-            Keep becoming everything He created you to be.
-
-            <br><br>
-
-            No matter how strong the storm gets,
-            may God's grace carry you through it,
-            and may His mercy remind you that there is always hope beyond it.
-
-            <br><br>
-
-            <strong>
-                Happy Birthday, ECO STAR. 💫
-            </strong>
-
-        </div>
-
-        <div class="final-signature">
-            — Your Bestie ❤️
-        </div>
-
-        <div class="final-date">
-            OCTOBER · 07 · ECO STAR DAY
-        </div>
-
-    </div>
-
-</section>
-
-
 </main>
-
-
-<!-- ========================================================
-     AUDIO
-========================================================= -->
-
-<audio
-    id="pianoRecording"
-    src="happy-birthday-piano.mp3"
-    preload="auto"
-    playsinline>
-</audio>
-
-<audio
-    id="realVoiceRecording"
-    src="birthday-message.mp3"
-    preload="metadata"
-    playsinline>
-</audio>
 
 
 <script>
@@ -1719,10 +1558,10 @@ footer p{
 ========================================================= */
 
 const entry =
-    document.getElementById("entry");
+    document.getElementById("secretEntry");
 
 const enterButton =
-    document.getElementById("enterButton");
+    document.getElementById("secretEnter");
 
 const main =
     document.getElementById("main");
@@ -1730,79 +1569,14 @@ const main =
 const piano =
     document.getElementById("pianoRecording");
 
-const realVoice =
-    document.getElementById("realVoiceRecording");
+const musicStatus =
+    document.getElementById("musicStatus");
 
 const voiceButton =
     document.getElementById("voiceButton");
 
-const voiceStatus =
-    document.getElementById("voiceStatus");
-
-const heartsContainer =
-    document.getElementById("hearts");
-
-
-/* =========================================================
-   PIANO
-========================================================= */
-
-let pianoStarted = false;
-
-function startPiano(){
-
-    if(pianoStarted) return;
-
-    pianoStarted = true;
-
-    piano.volume = .8;
-
-    const playPromise =
-        piano.play();
-
-    if(playPromise){
-        playPromise.catch(() => {
-            pianoStarted = false;
-        });
-    }
-
-}
-
-piano.addEventListener(
-    "ended",
-    () => {
-
-        piano.currentTime = 0;
-
-        const replay =
-            piano.play();
-
-        if(replay){
-            replay.catch(() => {});
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ENTRY
-========================================================= */
-
-enterButton.addEventListener(
-    "click",
-    () => {
-
-        entry.classList.add("hidden");
-
-        main.classList.add("visible");
-
-        startPiano();
-
-        startHearts();
-
-    }
-);
+const heartLayer =
+    document.getElementById("heartLayer");
 
 
 /* =========================================================
@@ -1822,108 +1596,228 @@ function createHeart(){
     const heart =
         document.createElement("div");
 
-    heart.className = "heart";
+    heart.className =
+        "heart";
 
     heart.textContent =
         heartTypes[
             Math.floor(
-                Math.random() * heartTypes.length
+                Math.random() *
+                heartTypes.length
             )
         ];
 
     heart.style.left =
-        Math.random() * 100 + "%";
+        Math.random() * 100 + "vw";
 
     heart.style.fontSize =
         (12 + Math.random() * 22) + "px";
 
     heart.style.animationDuration =
-        (7 + Math.random() * 8) + "s";
+        (6 + Math.random() * 8) + "s";
 
     heart.style.setProperty(
         "--drift",
-        (-100 + Math.random() * 200) + "px"
+        ((Math.random() - .5) * 200) + "px"
     );
 
     heart.style.setProperty(
         "--rotation",
-        (-45 + Math.random() * 90) + "deg"
+        ((Math.random() - .5) * 140) + "deg"
     );
 
-    heartsContainer.appendChild(heart);
+    heartLayer.appendChild(heart);
 
-    setTimeout(
-        () => heart.remove(),
-        16000
-    );
+    setTimeout(() => {
+        heart.remove();
+    },15000);
 
 }
 
-let heartInterval;
+let heartEngineStarted = false;
 
 function startHearts(){
 
-    if(heartInterval) return;
+    if(heartEngineStarted) return;
 
-    heartInterval =
-        setInterval(
-            createHeart,
-            700
-        );
+    heartEngineStarted = true;
+
+    setInterval(() => {
+
+        createHeart();
+
+        if(Math.random() > .6){
+
+            setTimeout(
+                createHeart,
+                250
+            );
+
+        }
+
+    },650);
 
 }
 
 
 /* =========================================================
-   HEART EXPLOSION
+   PIANO
 ========================================================= */
 
-function heartExplosion(){
+let pianoStarted = false;
 
-    for(let i=0;i<25;i++){
+/*
+   NORMAL VOLUME
+*/
 
-        setTimeout(
-            createHeart,
-            i * 40
-        );
+const NORMAL_VOLUME = 0.8;
+
+/*
+   QUIET VOLUME DURING VOICE
+*/
+
+const DUCKED_VOLUME = 0.15;
+
+
+/* =========================================================
+   FADE PIANO VOLUME
+========================================================= */
+
+function fadePianoTo(targetVolume,duration=900){
+
+    const startVolume =
+        piano.volume;
+
+    const difference =
+        targetVolume - startVolume;
+
+    const startTime =
+        performance.now();
+
+    function animateVolume(currentTime){
+
+        const elapsed =
+            currentTime - startTime;
+
+        const progress =
+            Math.min(
+                elapsed / duration,
+                1
+            );
+
+        /*
+           Smooth easing
+        */
+
+        const eased =
+            progress < .5
+            ? 2 * progress * progress
+            : 1 -
+              Math.pow(
+                  -2 * progress + 2,
+                  2
+              ) / 2;
+
+        piano.volume =
+            startVolume +
+            difference * eased;
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                animateVolume
+            );
+
+        }
 
     }
 
+    requestAnimationFrame(
+        animateVolume
+    );
 }
 
 
 /* =========================================================
-   SCROLL REVEALS
+   START PIANO
 ========================================================= */
 
-const revealElements =
-    document.querySelectorAll(".reveal");
+function startPiano(){
 
-const revealObserver =
-    new IntersectionObserver(
-        entries => {
+    if(pianoStarted) return;
 
-            entries.forEach(
-                entry => {
+    pianoStarted = true;
 
-                    if(entry.isIntersecting){
+    piano.volume = 0;
 
-                        entry.target.classList.add("show");
+    piano.play()
+    .then(() => {
 
-                    }
+        musicStatus.classList.add(
+            "playing"
+        );
 
-                }
-            );
+        fadePianoTo(
+            NORMAL_VOLUME,
+            1800
+        );
 
-        },
-        {
-            threshold:.12
-        }
-    );
+    })
+    .catch(() => {
 
-revealElements.forEach(
-    element =>
-        revealObserver.observe(element)
+        musicStatus.textContent =
+            "TAP TO PLAY 🎹";
+
+    });
+
+}
+
+
+/* =========================================================
+   PIANO LOOP
+========================================================= */
+
+piano.addEventListener(
+    "ended",
+    () => {
+
+        piano.currentTime = 0;
+
+        piano.play();
+
+    }
+);
+
+
+/* =========================================================
+   ENTRY
+========================================================= */
+
+enterButton.addEventListener(
+    "click",
+    () => {
+
+        entry.style.opacity =
+            "0";
+
+        entry.style.visibility =
+            "hidden";
+
+        main.classList.add(
+            "visible"
+        );
+
+        startHearts();
+
+        startPiano();
+
+        setTimeout(() => {
+
+            entry.remove();
+
+        },1600);
+
+    }
 );
 
 
@@ -1931,36 +1825,62 @@ revealElements.forEach(
    BIRTHDAY MESSAGE
 ========================================================= */
 
-const birthdayMessage =
-`Happy Birthday, Esther. Happy Birthday to a truly special person. Today is your day, ECO STAR. I hope this new chapter of your life brings you happiness, beautiful memories, big opportunities, and many reasons to smile. Never forget how amazing it is to simply be yourself. Keep shining, keep dreaming, keep growing, and keep being the wonderful person you are. May your birthday be as special as you are. Happy Birthday, Esther. From your bestie.`;
+const birthdayMessage = `
+Happy Birthday, Esther.
+
+Happy Birthday to a truly special person.
+
+Today is your day, ECO STAR.
+
+I hope this new chapter of your life brings you happiness,
+beautiful memories, big opportunities,
+and many reasons to smile.
+
+Never forget how amazing it is to simply be yourself.
+
+Keep shining.
+Keep dreaming.
+Keep growing.
+And keep being the wonderful person you are.
+
+May your birthday be as special as you are.
+
+Happy Birthday, Esther.
+
+From your bestie.
+`;
 
 
 /* =========================================================
-   BROWSER VOICE
+   FIND VOICE
 ========================================================= */
 
-function getBestVoice(){
+function getVoice(){
 
     const voices =
         speechSynthesis.getVoices();
 
-    if(!voices.length)
+    if(!voices.length){
         return null;
+    }
 
     const preferred =
         voices.find(
             voice =>
-                /en-US/i.test(voice.lang) &&
-                /Samantha|Siri|Google|Natural|Enhanced|Premium/i.test(voice.name)
+                /en/i.test(voice.lang) &&
+                /natural|enhanced|premium/i.test(
+                    voice.name
+                )
         );
 
-    if(preferred)
+    if(preferred){
         return preferred;
+    }
 
     const english =
         voices.find(
             voice =>
-                /^en(-|_)/i.test(voice.lang)
+                /^en/i.test(voice.lang)
         );
 
     return english || voices[0];
@@ -1968,126 +1888,161 @@ function getBestVoice(){
 }
 
 
-speechSynthesis.onvoiceschanged =
-    () => {};
-
-
 /* =========================================================
-   TTS FUNCTION
+   SPEAK MESSAGE
 ========================================================= */
 
-function speakWithBrowserVoice(){
+function speakBirthdayMessage(){
 
-    if(!("speechSynthesis" in window)){
+    if(
+        !("speechSynthesis" in window)
+    ){
 
-        voiceStatus.textContent =
-            "VOICE PLAYBACK IS NOT SUPPORTED ON THIS DEVICE";
+        alert(
+            "Sorry, this phone/browser does not support spoken messages."
+        );
 
         return;
 
     }
 
+
+    /*
+       Stop any previous message
+    */
+
     speechSynthesis.cancel();
 
-    speechSynthesis.resume();
 
-    const utterance =
+    /*
+       LOWER THE PIANO
+       BEFORE THE VOICE STARTS
+    */
+
+    fadePianoTo(
+        DUCKED_VOLUME,
+        1200
+    );
+
+
+    const message =
         new SpeechSynthesisUtterance(
             birthdayMessage
         );
 
-    utterance.lang = "en-US";
 
-    utterance.rate = .9;
+    message.lang =
+        "en-US";
 
-    utterance.pitch = 1;
+
+    /*
+       Calm cinematic speech
+    */
+
+    message.rate =
+        0.9;
+
+    message.pitch =
+        1;
+
 
     const voice =
-        getBestVoice();
+        getVoice();
 
-    if(voice)
-        utterance.voice = voice;
+    if(voice){
 
-    voiceStatus.textContent =
-        "PLAYING BROWSER VOICE…";
+        message.voice =
+            voice;
 
-    piano.volume = .12;
+    }
 
-    utterance.onend =
-        () => {
 
-            piano.volume = .8;
+    voiceButton.textContent =
+        "MESSAGE PLAYING 🎙️";
 
-            voiceButton.disabled = false;
+    voiceButton.disabled =
+        true;
 
-            voiceStatus.textContent =
-                "MESSAGE COMPLETE ❤️";
 
-        };
+    /*
+       Small delay so the piano
+       has time to become quieter.
+    */
 
-    utterance.onerror =
-        () => {
+    setTimeout(() => {
 
-            piano.volume = .8;
+        speechSynthesis.speak(
+            message
+        );
 
-            voiceButton.disabled = false;
+    },700);
 
-            voiceStatus.textContent =
-                "VOICE COULDN'T PLAY — TRY AGAIN";
 
-        };
+    /*
+       WHEN MESSAGE FINISHES
+    */
 
-    speechSynthesis.speak(
-        utterance
-    );
+    message.onend = () => {
+
+        /*
+           Bring piano back up
+        */
+
+        fadePianoTo(
+            NORMAL_VOLUME,
+            1500
+        );
+
+
+        voiceButton.textContent =
+            "HEAR YOUR MESSAGE 🎙️";
+
+        voiceButton.disabled =
+            false;
+
+
+        heartExplosion();
+
+    };
+
+
+    /*
+       If speech fails,
+       restore piano.
+    */
+
+    message.onerror = () => {
+
+        fadePianoTo(
+            NORMAL_VOLUME,
+            1200
+        );
+
+        voiceButton.textContent =
+            "HEAR YOUR MESSAGE 🎙️";
+
+        voiceButton.disabled =
+            false;
+
+    };
 
 }
 
 
 /* =========================================================
-   REAL RECORDING
+   LOAD VOICES
 ========================================================= */
 
-function playRealVoice(){
+if(
+    "speechSynthesis" in window
+){
 
-    if(!realVoice || !realVoice.src)
-        return false;
+    speechSynthesis.onvoiceschanged =
+        () => {
 
-    try{
+            speechSynthesis.getVoices();
 
-        realVoice.currentTime = 0;
-
-        const promise =
-            realVoice.play();
-
-        if(promise){
-
-            promise.then(
-                () => {
-
-                    voiceStatus.textContent =
-                        "PLAYING YOUR MESSAGE…";
-
-                    piano.volume = .12;
-
-                }
-            ).catch(
-                () => {
-
-                    speakWithBrowserVoice();
-
-                }
-            );
-
-        }
-
-        return true;
-
-    }catch(error){
-
-        return false;
-
-    }
+        };
 
 }
 
@@ -2102,133 +2057,155 @@ voiceButton.addEventListener(
 
         heartExplosion();
 
-        voiceButton.disabled = true;
+        speakBirthdayMessage();
 
-        if("speechSynthesis" in window)
-            speechSynthesis.cancel();
+    }
+);
 
-        realVoice.pause();
 
-        realVoice.currentTime = 0;
+/* =========================================================
+   HEART EXPLOSION
+========================================================= */
 
-        voiceStatus.textContent =
-            "PREPARING YOUR MESSAGE…";
+function heartExplosion(){
 
-        /*
-         * Try the real recording first.
-         * If birthday-message.mp3 isn't available,
-         * browser speech becomes the fallback.
-         */
+    const hearts = [
+        "❤️",
+        "🩷",
+        "💗",
+        "💖",
+        "💕",
+        "💫"
+    ];
 
-        if(realVoice.src){
+    for(
+        let i = 0;
+        i < 35;
+        i++
+    ){
 
-            const promise =
-                realVoice.play();
+        const heart =
+            document.createElement(
+                "div"
+            );
 
-            if(promise){
+        heart.className =
+            "explosion-heart";
 
-                promise.then(
-                    () => {
+        heart.textContent =
+            hearts[
+                Math.floor(
+                    Math.random() *
+                    hearts.length
+                )
+            ];
 
-                        piano.volume = .12;
 
-                        voiceStatus.textContent =
-                            "PLAYING YOUR MESSAGE…";
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+        const distance =
+            180 +
+            Math.random() *
+            500;
+
+
+        const x =
+            Math.cos(angle) *
+            distance;
+
+        const y =
+            Math.sin(angle) *
+            distance;
+
+
+        const rotation =
+            (Math.random() - .5) *
+            500;
+
+
+        heart.style.setProperty(
+            "--x",
+            x + "px"
+        );
+
+        heart.style.setProperty(
+            "--y",
+            y + "px"
+        );
+
+        heart.style.setProperty(
+            "--rot",
+            rotation + "deg"
+        );
+
+
+        heart.style.animationDuration =
+            (1.5 +
+             Math.random() * 1.5) +
+            "s";
+
+
+        document.body.appendChild(
+            heart
+        );
+
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        },3500);
+
+    }
+
+}
+
+
+/* =========================================================
+   SCROLL REVEALS
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList.add(
+                            "show"
+                        );
 
                     }
-                ).catch(
-                    () => {
 
-                        speakWithBrowserVoice();
+                }
+            );
 
-                    }
-                );
-
-            }else{
-
-                speakWithBrowserVoice();
-
-            }
-
-        }else{
-
-            speakWithBrowserVoice();
-
+        },
+        {
+            threshold:.12
         }
-
-    }
-);
+    );
 
 
-/* =========================================================
-   REAL VOICE EVENTS
-========================================================= */
+revealElements.forEach(
+    element => {
 
-realVoice.addEventListener(
-    "ended",
-    () => {
-
-        piano.volume = .8;
-
-        voiceButton.disabled = false;
-
-        voiceStatus.textContent =
-            "MESSAGE COMPLETE ❤️";
-
-    }
-);
-
-realVoice.addEventListener(
-    "error",
-    () => {
-
-        piano.volume = .8;
-
-        if(voiceButton.disabled)
-            speakWithBrowserVoice();
-
-    }
-);
-
-
-/* =========================================================
-   PAGE VISIBILITY
-========================================================= */
-
-document.addEventListener(
-    "visibilitychange",
-    () => {
-
-        if(document.hidden){
-
-            if("speechSynthesis" in window)
-                speechSynthesis.pause();
-
-        }else{
-
-            if("speechSynthesis" in window)
-                speechSynthesis.resume();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PAGE LEAVE
-========================================================= */
-
-window.addEventListener(
-    "pagehide",
-    () => {
-
-        if("speechSynthesis" in window)
-            speechSynthesis.cancel();
-
-        piano.pause();
-
-        realVoice.pause();
+        revealObserver.observe(
+            element
+        );
 
     }
 );
@@ -2239,116 +2216,114 @@ window.addEventListener(
 ========================================================= */
 
 const canvas =
-    document.getElementById("stars");
+    document.getElementById(
+        "stars"
+    );
 
 const ctx =
     canvas.getContext("2d");
 
 let stars = [];
 
+
 function resizeCanvas(){
 
     canvas.width =
-        window.innerWidth *
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
+        window.innerWidth;
 
     canvas.height =
-        window.innerHeight *
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
-
-    canvas.style.width =
-        window.innerWidth + "px";
-
-    canvas.style.height =
-        window.innerHeight + "px";
-
-    ctx.setTransform(
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        ),
-        0,
-        0,
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        ),
-        0,
-        0
-    );
+        window.innerHeight;
 
 }
 
-function createStars(){
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
 
-    stars = [];
+resizeCanvas();
 
-    const count =
-        window.innerWidth < 700
-            ? 150
-            : 320;
 
-    for(let i=0;i<count;i++){
+for(
+    let i = 0;
+    i < 320;
+    i++
+){
 
-        stars.push({
+    stars.push({
 
-            x:
-                Math.random() *
-                window.innerWidth,
+        x:
+            Math.random() *
+            canvas.width,
 
-            y:
-                Math.random() *
-                window.innerHeight,
+        y:
+            Math.random() *
+            canvas.height,
 
-            r:
-                Math.random() *
-                1.4 +
+        r:
+            Math.random() *
+            1.5 + .2,
 
-                .2,
+        a:
+            Math.random(),
 
-            a:
-                Math.random() *
-                .7 +
+        speed:
+            Math.random() *
+            .45 + .08
 
-                .1,
-
-            speed:
-                Math.random() *
-                .15 +
-
-                .02
-
-        });
-
-    }
+    });
 
 }
+
 
 function drawStars(){
 
     ctx.clearRect(
         0,
         0,
-        window.innerWidth,
-        window.innerHeight
+        canvas.width,
+        canvas.height
     );
+
 
     stars.forEach(
         star => {
 
-            star.y -= star.speed;
+            star.y -=
+                star.speed;
 
-            if(star.y < -5)
+
+            if(
+                star.y < 0
+            ){
+
                 star.y =
-                    window.innerHeight + 5;
+                    canvas.height;
+
+                star.x =
+                    Math.random() *
+                    canvas.width;
+
+            }
+
+
+            star.a +=
+                (Math.random() - .5) *
+                .025;
+
+
+            star.a =
+                Math.max(
+                    .15,
+                    Math.min(
+                        1,
+                        star.a
+                    )
+                );
+
 
             ctx.beginPath();
+
 
             ctx.arc(
                 star.x,
@@ -2358,6 +2333,7 @@ function drawStars(){
                 Math.PI * 2
             );
 
+
             ctx.fillStyle =
                 `rgba(
                     255,
@@ -2366,10 +2342,12 @@ function drawStars(){
                     ${star.a}
                 )`;
 
+
             ctx.fill();
 
         }
     );
+
 
     requestAnimationFrame(
         drawStars
@@ -2377,111 +2355,76 @@ function drawStars(){
 
 }
 
-resizeCanvas();
-
-createStars();
-
 drawStars();
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        resizeCanvas();
-
-        createStars();
-
-    }
-);
 
 
 /* =========================================================
    EXTRA HEART BURST
 ========================================================= */
 
-setTimeout(
-    () => {
+setTimeout(() => {
 
-        if(
-            main.classList.contains(
-                "visible"
-            )
-        ){
+    if(
+        main.classList.contains(
+            "visible"
+        )
+    ){
 
-            heartExplosion();
+        heartExplosion();
 
-        }
+    }
 
-    },
-    4500
-);
+},4500);
 
 
 /* =========================================================
    HIDDEN FINAL EXPERIENCE
 ========================================================= */
 
-const finalTrigger =
-    document.getElementById(
-        "finalTrigger"
-    );
+const finalTrigger = document.getElementById("finalTrigger");
+const finalReveal = document.getElementById("finalReveal");
+let finalMomentUnlocked = false;
 
-const finalReveal =
-    document.getElementById(
-        "finalReveal"
-    );
-
-let finalMomentUnlocked =
-    false;
-
-if(
-    finalTrigger &&
-    finalReveal
-){
-
-    const finalObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if(
-                            entry.isIntersecting &&
-                            !finalMomentUnlocked
-                        ){
-
-                            finalMomentUnlocked =
-                                true;
-
-                            finalReveal.classList.add(
-                                "unlocked"
-                            );
-
-                            heartExplosion();
-
-                            setTimeout(
-                                () =>
-                                    heartExplosion(),
-                                900
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold:.35
+if (finalTrigger && finalReveal) {
+    const finalObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !finalMomentUnlocked) {
+                finalMomentUnlocked = true;
+                finalReveal.classList.add("unlocked");
+                heartExplosion();
+                setTimeout(() => heartExplosion(), 900);
             }
-        );
+        });
+    }, { threshold: 0.35 });
 
-    finalObserver.observe(
-        finalReveal
-    );
-
+    finalObserver.observe(finalReveal);
 }
+
+
+/* =========================================================
+   STOP MUSIC + VOICE WHEN THE VISITOR LEAVES THE PAGE
+========================================================= */
+
+function stopPageMedia(){
+    if (piano) {
+        piano.pause();
+    }
+
+    if ("speechSynthesis" in window) {
+        speechSynthesis.cancel();
+    }
+}
+
+/* Stop when the tab/browser is hidden. */
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+        stopPageMedia();
+    }
+});
+
+/* Stop when navigating away, closing the tab, or refreshing. */
+window.addEventListener("pagehide", stopPageMedia);
+window.addEventListener("beforeunload", stopPageMedia);
 
 </script>
 
