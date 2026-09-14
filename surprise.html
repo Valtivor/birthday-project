@@ -1,12 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Secret — ECO STAR 💫</title>
+<title>Esther — The Secret ✦</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +12,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -26,221 +28,468 @@ html{
 }
 
 body{
-    background:#020204;
+    background:#030306;
     color:white;
-    font-family:"Manrope",sans-serif;
+    font-family:'Manrope',sans-serif;
     overflow-x:hidden;
 }
 
-/* COSMIC BACKGROUND */
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
+    pointer-events:none;
+    z-index:-10;
 
     background:
-        radial-gradient(circle at 50% 35%,rgba(255,90,170,.18),transparent 25%),
-        radial-gradient(circle at 15% 70%,rgba(110,70,255,.16),transparent 30%),
-        radial-gradient(circle at 90% 20%,rgba(255,190,90,.10),transparent 25%);
-
-    z-index:-5;
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,80,160,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 25%,
+            rgba(100,80,255,.15),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(255,170,80,.08),
+            transparent 35%
+        );
 }
 
 body::after{
     content:"";
     position:fixed;
     inset:0;
+    pointer-events:none;
+    z-index:-8;
 
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+        linear-gradient(
+            rgba(255,255,255,.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.045) 1px,
+            transparent 1px
+        );
 
     background-size:80px 80px;
-
-    pointer-events:none;
-
-    z-index:-3;
 }
+
+/* =========================================================
+   STARFIELD
+========================================================= */
 
 #stars{
     position:fixed;
     inset:0;
-    z-index:-4;
+    width:100%;
+    height:100%;
+    z-index:-7;
 }
+
+/* =========================================================
+   NOISE
+========================================================= */
 
 .noise{
     position:fixed;
     inset:0;
     pointer-events:none;
+    z-index:100;
     opacity:.035;
-    z-index:30;
 
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    background-image:url(
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E"
+    );
 }
 
-
-/* HEARTS */
+/* =========================================================
+   HEART LAYER
+========================================================= */
 
 #heartLayer{
     position:fixed;
     inset:0;
     pointer-events:none;
     overflow:hidden;
-    z-index:25;
+    z-index:90;
 }
 
 .heart{
     position:absolute;
-    bottom:-60px;
+    bottom:-50px;
     opacity:0;
-    animation:rise linear forwards;
-    filter:drop-shadow(0 0 12px rgba(255,80,170,.5));
+
+    animation:
+        riseHeart linear forwards;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,100,180,.45)
+        );
 }
 
-@keyframes rise{
+@keyframes riseHeart{
 
     0%{
         transform:
             translateY(0)
             translateX(0)
-            rotate(0)
-            scale(.5);
+            scale(.5)
+            rotate(0deg);
 
         opacity:0;
     }
 
-    12%{
+    10%{
         opacity:.9;
     }
 
-    50%{
-        opacity:.65;
+    80%{
+        opacity:.7;
     }
 
     100%{
         transform:
             translateY(-115vh)
             translateX(var(--drift))
-            rotate(var(--rotation))
-            scale(1.35);
+            scale(1.15)
+            rotate(var(--rotation));
 
         opacity:0;
     }
-
 }
 
+/* =========================================================
+   CINEMATIC ENTRY
+========================================================= */
 
-/* TOP */
+#secretEntry{
+    position:fixed;
+    inset:0;
+    z-index:200;
 
-.topBar{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,90,170,.13),
+            transparent 28%
+        ),
+        #030306;
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s ease;
+}
+
+.secret-content{
+    width:min(950px,90%);
+}
+
+.secret-top{
+    font-size:10px;
+    letter-spacing:.5em;
+    color:rgba(255,255,255,.5);
+    text-transform:uppercase;
+
+    margin-bottom:35px;
+}
+
+/* =========================================================
+   CELESTIAL STAR
+========================================================= */
+
+.secret-star{
+    width:150px;
+    height:150px;
+
+    margin:auto;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    animation:
+        celestialSpin 18s linear infinite;
+
+    box-shadow:
+        0 0 70px rgba(255,100,180,.12),
+        inset 0 0 50px rgba(255,255,255,.04);
+}
+
+.secret-star::before{
+    content:"";
+
+    position:absolute;
+
+    inset:15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:50%;
+}
+
+.secret-star::after{
+    content:"";
+
+    position:absolute;
+
+    inset:32px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:50%;
+}
+
+.secret-star span{
+    font-size:50px;
+
+    animation:
+        starPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes celestialSpin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes starPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.2);
+    }
+}
+
+/* =========================================================
+   ENTRY TITLE
+========================================================= */
+
+.secret-name{
+    margin-top:55px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(85px,16vw,210px);
+
+    line-height:.75;
+
+    letter-spacing:-.08em;
+}
+
+.secret-sub{
+    margin-top:28px;
+
+    font-size:11px;
+
+    letter-spacing:.6em;
+
+    color:#f2a4c9;
+}
+
+/* =========================================================
+   ENTER BUTTON
+========================================================= */
+
+.secret-enter{
+    margin-top:55px;
+
+    padding:18px 36px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.22);
+
+    border-radius:100px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:white;
+
+    font-size:10px;
+
+    letter-spacing:.25em;
+
+    cursor:pointer;
+
+    transition:.5s;
+
+    backdrop-filter:blur(20px);
+}
+
+.secret-enter:hover{
+
+    background:white;
+
+    color:#030306;
+
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    box-shadow:
+        0 20px 70px
+        rgba(255,100,180,.22);
+}
+
+.secret-date{
+    margin-top:30px;
+
+    font-size:9px;
+
+    letter-spacing:.4em;
+
+    color:rgba(255,255,255,.3);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+    opacity:0;
+
+    transition:
+        opacity 2s ease;
+}
+
+main.visible{
+    opacity:1;
+}
+
+/* =========================================================
+   NAV
+========================================================= */
+
+nav{
 
     position:fixed;
+
     top:0;
     left:0;
     right:0;
 
-    height:85px;
+    z-index:50;
+
+    padding:28px 5%;
 
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
 
-    padding:0 6%;
-
-    z-index:20;
-
-    background:linear-gradient(
-        rgba(2,2,4,.5),
-        transparent
-    );
-
+    align-items:center;
 }
 
-.topLogo{
-    font-family:"Cormorant Garamond",serif;
-    font-size:32px;
+.nav-logo{
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:30px;
 }
 
-.topText{
+.nav-text{
+
     font-size:9px;
-    letter-spacing:4px;
-    opacity:.5;
+
+    letter-spacing:.3em;
+
+    color:rgba(255,255,255,.45);
 }
 
+/* =========================================================
+   MUSIC
+========================================================= */
 
-/* MUSIC */
-
-.music{
+.music-status{
 
     position:fixed;
 
-    right:25px;
+    left:25px;
     bottom:25px;
 
-    z-index:40;
+    z-index:60;
 
-    padding:12px 18px;
+    padding:11px 17px;
 
-    border:1px solid rgba(255,255,255,.12);
+    border:
+        1px solid
+        rgba(255,255,255,.12);
 
-    border-radius:30px;
+    border-radius:100px;
 
-    background:rgba(10,10,15,.7);
+    background:
+        rgba(0,0,0,.35);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
 
     font-size:9px;
 
-    letter-spacing:2px;
+    letter-spacing:.2em;
 
-    opacity:.8;
+    color:rgba(255,255,255,.55);
 
+    transition:.5s;
 }
 
-.musicBars{
+.music-status.playing{
 
-    display:inline-flex;
+    color:white;
 
-    gap:3px;
+    border-color:
+        rgba(255,160,200,.4);
 
-    margin-right:8px;
-
+    box-shadow:
+        0 0 30px
+        rgba(255,100,180,.15);
 }
 
-.musicBars span{
+/* =========================================================
+   SECTIONS
+========================================================= */
 
-    width:2px;
-    height:9px;
-
-    background:#ffafd0;
-
-    animation:bars .7s infinite alternate;
-
+section{
+    position:relative;
 }
 
-.musicBars span:nth-child(2){
-    animation-delay:.2s;
-}
-
-.musicBars span:nth-child(3){
-    animation-delay:.4s;
-}
-
-@keyframes bars{
-
-    from{
-        height:4px;
-    }
-
-    to{
-        height:14px;
-    }
-
-}
-
-
-/* HERO */
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
 
@@ -254,87 +503,38 @@ body::after{
 
     text-align:center;
 
-    position:relative;
-
-    overflow:hidden;
-
+    padding:130px 7%;
 }
 
-.heroContent{
-    position:relative;
-    z-index:3;
+.hero-inner{
+    max-width:1200px;
 }
 
-.kicker{
+.hero-kicker{
 
     font-size:10px;
 
-    letter-spacing:7px;
+    letter-spacing:.55em;
 
-    color:#ffafd0;
+    color:#f2a4c9;
 
-    margin-bottom:30px;
-
-}
-
-.megaStar{
-
-    font-size:100px;
-
-    display:inline-block;
-
-    animation:
-        starFloat 4s ease-in-out infinite,
-        starGlow 2s ease-in-out infinite alternate;
-
-}
-
-@keyframes starFloat{
-
-    0%,100%{
-        transform:translateY(0) rotate(0);
-    }
-
-    50%{
-        transform:translateY(-20px) rotate(8deg);
-    }
-
-}
-
-@keyframes starGlow{
-
-    from{
-        filter:drop-shadow(
-            0 0 10px rgba(255,120,190,.4)
-        );
-    }
-
-    to{
-        filter:drop-shadow(
-            0 0 45px rgba(255,120,190,.9)
-        );
-    }
-
+    margin-bottom:35px;
 }
 
 .hero h1{
 
-    font-family:"Cormorant Garamond",serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
-    font-size:clamp(
-        80px,
-        15vw,
-        210px
-    );
-
-    line-height:.72;
+    font-size:
+        clamp(80px,14vw,190px);
 
     font-weight:500;
 
-    letter-spacing:-8px;
+    line-height:.75;
 
-    margin-top:35px;
-
+    letter-spacing:-.08em;
 }
 
 .hero h1 span{
@@ -342,29 +542,26 @@ body::after{
     display:block;
 
     font-style:italic;
-
-    color:#ffafd0;
-
 }
 
-.heroText{
+.hero-text{
 
-    max-width:600px;
+    max-width:580px;
 
-    margin:45px auto 0;
+    margin:50px auto 0;
+
+    color:rgba(255,255,255,.55);
 
     font-size:14px;
 
     line-height:2;
-
-    opacity:.55;
-
 }
 
+/* =========================================================
+   ORBIT
+========================================================= */
 
-/* ORBIT */
-
-.orbitSection{
+.orbit-section{
 
     min-height:100vh;
 
@@ -374,21 +571,14 @@ body::after{
 
     justify-content:center;
 
-    text-align:center;
-
-    position:relative;
-
+    padding:120px 5%;
 }
 
-.orbit{
+.orbit-wrap{
 
-    width:min(70vw,600px);
+    width:min(650px,85vw);
 
-    height:min(70vw,600px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:50%;
+    aspect-ratio:1;
 
     position:relative;
 
@@ -397,21 +587,22 @@ body::after{
     align-items:center;
 
     justify-content:center;
-
-    box-shadow:
-        0 0 100px rgba(255,80,160,.08),
-        inset 0 0 80px rgba(255,255,255,.02);
-
-    animation:orbitSpin 30s linear infinite;
-
 }
 
-@keyframes orbitSpin{
+.orbit{
 
-    to{
-        transform:rotate(360deg);
-    }
+    position:absolute;
 
+    inset:0;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius:50%;
+
+    animation:
+        orbitRotate 20s linear infinite;
 }
 
 .orbit::before{
@@ -420,111 +611,119 @@ body::after{
 
     position:absolute;
 
-    inset:35px;
-
-    border:1px solid rgba(255,255,255,.07);
+    width:9px;
+    height:9px;
 
     border-radius:50%;
 
+    background:#fff;
+
+    box-shadow:
+        0 0 20px #fff,
+        0 0 40px rgba(255,100,180,.8);
+
+    top:-4px;
+    left:50%;
 }
 
-.orbit::after{
+.orbit.two{
 
-    content:"";
+    inset:70px;
 
-    position:absolute;
+    animation-duration:28s;
 
-    inset:-35px;
-
-    border:1px dashed rgba(255,255,255,.05);
-
-    border-radius:50%;
-
+    animation-direction:reverse;
 }
 
-.orbitCenter{
+.orbit.three{
 
-    width:180px;
-    height:180px;
+    inset:140px;
+
+    animation-duration:36s;
+}
+
+@keyframes orbitRotate{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.orbit-center{
+
+    width:190px;
+    height:190px;
 
     border-radius:50%;
-
-    background:rgba(255,255,255,.025);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    backdrop-filter:blur(20px);
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    flex-direction:column;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,120,190,.2),
+            rgba(255,255,255,.025) 55%,
+            transparent 70%
+        );
 
-    position:relative;
-
-    z-index:3;
-
+    box-shadow:
+        0 0 100px
+        rgba(255,90,170,.14);
 }
 
-.orbitCenter div{
+.orbit-center span{
 
-    font-size:55px;
+    font-size:75px;
 
+    animation:
+        starPulse 2.5s ease-in-out infinite;
 }
 
-.orbitCenter span{
+/* ORBIT LABELS */
 
-    margin-top:10px;
-
-    font-size:8px;
-
-    letter-spacing:4px;
-
-    opacity:.5;
-
-}
-
-.orbitWord{
+.orbit-label{
 
     position:absolute;
 
     font-size:10px;
 
-    letter-spacing:4px;
+    letter-spacing:.25em;
 
-    opacity:.45;
+    color:rgba(255,255,255,.45);
 
+    white-space:nowrap;
 }
 
-.word1{
+.label-top{
     top:5%;
     left:50%;
     transform:translateX(-50%);
 }
 
-.word2{
-    right:2%;
+.label-right{
+    right:-2%;
     top:50%;
     transform:translateY(-50%);
 }
 
-.word3{
+.label-bottom{
     bottom:5%;
     left:50%;
     transform:translateX(-50%);
 }
 
-.word4{
-    left:2%;
+.label-left{
+    left:-2%;
     top:50%;
     transform:translateY(-50%);
 }
 
-
-/* MESSAGE */
+/* =========================================================
+   MESSAGE
+========================================================= */
 
 .message{
 
@@ -538,42 +737,46 @@ body::after{
 
     text-align:center;
 
-    padding:120px 25px;
-
+    padding:120px 7%;
 }
 
-.messageInner{
-    max-width:850px;
+.message-inner{
+
+    max-width:1000px;
 }
 
-.label{
+.message-small{
 
-    font-size:9px;
+    font-size:10px;
 
-    letter-spacing:6px;
+    letter-spacing:.5em;
 
-    color:#ffafd0;
+    color:#f2a4c9;
 
     margin-bottom:35px;
-
 }
 
 .message h2{
 
-    font-family:"Cormorant Garamond",serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
-    font-size:clamp(
-        65px,
-        10vw,
-        145px
-    );
-
-    font-weight:500;
+    font-size:
+        clamp(60px,10vw,130px);
 
     line-height:.8;
 
-    letter-spacing:-5px;
+    font-weight:500;
 
+    letter-spacing:-.07em;
+}
+
+.message h2 span{
+
+    display:block;
+
+    font-style:italic;
 }
 
 .message p{
@@ -582,18 +785,153 @@ body::after{
 
     margin:50px auto 0;
 
-    font-family:"Cormorant Garamond",serif;
+    color:rgba(255,255,255,.58);
 
-    font-size:25px;
+    line-height:2;
 
-    line-height:1.7;
-
-    color:rgba(255,255,255,.68);
-
+    font-size:14px;
 }
 
+/* =========================================================
+   VOICE CARD
+========================================================= */
 
-/* FINAL */
+.voice-section{
+
+    min-height:80vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:120px 7%;
+
+    text-align:center;
+}
+
+.voice-card{
+
+    width:min(800px,100%);
+
+    padding:70px 45px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.015)
+        );
+
+    backdrop-filter:blur(25px);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.voice-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,90,170,.12);
+
+    filter:blur(70px);
+
+    top:-120px;
+    right:-100px;
+}
+
+.voice-label{
+
+    font-size:10px;
+
+    letter-spacing:.5em;
+
+    color:#f2a4c9;
+
+    margin-bottom:25px;
+}
+
+.voice-card h2{
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(55px,8vw,90px);
+
+    font-weight:500;
+
+    line-height:.9;
+}
+
+.voice-card p{
+
+    max-width:520px;
+
+    margin:30px auto;
+
+    color:rgba(255,255,255,.5);
+
+    line-height:1.8;
+}
+
+.voice-button{
+
+    padding:17px 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius:100px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    letter-spacing:.2em;
+
+    transition:.5s;
+}
+
+.voice-button:hover{
+
+    background:white;
+
+    color:#030306;
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(255,100,180,.2);
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
 
 .final{
 
@@ -607,163 +945,214 @@ body::after{
 
     text-align:center;
 
-    position:relative;
+    padding:100px 5%;
+}
 
-    overflow:hidden;
+.final-inner{
+    max-width:1300px;
+}
 
+.final-top{
+
+    font-size:10px;
+
+    letter-spacing:.5em;
+
+    color:#f2a4c9;
+
+    margin-bottom:40px;
 }
 
 .final h2{
 
-    font-family:"Cormorant Garamond",serif;
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
-    font-size:clamp(
-        80px,
-        17vw,
-        240px
-    );
+    font-size:
+        clamp(85px,17vw,230px);
 
     line-height:.7;
 
+    letter-spacing:-.09em;
+
     font-weight:500;
-
-    letter-spacing:-10px;
-
 }
 
 .final h2 span{
 
     display:block;
 
-    color:#ffafd0;
-
     font-style:italic;
-
 }
 
-.finalSub{
+.final-sub{
 
-    margin-top:50px;
+    margin-top:55px;
 
     font-size:10px;
 
-    letter-spacing:7px;
+    letter-spacing:.45em;
 
-    opacity:.45;
-
+    color:rgba(255,255,255,.4);
 }
 
+/* =========================================================
+   HEART EXPLOSION
+========================================================= */
 
-/* REVEAL */
+.explosion-heart{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    pointer-events:none;
+
+    z-index:150;
+
+    font-size:30px;
+
+    animation:
+        explodeHeart 2.5s ease-out forwards;
+}
+
+@keyframes explodeHeart{
+
+    0%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(.2);
+
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+
+        transform:
+            translate(
+                calc(-50% + var(--x)),
+                calc(-50% + var(--y))
+            )
+            scale(1.2)
+            rotate(var(--rot));
+
+        opacity:0;
+    }
+}
+
+/* =========================================================
+   REVEAL
+========================================================= */
 
 .reveal{
 
     opacity:0;
 
-    transform:translateY(60px);
+    transform:
+        translateY(60px);
 
     transition:
-        opacity 1.3s ease,
-        transform 1.3s ease;
-
+        1.3s ease;
 }
 
 .reveal.show{
 
     opacity:1;
 
-    transform:translateY(0);
-
+    transform:
+        translateY(0);
 }
 
+/* =========================================================
+   FOOTER
+========================================================= */
 
-/* BACK */
+footer{
 
-.back{
+    padding:60px 7%;
 
-    display:inline-flex;
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
 
-    align-items:center;
+    display:flex;
 
-    gap:12px;
+    justify-content:space-between;
 
-    text-decoration:none;
-
-    color:white;
-
-    padding:16px 26px;
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:40px;
+    color:rgba(255,255,255,.3);
 
     font-size:9px;
 
-    letter-spacing:3px;
-
-    transition:.4s;
-
-    margin-top:50px;
-
+    letter-spacing:.25em;
 }
 
-.back:hover{
-
-    background:white;
-
-    color:#050507;
-
-    transform:translateY(-4px);
-
-}
-
-
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:700px){
 
-    .topBar{
-        padding:0 25px;
+    .secret-name{
+        font-size:90px;
     }
 
-    .topText{
-        font-size:7px;
+    .secret-star{
+        width:120px;
+        height:120px;
     }
 
-    .megaStar{
-        font-size:75px;
+    .orbit-wrap{
+        width:90vw;
     }
 
-    .hero h1{
-        font-size:80px;
+    .orbit.two{
+        inset:45px;
     }
 
-    .orbit{
-        width:75vw;
-        height:75vw;
+    .orbit.three{
+        inset:90px;
     }
 
-    .orbitCenter{
+    .orbit-center{
         width:130px;
         height:130px;
     }
 
-    .orbitCenter div{
-        font-size:40px;
+    .orbit-center span{
+        font-size:55px;
     }
 
-    .message p{
-        font-size:21px;
+    .label-right{
+        right:-5%;
     }
 
-    .final h2{
-        font-size:90px;
+    .label-left{
+        left:-5%;
     }
 
+    .voice-card{
+        padding:55px 25px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .music-status{
+        left:15px;
+        bottom:15px;
+    }
 }
 
 </style>
-
 </head>
 
 <body>
@@ -775,69 +1164,114 @@ body::after{
 <div id="heartLayer"></div>
 
 
-<!-- TOP -->
+<!-- =====================================================
+     CINEMATIC ENTRY
+===================================================== -->
 
-<div class="topBar">
+<div id="secretEntry">
 
-    <div class="topLogo">
-        E.
-    </div>
+    <div class="secret-content">
 
-    <div class="topText">
-        THE SECRET SIDE · ECO STAR
+        <div class="secret-top">
+            YOU FOUND THE HIDDEN SIDE OF THE UNIVERSE
+        </div>
+
+        <div class="secret-star">
+            <span>💫</span>
+        </div>
+
+        <div class="secret-name">
+            Esther.
+        </div>
+
+        <div class="secret-sub">
+            ECO STAR
+        </div>
+
+        <button
+            class="secret-enter"
+            id="secretEnter">
+
+            ENTER THE SECRET ✦
+
+        </button>
+
+        <div class="secret-date">
+            OCTOBER 07 · THIS ONE IS JUST FOR YOU
+        </div>
+
     </div>
 
 </div>
 
 
-<!-- MUSIC -->
+<!-- =====================================================
+     YOUR PIANO
+===================================================== -->
 
-<div class="music">
+<audio
+    id="pianoRecording"
+    src="happy-birthday-piano.mp3"
+    preload="auto">
+</audio>
 
-    <span class="musicBars">
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-    </span>
+<div
+    class="music-status"
+    id="musicStatus">
 
     YOUR PIANO 🎹
 
 </div>
 
 
-<!-- HERO -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main id="main">
+
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
+<nav>
+
+    <div class="nav-logo">
+        E.
+    </div>
+
+    <div class="nav-text">
+        THE SECRET · ECO STAR
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
-    <div class="heroContent reveal">
+    <div class="hero-inner reveal">
 
-        <div class="kicker">
-            YOU FOUND THE SECRET
-        </div>
-
-        <div class="megaStar">
-            💫
+        <div class="hero-kicker">
+            YOU MADE IT HERE
         </div>
 
         <h1>
-            Happy Birthday
+            Happy Birthday.
             <span>Esther.</span>
         </h1>
 
-        <p class="heroText">
+        <p class="hero-text">
 
-            You made it this far...
+            This is the part I couldn't fit into the first page.
 
-            <br><br>
-
-            So I figured the normal birthday experience
-            wasn't nearly enough.
-
-            <br><br>
-
-            Welcome to the hidden side of the universe.
+            The part where the birthday message gets a little
+            bigger, the stars get a little brighter, and the
+            ECO STAR gets her own universe. 💫
 
         </p>
 
@@ -846,36 +1280,42 @@ body::after{
 </section>
 
 
-<!-- ORBIT -->
+<!-- =====================================================
+     ORBIT
+===================================================== -->
 
-<section class="orbitSection">
+<section class="orbit-section">
 
-    <div class="orbit">
+    <div class="orbit-wrap reveal">
 
-        <div class="orbitWord word1">
+        <div class="orbit"></div>
+
+        <div class="orbit two"></div>
+
+        <div class="orbit three"></div>
+
+
+        <div class="orbit-label label-top">
             LAUGHS
         </div>
 
-        <div class="orbitWord word2">
+        <div class="orbit-label label-right">
             MEMORIES
         </div>
 
-        <div class="orbitWord word3">
+        <div class="orbit-label label-bottom">
             FRIENDSHIP
         </div>
 
-        <div class="orbitWord word4">
+        <div class="orbit-label label-left">
             CHAOS
         </div>
 
-        <div class="orbitCenter">
 
-            <div>
-                💫
-            </div>
+        <div class="orbit-center">
 
             <span>
-                ECO STAR
+                💫
             </span>
 
         </div>
@@ -885,43 +1325,44 @@ body::after{
 </section>
 
 
-<!-- MESSAGE -->
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
 
 <section class="message">
 
-    <div class="messageInner reveal">
+    <div class="message-inner reveal">
 
-        <div class="label">
-            THE IMPORTANT PART
+        <div class="message-small">
+            THE LITTLE MESSAGE
         </div>
 
         <h2>
-            You are<br>
-            worth celebrating.
+
+            Some people
+            <span>are simply special.</span>
+
         </h2>
 
         <p>
 
-            Esther, I hope you never underestimate the
-            difference your presence can make.
+            Esther, today is your day.
+
+            I hope this new chapter brings you happiness,
+            beautiful memories, exciting opportunities,
+            genuine friendships, and countless reasons to smile.
 
             <br><br>
 
-            I hope this new chapter gives you moments
-            you'll look back on and smile about.
-
-            <br><br>
-
-            Keep becoming the person you're meant to be.
-            Keep dreaming. Keep learning. Keep laughing.
+            Keep shining.
+            Keep dreaming.
+            Keep becoming everything you're meant to become.
 
             <br><br>
 
             And most importantly...
 
-            <br><br>
-
-            Keep shining.
+            never forget that you are someone's ECO STAR. 💫
 
         </p>
 
@@ -930,155 +1371,123 @@ body::after{
 </section>
 
 
-<!-- FINAL -->
+<!-- =====================================================
+     VOICE MESSAGE
+===================================================== -->
 
-<section class="final">
+<section class="voice-section">
 
-    <div class="reveal">
+    <div class="voice-card reveal">
 
-        <h2>
-            HAPPY
-            <span>BIRTHDAY</span>
-        </h2>
-
-        <div class="finalSub">
-            ESTHER · ECO STAR ⭐ · OCTOBER 07
+        <div class="voice-label">
+            ONE MORE THING
         </div>
 
-        <a href="index.html" class="back">
-            ← BACK TO THE BEGINNING
-        </a>
+        <h2>
+            Hear this
+            from me.
+        </h2>
+
+        <p>
+
+            I wanted this part to feel a little more personal.
+
+            Press the button and let the birthday message
+            speak for itself.
+
+        </p>
+
+        <button
+            class="voice-button"
+            id="voiceButton">
+
+            HEAR YOUR MESSAGE 🎙️
+
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- YOUR REAL PIANO RECORDING -->
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
-<audio
-    id="pianoRecording"
-    src="happy-birthday-piano.mp3"
-    preload="auto">
-</audio>
+<section class="final">
+
+    <div class="final-inner reveal">
+
+        <div class="final-top">
+            FOR THE ONE AND ONLY
+        </div>
+
+        <h2>
+
+            HAPPY
+            <span>BIRTHDAY.</span>
+
+        </h2>
+
+        <div class="final-sub">
+
+            ESTHER · ECO STAR ⭐ · OCTOBER 07
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        MADE WITH CARE
+    </div>
+
+    <div>
+        FOR ESTHER 💫
+    </div>
+
+</footer>
+
+</main>
 
 
 <script>
 
-/* STARFIELD */
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-const canvas =
-    document.getElementById("stars");
+const entry =
+    document.getElementById("secretEntry");
 
-const ctx =
-    canvas.getContext("2d");
+const enterButton =
+    document.getElementById("secretEnter");
 
-let stars=[];
+const main =
+    document.getElementById("main");
 
-function resizeCanvas(){
+const piano =
+    document.getElementById("pianoRecording");
 
-    canvas.width =
-        window.innerWidth;
+const musicStatus =
+    document.getElementById("musicStatus");
 
-    canvas.height =
-        window.innerHeight;
-
-}
-
-resizeCanvas();
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-function createStars(){
-
-    stars=[];
-
-    for(let i=0;i<300;i++){
-
-        stars.push({
-
-            x:
-                Math.random() *
-                canvas.width,
-
-            y:
-                Math.random() *
-                canvas.height,
-
-            r:
-                Math.random()*1.7,
-
-            speed:
-                Math.random()*.35+.05,
-
-            opacity:
-                Math.random()*.9+.1
-
-        });
-
-    }
-
-}
-
-createStars();
-
-function animateStars(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    stars.forEach(star=>{
-
-        star.y -= star.speed;
-
-        if(star.y < 0){
-
-            star.y =
-                canvas.height;
-
-        }
-
-        ctx.beginPath();
-
-        ctx.arc(
-            star.x,
-            star.y,
-            star.r,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fillStyle =
-            `rgba(255,255,255,${star.opacity})`;
-
-        ctx.fill();
-
-    });
-
-    requestAnimationFrame(
-        animateStars
-    );
-
-}
-
-animateStars();
-
-
-/* HEARTS */
+const voiceButton =
+    document.getElementById("voiceButton");
 
 const heartLayer =
-    document.getElementById(
-        "heartLayer"
-    );
+    document.getElementById("heartLayer");
 
-const symbols = [
+
+/* =========================================================
+   HEART TYPES
+========================================================= */
+
+const heartTypes = [
     "❤️",
     "🩷",
     "💗",
@@ -1086,185 +1495,472 @@ const symbols = [
     "💕"
 ];
 
+
+/* =========================================================
+   CREATE RISING HEART
+========================================================= */
+
 function createHeart(){
 
     const heart =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
-    heart.className="heart";
+    heart.className =
+        "heart";
 
-    heart.innerText =
-        symbols[
+    heart.textContent =
+        heartTypes[
             Math.floor(
                 Math.random() *
-                symbols.length
+                heartTypes.length
             )
         ];
 
     heart.style.left =
-        Math.random()*100+"vw";
+        Math.random() * 100 + "vw";
 
     heart.style.fontSize =
-        (10+Math.random()*22)+"px";
+        (12 + Math.random() * 22) + "px";
 
     heart.style.animationDuration =
-        (6+Math.random()*8)+"s";
+        (6 + Math.random() * 8) + "s";
 
     heart.style.setProperty(
         "--drift",
-        ((Math.random()-.5)*220)+"px"
+        ((Math.random() - .5) * 200) + "px"
     );
 
     heart.style.setProperty(
         "--rotation",
-        ((Math.random()-.5)*100)+"deg"
+        ((Math.random() - .5) * 140) + "deg"
     );
 
-    heartLayer.appendChild(
-        heart
-    );
+    heartLayer.appendChild(heart);
 
-    setTimeout(
-        ()=>{
-            heart.remove();
-        },
-        16000
-    );
+    setTimeout(() => {
+        heart.remove();
+    },15000);
 
 }
 
-setInterval(
-    createHeart,
-    450
-);
+
+/* =========================================================
+   HEART ENGINE
+========================================================= */
+
+let heartEngineStarted = false;
+
+function startHearts(){
+
+    if(heartEngineStarted) return;
+
+    heartEngineStarted = true;
+
+    setInterval(() => {
+
+        createHeart();
+
+        if(Math.random() > .6){
+
+            setTimeout(
+                createHeart,
+                250
+            );
+
+        }
+
+    },650);
+
+}
 
 
-/* PIANO */
+/* =========================================================
+   PIANO
+========================================================= */
 
-const piano =
-    document.getElementById(
-        "pianoRecording"
-    );
+let pianoStarted = false;
 
-const pianoWasPlaying =
-    sessionStorage.getItem(
-        "pianoWasPlaying"
-    );
+function startPiano(){
 
+    if(pianoStarted) return;
 
-/*
-   The browser may block automatic
-   audio when a brand-new page opens.
+    pianoStarted = true;
 
-   We try immediately first.
-*/
-
-function playPiano(){
-
-    piano.volume=.78;
+    piano.volume = 0;
 
     piano.play()
-        .catch(()=>{
+    .then(() => {
 
-            /*
-               If the browser blocks the new
-               page from autoplaying, the first
-               click/touch anywhere on Page 2
-               starts it.
-            */
+        musicStatus.classList.add(
+            "playing"
+        );
 
-            const startFromInteraction = () => {
+        let volume = 0;
 
-                piano.play().catch(()=>{});
+        const fade =
+            setInterval(() => {
 
-                document.removeEventListener(
-                    "click",
-                    startFromInteraction
-                );
+                volume += .02;
 
-                document.removeEventListener(
-                    "touchstart",
-                    startFromInteraction
-                );
+                piano.volume =
+                    Math.min(
+                        volume,
+                        .8
+                    );
 
-            };
+                if(volume >= .8){
 
-            document.addEventListener(
-                "click",
-                startFromInteraction
-            );
+                    clearInterval(
+                        fade
+                    );
 
-            document.addEventListener(
-                "touchstart",
-                startFromInteraction
-            );
+                }
 
-        });
+            },100);
+
+    })
+    .catch(() => {
+
+        musicStatus.textContent =
+            "TAP TO PLAY 🎹";
+
+    });
 
 }
 
 
-/*
-   Loop forever while she remains
-   on the surprise page.
-*/
+/* =========================================================
+   LOOP PIANO
+========================================================= */
 
 piano.addEventListener(
     "ended",
-    ()=>{
+    () => {
 
-        piano.currentTime=0;
+        piano.currentTime = 0;
 
-        piano.play().catch(()=>{});
+        piano.play();
 
     }
 );
 
 
-/*
-   Start the same piano recording
-   on Page 2.
-*/
+/* =========================================================
+   ENTRY
+========================================================= */
 
-if(pianoWasPlaying){
+enterButton.addEventListener(
+    "click",
+    () => {
 
-    playPiano();
+        entry.style.opacity = "0";
+
+        entry.style.visibility =
+            "hidden";
+
+        main.classList.add(
+            "visible"
+        );
+
+        startHearts();
+
+        startPiano();
+
+        setTimeout(() => {
+
+            entry.remove();
+
+        },1600);
+
+    }
+);
+
+
+/* =========================================================
+   VOICE MESSAGE
+========================================================= */
+
+const birthdayMessage = `
+Happy Birthday, Esther.
+
+Happy Birthday to a truly special person.
+
+Today is your day, ECO STAR.
+
+I hope this new chapter of your life brings you happiness,
+beautiful memories, big opportunities,
+and many reasons to smile.
+
+Never forget how amazing it is to simply be yourself.
+
+Keep shining.
+Keep dreaming.
+Keep growing.
+And keep being the wonderful person you are.
+
+May your birthday be as special as you are.
+
+Happy Birthday, Esther.
+From your bestie.
+`;
+
+
+/* =========================================================
+   FIND BEST AVAILABLE VOICE
+========================================================= */
+
+function getVoice(){
+
+    const voices =
+        speechSynthesis.getVoices();
+
+    if(!voices.length){
+        return null;
+    }
+
+    /*
+       Try to find a natural English voice.
+       The exact voice depends on the phone/browser.
+    */
+
+    const preferred =
+        voices.find(v =>
+            /en/i.test(v.lang) &&
+            /natural|enhanced|premium/i.test(v.name)
+        );
+
+    if(preferred){
+        return preferred;
+    }
+
+    const english =
+        voices.find(v =>
+            /^en/i.test(v.lang)
+        );
+
+    return english || voices[0];
 
 }
 
 
-/*
-   Also attempt playback even if
-   sessionStorage isn't available.
-*/
+/* =========================================================
+   VOICE MESSAGE
+========================================================= */
 
-window.addEventListener(
-    "load",
-    ()=>{
+function speakBirthdayMessage(){
 
-        playPiano();
+    if(!("speechSynthesis" in window)){
+
+        alert(
+            "Sorry, this phone/browser does not support spoken messages."
+        );
+
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const message =
+        new SpeechSynthesisUtterance(
+            birthdayMessage
+        );
+
+    message.lang = "en-US";
+
+    /*
+       Slightly slower so the message
+       feels calm and cinematic.
+    */
+
+    message.rate = .9;
+
+    message.pitch = 1;
+
+    const voice =
+        getVoice();
+
+    if(voice){
+
+        message.voice =
+            voice;
+
+    }
+
+    voiceButton.textContent =
+        "PLAYING YOUR MESSAGE 🎙️";
+
+    voiceButton.disabled =
+        true;
+
+    speechSynthesis.speak(
+        message
+    );
+
+
+    message.onend = () => {
+
+        voiceButton.textContent =
+            "HEAR YOUR MESSAGE 🎙️";
+
+        voiceButton.disabled =
+            false;
+
+        heartExplosion();
+
+    };
+
+
+    message.onerror = () => {
+
+        voiceButton.textContent =
+            "HEAR YOUR MESSAGE 🎙️";
+
+        voiceButton.disabled =
+            false;
+
+    };
+
+}
+
+
+/* =========================================================
+   LOAD VOICES
+========================================================= */
+
+if("speechSynthesis" in window){
+
+    speechSynthesis.onvoiceschanged =
+        () => {
+
+            speechSynthesis.getVoices();
+
+        };
+
+}
+
+
+/* =========================================================
+   VOICE BUTTON
+========================================================= */
+
+voiceButton.addEventListener(
+    "click",
+    () => {
+
+        heartExplosion();
+
+        speakBirthdayMessage();
 
     }
 );
 
 
-/* REVEALS */
+/* =========================================================
+   HEART EXPLOSION
+========================================================= */
 
-const reveals =
+function heartExplosion(){
+
+    const hearts = [
+        "❤️",
+        "🩷",
+        "💗",
+        "💖",
+        "💕",
+        "💫"
+    ];
+
+    for(let i = 0; i < 35; i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.className =
+            "explosion-heart";
+
+        heart.textContent =
+            hearts[
+                Math.floor(
+                    Math.random() *
+                    hearts.length
+                )
+            ];
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+        const distance =
+            180 +
+            Math.random() *
+            500;
+
+        const x =
+            Math.cos(angle) *
+            distance;
+
+        const y =
+            Math.sin(angle) *
+            distance;
+
+        const rotation =
+            (Math.random() - .5) *
+            500;
+
+        heart.style.setProperty(
+            "--x",
+            x + "px"
+        );
+
+        heart.style.setProperty(
+            "--y",
+            y + "px"
+        );
+
+        heart.style.setProperty(
+            "--rot",
+            rotation + "deg"
+        );
+
+        heart.style.animationDuration =
+            (1.5 + Math.random() * 1.5) +
+            "s";
+
+        document.body.appendChild(
+            heart
+        );
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        },3500);
+
+    }
+
+}
+
+
+/* =========================================================
+   SCROLL REVEALS
+========================================================= */
+
+const revealElements =
     document.querySelectorAll(
         ".reveal"
     );
 
-const observer =
+const revealObserver =
     new IntersectionObserver(
-        entries=>{
+        entries => {
 
             entries.forEach(
-                entry=>{
+                entry => {
 
-                    if(entry.isIntersecting){
+                    if(
+                        entry.isIntersecting
+                    ){
 
                         entry.target.classList.add(
                             "show"
@@ -1281,13 +1977,203 @@ const observer =
         }
     );
 
-reveals.forEach(
-    element =>
-        observer.observe(element)
+
+revealElements.forEach(
+    element => {
+
+        revealObserver.observe(
+            element
+        );
+
+    }
+);
+
+
+/* =========================================================
+   STARFIELD
+========================================================= */
+
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars = [];
+
+
+function resizeCanvas(){
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+
+/* CREATE STARS */
+
+for(
+    let i = 0;
+    i < 320;
+    i++
+){
+
+    stars.push({
+
+        x:
+            Math.random() *
+            canvas.width,
+
+        y:
+            Math.random() *
+            canvas.height,
+
+        r:
+            Math.random() *
+            1.5 + .2,
+
+        a:
+            Math.random(),
+
+        speed:
+            Math.random() *
+            .45 + .08
+
+    });
+
+}
+
+
+/* DRAW STARS */
+
+function drawStars(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    stars.forEach(
+        star => {
+
+            star.y -=
+                star.speed;
+
+            if(star.y < 0){
+
+                star.y =
+                    canvas.height;
+
+                star.x =
+                    Math.random() *
+                    canvas.width;
+
+            }
+
+            star.a +=
+                (Math.random() - .5) *
+                .025;
+
+            star.a =
+                Math.max(
+                    .15,
+                    Math.min(
+                        1,
+                        star.a
+                    )
+                );
+
+            ctx.beginPath();
+
+            ctx.arc(
+                star.x,
+                star.y,
+                star.r,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                `rgba(
+                    255,
+                    255,
+                    255,
+                    ${star.a}
+                )`;
+
+            ctx.fill();
+
+        }
+    );
+
+    requestAnimationFrame(
+        drawStars
+    );
+
+}
+
+drawStars();
+
+
+/* =========================================================
+   EXTRA HEARTS AFTER ENTRY
+========================================================= */
+
+setTimeout(() => {
+
+    if(main.classList.contains("visible")){
+
+        heartExplosion();
+
+    }
+
+},4500);
+
+
+/* =========================================================
+   TRY TO KEEP PIANO STARTED WHEN PAGE LOADS AFTER
+   NAVIGATION IF BROWSER ALLOWS IT
+========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        /*
+          Browsers may block automatic audio.
+          The ENTER button is therefore the reliable
+          starting point.
+        */
+
+        if(
+            sessionStorage.getItem(
+                "pianoWasPlaying"
+            ) === "true"
+        ){
+
+            sessionStorage.removeItem(
+                "pianoWasPlaying"
+            );
+
+        }
+
+    }
 );
 
 </script>
 
 </body>
 </html>
-```
