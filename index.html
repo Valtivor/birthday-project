@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Esther — ECO STAR ⭐</title>
+<title>Esther — ECO STAR 💫</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -24,20 +21,23 @@ html{
 }
 
 body{
-    background:#050507;
-    color:white;
-    font-family:"Manrope",sans-serif;
+    background:#050509;
+    color:#fff;
+    font-family:'Manrope',sans-serif;
     overflow-x:hidden;
 }
+
+/* ================= BACKGROUND ================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
     background:
-        radial-gradient(circle at 20% 20%,rgba(255,70,150,.16),transparent 28%),
-        radial-gradient(circle at 80% 30%,rgba(130,70,255,.13),transparent 30%),
-        radial-gradient(circle at 50% 90%,rgba(255,180,70,.10),transparent 30%);
+        radial-gradient(circle at 20% 20%,rgba(255,80,150,.12),transparent 28%),
+        radial-gradient(circle at 80% 30%,rgba(120,70,255,.13),transparent 30%),
+        radial-gradient(circle at 50% 90%,rgba(255,170,70,.09),transparent 35%);
+    pointer-events:none;
     z-index:-5;
 }
 
@@ -45,36 +45,61 @@ body::after{
     content:"";
     position:fixed;
     inset:0;
+    opacity:.06;
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+        linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);
     background-size:70px 70px;
     pointer-events:none;
+    z-index:-4;
+}
+
+/* ================= STAR CANVAS ================= */
+
+#stars{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
     z-index:-3;
 }
+
+/* ================= NOISE ================= */
 
 .noise{
     position:fixed;
     inset:0;
     pointer-events:none;
+    z-index:100;
     opacity:.035;
-    z-index:20;
-
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-#stars{
+/* ================= GIANT BACKGROUND TEXT ================= */
+
+.bg-word{
     position:fixed;
-    inset:0;
-    z-index:-4;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(150px,25vw,500px);
+    font-weight:600;
+    color:rgba(255,255,255,.018);
+    letter-spacing:-.06em;
+    white-space:nowrap;
+    pointer-events:none;
+    z-index:-2;
 }
+
+/* ================= HEARTS ================= */
 
 #heartLayer{
     position:fixed;
     inset:0;
     pointer-events:none;
     overflow:hidden;
-    z-index:30;
+    z-index:90;
 }
 
 .heart{
@@ -82,236 +107,213 @@ body::after{
     bottom:-50px;
     opacity:0;
     animation:riseHeart linear forwards;
-    filter:drop-shadow(0 0 10px rgba(255,100,180,.4));
+    filter:drop-shadow(0 0 10px rgba(255,100,180,.35));
 }
 
 @keyframes riseHeart{
-
     0%{
-        transform:translateY(0) translateX(0) rotate(0deg) scale(.6);
+        transform:translateY(0) scale(.5) rotate(0deg);
         opacity:0;
     }
-
     10%{
-        opacity:.8;
+        opacity:.85;
     }
-
-    50%{
+    80%{
         opacity:.65;
     }
-
     100%{
         transform:
-            translateY(-110vh)
+            translateY(-115vh)
             translateX(var(--drift))
-            rotate(var(--rotate))
-            scale(1.2);
+            scale(1.1)
+            rotate(var(--rotation));
         opacity:0;
     }
 }
 
-/* ENTRY */
+/* ================= ENTRY ================= */
 
 #entry{
     position:fixed;
     inset:0;
-    z-index:50;
+    background:
+        radial-gradient(circle at center,rgba(255,100,170,.12),transparent 25%),
+        #050509;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
-    background:#040406;
-    transition:1.3s ease;
+    z-index:200;
+    transition:1.4s ease;
 }
 
-#entry.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
+.entry-content{
+    width:min(900px,90%);
 }
 
-.entryContent{
-    position:relative;
-    z-index:2;
-    padding:30px;
-}
-
-.entrySmall{
-    letter-spacing:6px;
-    font-size:10px;
+.entry-small{
+    font-size:11px;
+    letter-spacing:.4em;
     text-transform:uppercase;
-    opacity:.55;
-    margin-bottom:30px;
+    color:rgba(255,255,255,.55);
+    margin-bottom:35px;
 }
 
-.starRing{
-    width:120px;
-    height:120px;
-    margin:auto;
+.star-ring{
+    width:130px;
+    height:130px;
     border:1px solid rgba(255,255,255,.18);
     border-radius:50%;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:center;
     position:relative;
-    animation:spin 18s linear infinite;
+    animation:spin 14s linear infinite;
     box-shadow:
-        0 0 40px rgba(255,100,180,.15),
-        inset 0 0 30px rgba(255,255,255,.04);
+        0 0 40px rgba(255,100,180,.12),
+        inset 0 0 30px rgba(255,255,255,.03);
 }
 
-.starRing::before,
-.starRing::after{
+.star-ring::before,
+.star-ring::after{
     content:"";
     position:absolute;
     border:1px solid rgba(255,255,255,.08);
     border-radius:50%;
 }
 
-.starRing::before{
-    inset:-14px;
+.star-ring::before{
+    inset:15px;
 }
 
-.starRing::after{
-    inset:14px;
+.star-ring::after{
+    inset:30px;
 }
 
-.starRing span{
+.star-ring span{
     font-size:42px;
-    animation:counterSpin 18s linear infinite;
+    animation:pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg);}
+    to{transform:rotate(360deg)}
 }
 
-@keyframes counterSpin{
-    to{transform:rotate(-360deg);}
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.18)}
 }
 
-.entryTitle{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(70px,12vw,160px);
+.entry-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(80px,15vw,190px);
     line-height:.8;
-    margin-top:40px;
-    font-weight:500;
-    letter-spacing:-5px;
+    margin-top:50px;
+    letter-spacing:-.07em;
 }
 
-.entrySubtitle{
+.entry-sub{
     margin-top:25px;
-    letter-spacing:9px;
     font-size:12px;
-    color:#ffb6d7;
+    letter-spacing:.5em;
+    color:#f1a5c7;
 }
 
-.entryText{
-    margin-top:22px;
-    opacity:.55;
-    font-size:13px;
-}
-
-.enterBtn{
-    margin-top:42px;
-    border:1px solid rgba(255,255,255,.22);
-    background:rgba(255,255,255,.035);
+.enter-btn{
+    margin-top:50px;
+    padding:17px 35px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.04);
     color:white;
-    padding:17px 30px;
-    border-radius:50px;
-    letter-spacing:3px;
+    border-radius:100px;
+    letter-spacing:.18em;
     font-size:11px;
     cursor:pointer;
     transition:.4s;
     backdrop-filter:blur(15px);
 }
 
-.enterBtn:hover{
-    transform:translateY(-4px);
+.enter-btn:hover{
     background:white;
-    color:black;
-    box-shadow:0 15px 50px rgba(255,255,255,.15);
+    color:#050509;
+    transform:translateY(-4px);
+    box-shadow:0 15px 50px rgba(255,100,180,.25);
 }
 
-/* NAV */
+.entry-date{
+    margin-top:30px;
+    font-size:10px;
+    letter-spacing:.35em;
+    color:rgba(255,255,255,.35);
+}
+
+/* ================= NAV ================= */
 
 nav{
     position:fixed;
     top:0;
     left:0;
     right:0;
-    height:80px;
+    z-index:50;
+    padding:28px 5%;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    padding:0 6%;
-    z-index:15;
+    align-items:center;
     mix-blend-mode:screen;
 }
 
 .logo{
-    font-family:"Cormorant Garamond",serif;
-    font-size:30px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:28px;
 }
 
-.navText{
-    font-size:9px;
-    letter-spacing:3px;
-    opacity:.55;
+.nav-right{
+    font-size:10px;
+    letter-spacing:.25em;
+    color:rgba(255,255,255,.55);
 }
 
-/* MUSIC */
+/* ================= MUSIC ================= */
 
-.musicIndicator{
+.music-indicator{
     position:fixed;
-    right:25px;
     bottom:25px;
-    z-index:40;
-    padding:12px 17px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(10,10,14,.65);
+    left:25px;
+    z-index:60;
+    padding:10px 15px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:100px;
+    background:rgba(0,0,0,.3);
     backdrop-filter:blur(15px);
-    border-radius:30px;
     font-size:9px;
-    letter-spacing:2px;
+    letter-spacing:.18em;
+    color:rgba(255,255,255,.6);
+    transition:.4s;
+}
+
+.music-indicator.playing{
+    color:#fff;
+    border-color:rgba(255,160,200,.4);
+    box-shadow:0 0 25px rgba(255,100,180,.12);
+}
+
+/* ================= MAIN ================= */
+
+main{
     opacity:0;
-    transform:translateY(20px);
-    transition:.5s;
+    transition:2s ease;
 }
 
-.musicIndicator.active{
-    opacity:.8;
-    transform:translateY(0);
+main.visible{
+    opacity:1;
 }
 
-.musicBars{
-    display:inline-flex;
-    gap:3px;
-    margin-right:8px;
-    vertical-align:middle;
+section{
+    position:relative;
 }
 
-.musicBars span{
-    display:block;
-    width:2px;
-    height:10px;
-    background:#ffafd0;
-    animation:bars .7s infinite alternate;
-}
-
-.musicBars span:nth-child(2){
-    animation-delay:.2s;
-}
-
-.musicBars span:nth-child(3){
-    animation-delay:.4s;
-}
-
-@keyframes bars{
-    from{height:4px;}
-    to{height:14px;}
-}
-
-/* HERO */
+/* ================= HERO ================= */
 
 .hero{
     min-height:100vh;
@@ -319,37 +321,27 @@ nav{
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:100px 20px;
-    position:relative;
+    padding:120px 8%;
 }
 
-.heroGlow{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    background:rgba(255,80,160,.08);
-    filter:blur(100px);
+.hero-content{
+    max-width:1200px;
 }
 
-.heroContent{
-    position:relative;
-    z-index:2;
-}
-
-.mini{
+.kicker{
     font-size:10px;
-    letter-spacing:7px;
-    color:#ffafd0;
-    margin-bottom:25px;
+    letter-spacing:.5em;
+    color:#f1a5c7;
+    text-transform:uppercase;
+    margin-bottom:35px;
 }
 
 .hero h1{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(75px,14vw,190px);
-    line-height:.75;
+    font-family:'Cormorant Garamond',serif;
     font-weight:500;
-    letter-spacing:-7px;
+    font-size:clamp(70px,13vw,180px);
+    line-height:.8;
+    letter-spacing:-.07em;
 }
 
 .hero h1 span{
@@ -357,53 +349,57 @@ nav{
     font-style:italic;
 }
 
-.heroDesc{
-    max-width:600px;
-    margin:40px auto 0;
+.hero-description{
+    max-width:550px;
+    margin:45px auto 0;
+    color:rgba(255,255,255,.58);
+    line-height:1.9;
     font-size:14px;
-    line-height:2;
-    opacity:.55;
 }
 
-/* SECTIONS */
+/* ================= INTRO ================= */
 
-section{
-    position:relative;
-    padding:150px 7%;
-}
-
-.sectionLabel{
-    font-size:9px;
-    letter-spacing:5px;
-    color:#ffafd0;
-    margin-bottom:30px;
-}
-
-.bigText{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(60px,10vw,150px);
-    font-weight:500;
-    line-height:.85;
-    letter-spacing:-5px;
-}
-
-.special{
+.intro{
     min-height:80vh;
     display:flex;
     align-items:center;
+    justify-content:center;
+    padding:120px 8%;
 }
 
-.special p{
-    max-width:600px;
+.intro-inner{
+    max-width:1000px;
+}
+
+.eyebrow{
+    font-size:10px;
+    letter-spacing:.45em;
+    color:#f1a5c7;
+    margin-bottom:25px;
+}
+
+.intro h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(55px,8vw,115px);
+    line-height:.9;
+    font-weight:500;
+    letter-spacing:-.05em;
+}
+
+.intro p{
     margin-top:45px;
+    max-width:650px;
+    color:rgba(255,255,255,.55);
     line-height:2;
-    opacity:.58;
-    font-size:15px;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
 
 .cards{
+    padding:120px 7%;
+}
+
+.cards-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:20px;
@@ -411,173 +407,239 @@ section{
 }
 
 .card{
-    min-height:300px;
-    padding:35px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.025);
+    min-height:390px;
+    border:1px solid rgba(255,255,255,.09);
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.015)
+    );
     backdrop-filter:blur(20px);
+    padding:40px;
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
-    transition:.5s;
+    position:relative;
+    overflow:hidden;
+    transition:.6s;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,100,180,.1);
+    filter:blur(50px);
+    top:-80px;
+    right:-80px;
 }
 
 .card:hover{
-    transform:translateY(-10px);
-    border-color:rgba(255,160,210,.3);
-    box-shadow:0 30px 80px rgba(0,0,0,.4);
+    transform:translateY(-12px);
+    border-color:rgba(255,180,210,.25);
 }
 
-.cardNumber{
-    font-size:10px;
-    opacity:.35;
-    margin-bottom:auto;
+.card-number{
+    position:absolute;
+    top:30px;
+    right:30px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;
+    color:rgba(255,255,255,.25);
 }
 
 .card h3{
-    font-family:"Cormorant Garamond",serif;
-    font-size:40px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:48px;
     font-weight:500;
 }
 
 .card p{
-    font-size:12px;
+    color:rgba(255,255,255,.5);
     line-height:1.8;
-    opacity:.5;
-    margin-top:12px;
+    margin-top:15px;
 }
 
-/* ECO STAR */
+/* ================= ECO STAR ================= */
 
 .eco{
-    min-height:90vh;
+    min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
-    overflow:hidden;
+    padding:100px 5%;
 }
 
-.ecoWord{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(80px,18vw,260px);
-    letter-spacing:-10px;
+.eco-word{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(90px,18vw,260px);
+    line-height:.75;
+    letter-spacing:-.08em;
+    background:linear-gradient(
+        120deg,
+        #fff,
+        #f7a9cb,
+        #fff
+    );
+    -webkit-background-clip:text;
     color:transparent;
-    -webkit-text-stroke:1px rgba(255,255,255,.2);
-    position:absolute;
-    white-space:nowrap;
 }
 
-.ecoCenter{
-    position:relative;
-    z-index:2;
+.eco-sub{
+    margin-top:50px;
+    letter-spacing:.5em;
+    font-size:11px;
+    color:rgba(255,255,255,.45);
 }
 
-.ecoStar{
-    font-size:70px;
-    margin-bottom:25px;
-    animation:floatStar 4s ease-in-out infinite;
-}
-
-@keyframes floatStar{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-15px);}
-}
-
-.ecoCenter h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:70px;
-    font-weight:500;
-}
-
-.ecoCenter p{
-    margin-top:15px;
-    opacity:.5;
-    font-size:12px;
-    letter-spacing:3px;
-}
-
-/* LETTER */
-
-.letterSection{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-}
+/* ================= LETTER ================= */
 
 .letter{
-    max-width:900px;
+    padding:160px 8%;
+}
+
+.letter-box{
+    max-width:950px;
+    margin:auto;
+    padding:80px;
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.025);
+    backdrop-filter:blur(25px);
+    position:relative;
+}
+
+.letter-box::before{
+    content:"“";
+    position:absolute;
+    top:-45px;
+    left:35px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:150px;
+    color:rgba(255,255,255,.06);
 }
 
 .letter h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(60px,9vw,130px);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(55px,7vw,90px);
+    font-weight:500;
+}
+
+.letter p{
+    margin-top:35px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:25px;
+    line-height:1.7;
+    color:rgba(255,255,255,.72);
+}
+
+.signature{
+    margin-top:55px;
+    font-size:10px;
+    letter-spacing:.3em;
+    line-height:2.3;
+    color:#f1a5c7;
+}
+
+/* ================= BESTIE ================= */
+
+.bestie{
+    min-height:75vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:100px 7%;
+}
+
+.bestie-inner{
+    max-width:850px;
+}
+
+.bestie-label{
+    font-size:10px;
+    letter-spacing:.5em;
+    color:#f1a5c7;
+    margin-bottom:35px;
+}
+
+.bestie h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(55px,9vw,110px);
+    line-height:.9;
+    font-weight:500;
+    letter-spacing:-.05em;
+}
+
+.bestie h2 span{
+    font-style:italic;
+}
+
+.bestie p{
+    max-width:650px;
+    margin:40px auto 0;
+    color:rgba(255,255,255,.55);
+    line-height:2;
+    font-size:14px;
+}
+
+.bestie-sign{
+    margin-top:50px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;
+    color:#fff;
+}
+
+/* ================= SURPRISE ================= */
+
+.surprise{
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 7%;
+}
+
+.surprise-inner{
+    max-width:900px;
+}
+
+.surprise h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(65px,10vw,130px);
     line-height:.85;
     font-weight:500;
 }
 
-.letterBody{
-    max-width:650px;
-    margin-top:55px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:26px;
-    line-height:1.6;
-    color:rgba(255,255,255,.75);
-}
-
-.signature{
-    margin-top:40px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:30px;
-    font-style:italic;
-    color:#ffafd0;
-}
-
-/* SURPRISE */
-
-.surpriseSection{
-    min-height:85vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-.surpriseBox{
-    max-width:800px;
-}
-
-.surpriseBox h2{
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(60px,9vw,120px);
-    font-weight:500;
-}
-
-.surpriseBox p{
-    margin:30px auto;
-    max-width:500px;
-    line-height:2;
-    opacity:.5;
+.surprise p{
+    margin:35px auto;
+    max-width:550px;
+    color:rgba(255,255,255,.5);
+    line-height:1.9;
 }
 
 .surpriseLink{
     display:inline-flex;
     align-items:center;
-    gap:15px;
+    gap:20px;
+    padding:20px 30px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:100px;
+    color:#fff;
     text-decoration:none;
-    color:white;
-    padding:20px 35px;
-    border:1px solid rgba(255,255,255,.2);
-    border-radius:50px;
-    letter-spacing:3px;
-    font-size:10px;
-    background:rgba(255,255,255,.03);
+    font-size:11px;
+    letter-spacing:.22em;
     transition:.5s;
+    background:rgba(255,255,255,.03);
+    backdrop-filter:blur(15px);
 }
 
 .surpriseLink:hover{
-    background:white;
-    color:#050507;
+    background:#fff;
+    color:#050509;
     transform:translateY(-5px) scale(1.03);
     box-shadow:0 20px 70px rgba(255,100,180,.2);
 }
@@ -586,28 +648,50 @@ section{
     font-size:20px;
 }
 
-/* FOOTER */
+/* ================= FINAL ================= */
 
-footer{
-    padding:80px 7%;
+.final{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     text-align:center;
-    border-top:1px solid rgba(255,255,255,.06);
+    padding:100px 5%;
 }
 
-footer h3{
-    font-family:"Cormorant Garamond",serif;
-    font-size:45px;
+.final h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(80px,16vw,220px);
+    line-height:.75;
+    letter-spacing:-.08em;
     font-weight:500;
 }
 
-footer p{
-    margin-top:15px;
-    opacity:.35;
-    font-size:9px;
-    letter-spacing:4px;
+.final h2 span{
+    display:block;
+    font-style:italic;
 }
 
-/* REVEAL */
+.final-small{
+    margin-top:50px;
+    letter-spacing:.45em;
+    font-size:10px;
+    color:#f1a5c7;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:60px 7%;
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid rgba(255,255,255,.06);
+    color:rgba(255,255,255,.3);
+    font-size:9px;
+    letter-spacing:.25em;
+}
+
+/* ================= REVEAL ================= */
 
 .reveal{
     opacity:0;
@@ -620,86 +704,79 @@ footer p{
     transform:translateY(0);
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:800px){
 
-    nav{
-        padding:0 25px;
-    }
-
-    section{
-        padding:110px 25px;
-    }
-
-    .cards{
+    .cards-grid{
         grid-template-columns:1fr;
     }
 
     .card{
-        min-height:250px;
+        min-height:330px;
     }
 
-    .entryTitle{
-        font-size:80px;
+    .letter-box{
+        padding:45px 25px;
     }
 
-    .hero h1{
-        font-size:80px;
+    .letter p{
+        font-size:21px;
     }
 
-    .letterBody{
-        font-size:22px;
+    footer{
+        flex-direction:column;
+        gap:15px;
     }
 
-    .ecoWord{
-        font-size:100px;
+    .music-indicator{
+        bottom:15px;
+        left:15px;
     }
 
+    .entry-name{
+        font-size:90px;
+    }
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="noise"></div>
+<div class="bg-word">ESTHER</div>
 
 <canvas id="stars"></canvas>
 
 <div id="heartLayer"></div>
 
-<!-- ENTRY -->
+<!-- ================= ENTRY ================= -->
 
 <div id="entry">
 
-    <div class="entryContent">
+    <div class="entry-content">
 
-        <div class="entrySmall">
+        <div class="entry-small">
             A little universe made for someone special
         </div>
 
-        <div class="starRing">
+        <div class="star-ring">
             <span>💫</span>
         </div>
 
-        <div class="entryTitle">
+        <div class="entry-name">
             Esther.
         </div>
 
-        <div class="entrySubtitle">
+        <div class="entry-sub">
             ECO STAR
         </div>
 
-        <div class="entryText">
-            Before you continue... I made something special for you.
-        </div>
-
-        <button class="enterBtn" id="enterBtn">
+        <button class="enter-btn" id="enterBtn">
             ENTER THE MOMENT ↗
         </button>
 
-        <div class="entrySmall" style="margin-top:35px;margin-bottom:0;">
+        <div class="entry-date">
             OCTOBER 07 · ECO STAR DAY
         </div>
 
@@ -707,301 +784,7 @@ footer p{
 
 </div>
 
-<!-- NAV -->
-
-<nav>
-
-    <div class="logo">
-        E.
-    </div>
-
-    <div class="navText">
-        07 · 10 · ECO STAR
-    </div>
-
-</nav>
-
-<!-- MUSIC INDICATOR -->
-
-<div class="musicIndicator" id="musicIndicator">
-
-    <span class="musicBars">
-        <span></span>
-        <span></span>
-        <span></span>
-    </span>
-
-    YOUR PIANO 🎹
-
-</div>
-
-<main>
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="heroGlow"></div>
-
-    <div class="heroContent reveal">
-
-        <div class="mini">
-            OCTOBER 07 · 2026
-        </div>
-
-        <h1>
-            Happy Birthday,
-            <span>Esther.</span>
-        </h1>
-
-        <p class="heroDesc">
-            Today isn't just another date on the calendar.
-            It's the day the world got a little brighter
-            because you were born.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- SPECIAL -->
-
-<section class="special">
-
-    <div class="reveal">
-
-        <div class="sectionLabel">
-            THIS IS FOR YOU
-        </div>
-
-        <div class="bigText">
-            Some people<br>
-            deserve more.
-        </div>
-
-        <p>
-            A normal birthday message didn't feel like enough.
-            So instead of just saying Happy Birthday,
-            I wanted to create a little world around those words.
-            Something you could open and remember.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- MEMORIES -->
-
-<section>
-
-    <div class="reveal">
-
-        <div class="sectionLabel">
-            THE GOOD STUFF
-        </div>
-
-        <div class="bigText">
-            Things that<br>
-            make you...
-        </div>
-
-        <div class="cards">
-
-            <div class="card">
-                <div class="cardNumber">01</div>
-
-                <h3>
-                    The laughs.
-                </h3>
-
-                <p>
-                    The random moments, ridiculous conversations,
-                    and those little things that somehow become
-                    the memories you never forget.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="cardNumber">02</div>
-
-                <h3>
-                    The friendship.
-                </h3>
-
-                <p>
-                    Some friendships just feel different.
-                    Easy. Genuine. Comfortable.
-                    The kind where you can simply be yourself.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="cardNumber">03</div>
-
-                <h3>
-                    The memories.
-                </h3>
-
-                <p>
-                    Not every great memory has to be dramatic.
-                    Sometimes it's the tiny moments that stay
-                    with you the longest.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ECO STAR -->
-
-<section class="eco">
-
-    <div class="ecoWord">
-        ECO STAR
-    </div>
-
-    <div class="ecoCenter reveal">
-
-        <div class="ecoStar">
-            💫
-        </div>
-
-        <h2>
-            ECO STAR
-        </h2>
-
-        <p>
-            BECAUSE SOME PEOPLE JUST HAVE THAT LIGHT.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- LITTLE MESSAGE -->
-
-<section class="letterSection">
-
-    <div class="letter reveal">
-
-        <div class="sectionLabel">
-            A LITTLE MESSAGE
-        </div>
-
-        <h2>
-            Just something<br>
-            I wanted you to know.
-        </h2>
-
-        <div class="letterBody">
-
-            Esther,
-
-            <br><br>
-
-            Happy Birthday to someone genuinely special.
-
-            <br><br>
-
-            I hope this new chapter of your life brings you
-            beautiful moments, genuine happiness, amazing
-            opportunities, and countless reasons to smile.
-
-            <br><br>
-
-            Never forget that you are capable of becoming
-            everything you dream about. Keep growing.
-            Keep learning. Keep laughing. Keep being yourself.
-
-            <br><br>
-
-            And whenever life gets busy and everything starts
-            moving too quickly, I hope you remember the little
-            moments that made you smile along the way.
-
-            <br><br>
-
-            Today is your day.
-
-            <br><br>
-
-            So enjoy it.
-
-            <br>
-
-            Celebrate yourself.
-
-            <br>
-
-            And keep shining, ECO STAR. 💫
-
-        </div>
-
-        <div class="signature">
-            — From someone who thinks you're pretty amazing.
-        </div>
-
-    </div>
-
-</section>
-
-<!-- SURPRISE -->
-
-<section class="surpriseSection">
-
-    <div class="surpriseBox reveal">
-
-        <div class="sectionLabel">
-            ONE MORE THING
-        </div>
-
-        <h2>
-            You thought<br>
-            that was everything?
-        </h2>
-
-        <p>
-            Nope.
-
-            <br><br>
-
-            There's one more little universe waiting for you.
-        </p>
-
-        <a href="surprise.html" class="surpriseLink" id="surpriseLink">
-
-            OPEN THE SURPRISE
-
-            <span class="arrow">
-                💫
-            </span>
-
-        </a>
-
-    </div>
-
-</section>
-
-</main>
-
-<!-- FOOTER -->
-
-<footer>
-
-    <h3>
-        Happy Birthday, Esther.
-    </h3>
-
-    <p>
-        ECO STAR ⭐ · OCTOBER 07
-    </p>
-
-</footer>
-
-<!-- YOUR REAL PIANO -->
+<!-- ================= MUSIC ================= -->
 
 <audio
     id="pianoRecording"
@@ -1009,46 +792,470 @@ footer p{
     preload="auto">
 </audio>
 
+<div class="music-indicator" id="musicIndicator">
+    YOUR PIANO 🎹
+</div>
+
+<!-- ================= NAV ================= -->
+
+<nav>
+
+    <div class="logo">
+        E.
+    </div>
+
+    <div class="nav-right">
+        07 · 10 · ECO STAR
+    </div>
+
+</nav>
+
+<!-- ================= MAIN ================= -->
+
+<main id="main">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content reveal">
+
+            <div class="kicker">
+                October 07 · A special day
+            </div>
+
+            <h1>
+                Happy Birthday,
+                <span>Esther.</span>
+            </h1>
+
+            <p class="hero-description">
+                Today isn't just another date on the calendar.
+                It's the day the world got one more reason to shine.
+                And somehow, that reason became my ECO STAR. 💫
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+
+    <section class="intro">
+
+        <div class="intro-inner reveal">
+
+            <div class="eyebrow">
+                A LITTLE SOMETHING
+            </div>
+
+            <h2>
+                Some people deserve
+                more than a simple
+                “Happy Birthday.”
+            </h2>
+
+            <p>
+                So instead of sending you an ordinary birthday message,
+                I wanted to create a tiny universe for you.
+                Something you could open, explore, smile at,
+                and hopefully remember.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CARDS -->
+
+    <section class="cards">
+
+        <div class="eyebrow reveal">
+            THINGS THAT MATTER
+        </div>
+
+        <div class="cards-grid">
+
+            <div class="card reveal">
+
+                <div class="card-number">01</div>
+
+                <h3>
+                    The laughs.
+                </h3>
+
+                <p>
+                    The random conversations, the unexpected jokes,
+                    the moments that somehow become memories without
+                    us even trying.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">02</div>
+
+                <h3>
+                    The friendship.
+                </h3>
+
+                <p>
+                    Some friendships don't need a complicated explanation.
+                    They simply feel right.
+                    That's what makes a bestie a bestie.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">03</div>
+
+                <h3>
+                    The memories.
+                </h3>
+
+                <p>
+                    The best part is knowing there are still so many
+                    moments ahead of us that haven't happened yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ECO STAR -->
+
+    <section class="eco">
+
+        <div class="reveal">
+
+            <div class="eco-word">
+                ECO STAR
+            </div>
+
+            <div class="eco-sub">
+                NOT JUST A NICKNAME · A WHOLE VIBE 💫
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LETTER -->
+
+    <section class="letter">
+
+        <div class="letter-box reveal">
+
+            <h2>
+                A little letter.
+            </h2>
+
+            <p>
+                Esther, I hope this new chapter brings you moments
+                that make you genuinely happy, people who appreciate
+                you, opportunities that surprise you, and memories
+                you'll look back on with a smile.
+
+                <br><br>
+
+                Keep being yourself.
+                Keep growing.
+                Keep dreaming.
+                Keep shining.
+
+                <br><br>
+
+                And whenever life gets busy, I hope you remember
+                that somewhere in this little corner of the internet,
+                there is a birthday page that exists simply because
+                someone thought you deserved something special.
+            </p>
+
+            <div class="signature">
+
+                WITH LOTS OF GOOD WISHES 💫<br>
+                FOR THE ONE AND ONLY ECO STAR ⭐
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BESTIE -->
+
+    <section class="bestie">
+
+        <div class="bestie-inner reveal">
+
+            <div class="bestie-label">
+                FROM YOUR BESTIE ❤️
+            </div>
+
+            <h2>
+                For all the laughs,
+                <span>all the random moments,</span>
+                and all the memories still waiting to happen.
+            </h2>
+
+            <p>
+                I hope this birthday reminds you just how special
+                you are. Thank you for being the kind of person who
+                makes friendship feel easy, fun, genuine, and worth
+                remembering.
+
+                <br><br>
+
+                There are still plenty of laughs ahead,
+                plenty of stories we haven't told yet,
+                and plenty of memories waiting for us.
+
+                <br><br>
+
+                Happy Birthday, ECO STAR. 💫
+            </p>
+
+            <div class="bestie-sign">
+                — Your Bestie ❤️
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SURPRISE -->
+
+    <section class="surprise">
+
+        <div class="surprise-inner reveal">
+
+            <div class="eyebrow">
+                BUT WAIT...
+            </div>
+
+            <h2>
+                There's
+                <i>more.</i>
+            </h2>
+
+            <p>
+                You thought that was everything?
+
+                Absolutely not.
+
+                There's another side of this little universe
+                waiting for you.
+            </p>
+
+            <a
+                href="surprise.html"
+                class="surpriseLink"
+                id="surpriseLink">
+
+                OPEN THE SURPRISE
+
+                <span class="arrow">
+                    💫
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FINAL -->
+
+    <section class="final">
+
+        <div class="reveal">
+
+            <h2>
+                Happy
+                <span>Birthday.</span>
+            </h2>
+
+            <div class="final-small">
+                ESTHER · ECO STAR ⭐ · OCTOBER 07
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <div>
+            MADE FOR ESTHER
+        </div>
+
+        <div>
+            ECO STAR 💫
+        </div>
+
+    </footer>
+
+</main>
+
+
 <script>
 
-/* STARFIELD */
+/* ================= ENTRY ================= */
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+const entry = document.getElementById("entry");
+const main = document.getElementById("main");
+const enterBtn = document.getElementById("enterBtn");
 
-let stars = [];
+let entered = false;
 
-function resizeCanvas(){
+enterBtn.addEventListener("click", () => {
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if(entered) return;
+
+    entered = true;
+
+    entry.style.opacity = "0";
+    entry.style.pointerEvents = "none";
+
+    main.classList.add("visible");
+
+    startHearts();
+
+    startPiano();
+
+    setTimeout(() => {
+        entry.remove();
+    }, 1500);
+
+});
+
+
+/* ================= HEARTS ================= */
+
+const heartLayer = document.getElementById("heartLayer");
+
+const heartTypes = [
+    "❤️",
+    "🩷",
+    "💗",
+    "💖",
+    "💕"
+];
+
+function createHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.textContent =
+        heartTypes[
+            Math.floor(Math.random() * heartTypes.length)
+        ];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 20) + "px";
+
+    heart.style.animationDuration =
+        (6 + Math.random() * 8) + "s";
+
+    heart.style.setProperty(
+        "--drift",
+        ((Math.random() - .5) * 180) + "px"
+    );
+
+    heart.style.setProperty(
+        "--rotation",
+        ((Math.random() - .5) * 120) + "deg"
+    );
+
+    heartLayer.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 15000);
+}
+
+function startHearts(){
+
+    setInterval(() => {
+
+        createHeart();
+
+        if(Math.random() > .65){
+            setTimeout(createHeart,300);
+        }
+
+    },700);
 
 }
 
-resizeCanvas();
 
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+/* ================= PIANO ================= */
 
-function createStars(){
+const piano =
+    document.getElementById("pianoRecording");
 
-    stars = [];
+const musicIndicator =
+    document.getElementById("musicIndicator");
 
-    for(let i = 0; i < 180; i++){
+let pianoStarted = false;
 
-        stars.push({
+function startPiano(){
 
-            x:Math.random() * canvas.width,
+    if(pianoStarted) return;
 
-            y:Math.random() * canvas.height,
+    pianoStarted = true;
 
-            r:Math.random() * 1.5,
+    piano.volume = 0;
 
-            speed:Math.random() * .3 + .05,
+    const playPromise = piano.play();
 
-            opacity:Math.random() * .8 + .1
+    if(playPromise !== undefined){
+
+        playPromise
+        .then(() => {
+
+            musicIndicator.classList.add("playing");
+
+            let volume = 0;
+
+            const fade = setInterval(() => {
+
+                volume += .02;
+
+                piano.volume =
+                    Math.min(volume,.8);
+
+                if(volume >= .8){
+                    clearInterval(fade);
+                }
+
+            },100);
+
+        })
+        .catch(() => {
+
+            musicIndicator.textContent =
+                "TAP TO PLAY 🎹";
 
         });
 
@@ -1056,9 +1263,113 @@ function createStars(){
 
 }
 
-createStars();
 
-function animateStars(){
+/* LOOP THE PIANO */
+
+piano.addEventListener("ended", () => {
+
+    piano.currentTime = 0;
+
+    piano.play();
+
+});
+
+
+/* ================= SURPRISE LINK ================= */
+
+const surpriseLink =
+    document.getElementById("surpriseLink");
+
+surpriseLink.addEventListener("click", () => {
+
+    sessionStorage.setItem(
+        "pianoWasPlaying",
+        "true"
+    );
+
+});
+
+
+/* ================= REVEAL ================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+revealElements.forEach(element => {
+
+    observer.observe(element);
+
+});
+
+
+/* ================= STARFIELD ================= */
+
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars = [];
+
+function resizeCanvas(){
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+
+for(let i = 0; i < 260; i++){
+
+    stars.push({
+
+        x:Math.random() * canvas.width,
+
+        y:Math.random() * canvas.height,
+
+        r:Math.random() * 1.4 + .2,
+
+        a:Math.random(),
+
+        s:Math.random() * .5 + .1
+
+    });
+
+}
+
+
+function drawStars(){
 
     ctx.clearRect(
         0,
@@ -1069,11 +1380,27 @@ function animateStars(){
 
     stars.forEach(star => {
 
-        star.y -= star.speed;
+        star.y -= star.s;
 
         if(star.y < 0){
-            star.y = canvas.height;
+
+            star.y =
+                canvas.height;
+
+            star.x =
+                Math.random() *
+                canvas.width;
+
         }
+
+        star.a +=
+            (Math.random() - .5) * .03;
+
+        star.a =
+            Math.max(
+                .15,
+                Math.min(1,star.a)
+            );
 
         ctx.beginPath();
 
@@ -1086,259 +1413,41 @@ function animateStars(){
         );
 
         ctx.fillStyle =
-            `rgba(255,255,255,${star.opacity})`;
+            `rgba(255,255,255,${star.a})`;
 
         ctx.fill();
 
     });
 
-    requestAnimationFrame(
-        animateStars
-    );
+    requestAnimationFrame(drawStars);
 
 }
 
-animateStars();
+drawStars();
 
 
-/* RISING HEARTS */
+/* ================= EXTRA HEART BURST ================= */
 
-const heartLayer =
-    document.getElementById("heartLayer");
+function heartBurst(){
 
-const heartSymbols = [
-    "❤️",
-    "🩷",
-    "💗",
-    "💖",
-    "💕"
-];
+    for(let i = 0; i < 18; i++){
 
-function createHeart(){
-
-    const heart =
-        document.createElement("div");
-
-    heart.className = "heart";
-
-    heart.innerText =
-        heartSymbols[
-            Math.floor(
-                Math.random() *
-                heartSymbols.length
-            )
-        ];
-
-    heart.style.left =
-        Math.random() * 100 + "vw";
-
-    heart.style.fontSize =
-        (10 + Math.random() * 18) + "px";
-
-    heart.style.animationDuration =
-        (7 + Math.random() * 7) + "s";
-
-    heart.style.setProperty(
-        "--drift",
-        ((Math.random() - .5) * 180) + "px"
-    );
-
-    heart.style.setProperty(
-        "--rotate",
-        ((Math.random() - .5) * 90) + "deg"
-    );
-
-    heartLayer.appendChild(
-        heart
-    );
-
-    setTimeout(() => {
-        heart.remove();
-    },15000);
-
-}
-
-let heartTimer = null;
-
-function startHearts(){
-
-    if(heartTimer) return;
-
-    heartTimer = setInterval(
-        createHeart,
-        500
-    );
-
-}
-
-
-/* PIANO */
-
-const piano =
-    document.getElementById(
-        "pianoRecording"
-    );
-
-const musicIndicator =
-    document.getElementById(
-        "musicIndicator"
-    );
-
-let pianoStarted = false;
-
-function startPiano(){
-
-    if(pianoStarted) return;
-
-    pianoStarted = true;
-
-    piano.currentTime = 0;
-    piano.volume = .78;
-
-    piano.play()
-        .then(() => {
-
-            musicIndicator.classList.add(
-                "active"
-            );
-
-        })
-        .catch(() => {
-
-            pianoStarted = false;
-
-        });
-
-}
-
-
-/* LOOP FOREVER ON PAGE 1 */
-
-piano.addEventListener(
-    "ended",
-    () => {
-
-        piano.currentTime = 0;
-
-        piano.play().catch(() => {});
-
-    }
-);
-
-
-/* ENTRY */
-
-const entry =
-    document.getElementById("entry");
-
-const enterBtn =
-    document.getElementById("enterBtn");
-
-enterBtn.addEventListener(
-    "click",
-    () => {
-
-        entry.classList.add("hide");
-
-        startHearts();
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-    }
-);
-
-
-/* REVEALS */
-
-const reveals =
-    document.querySelectorAll(".reveal");
-
-const revealObserver =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if(entry.isIntersecting){
-
-                    entry.target.classList.add(
-                        "show"
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold:.12
-        }
-    );
-
-reveals.forEach(
-    element =>
-        revealObserver.observe(element)
-);
-
-
-/* START MUSIC WHEN LITTLE MESSAGE APPEARS */
-
-const letterSection =
-    document.querySelector(
-        ".letterSection"
-    );
-
-const messageObserver =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if(entry.isIntersecting){
-
-                    startPiano();
-
-                }
-
-            });
-
-        },
-        {
-            threshold:.25
-        }
-    );
-
-messageObserver.observe(
-    letterSection
-);
-
-
-/* REMEMBER THAT MUSIC IS ON */
-
-const surpriseLink =
-    document.getElementById(
-        "surpriseLink"
-    );
-
-surpriseLink.addEventListener(
-    "click",
-    () => {
-
-        /*
-          Save the fact that the piano was playing.
-          Page 2 uses the same recording.
-        */
-
-        sessionStorage.setItem(
-            "pianoWasPlaying",
-            "true"
+        setTimeout(
+            createHeart,
+            i * 100
         );
 
     }
-);
+
+}
+
+setTimeout(() => {
+
+    if(main.classList.contains("visible")){
+        heartBurst();
+    }
+
+},4000);
 
 </script>
 
