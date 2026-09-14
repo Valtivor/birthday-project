@@ -8,6 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -28,8 +29,6 @@ body{
     font-family:"Manrope",sans-serif;
     overflow-x:hidden;
 }
-
-/* ================= BACKGROUND ================= */
 
 body::before{
     content:"";
@@ -60,18 +59,15 @@ body::after{
     pointer-events:none;
     opacity:.035;
     z-index:20;
+
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
-
-/* ================= STARFIELD ================= */
 
 #stars{
     position:fixed;
     inset:0;
     z-index:-4;
 }
-
-/* ================= HEARTS ================= */
 
 #heartLayer{
     position:fixed;
@@ -114,7 +110,7 @@ body::after{
     }
 }
 
-/* ================= ENTRY ================= */
+/* ENTRY */
 
 #entry{
     position:fixed;
@@ -236,7 +232,7 @@ body::after{
     box-shadow:0 15px 50px rgba(255,255,255,.15);
 }
 
-/* ================= NAV ================= */
+/* NAV */
 
 nav{
     position:fixed;
@@ -263,7 +259,59 @@ nav{
     opacity:.55;
 }
 
-/* ================= HERO ================= */
+/* MUSIC */
+
+.musicIndicator{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:40;
+    padding:12px 17px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(10,10,14,.65);
+    backdrop-filter:blur(15px);
+    border-radius:30px;
+    font-size:9px;
+    letter-spacing:2px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:.5s;
+}
+
+.musicIndicator.active{
+    opacity:.8;
+    transform:translateY(0);
+}
+
+.musicBars{
+    display:inline-flex;
+    gap:3px;
+    margin-right:8px;
+    vertical-align:middle;
+}
+
+.musicBars span{
+    display:block;
+    width:2px;
+    height:10px;
+    background:#ffafd0;
+    animation:bars .7s infinite alternate;
+}
+
+.musicBars span:nth-child(2){
+    animation-delay:.2s;
+}
+
+.musicBars span:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes bars{
+    from{height:4px;}
+    to{height:14px;}
+}
+
+/* HERO */
 
 .hero{
     min-height:100vh;
@@ -317,7 +365,7 @@ nav{
     opacity:.55;
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
     position:relative;
@@ -353,7 +401,7 @@ section{
     font-size:15px;
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .cards{
     display:grid;
@@ -399,7 +447,7 @@ section{
     margin-top:12px;
 }
 
-/* ================= ECO STAR ================= */
+/* ECO STAR */
 
 .eco{
     min-height:90vh;
@@ -449,7 +497,7 @@ section{
     letter-spacing:3px;
 }
 
-/* ================= LITTLE MESSAGE ================= */
+/* LETTER */
 
 .letterSection{
     min-height:100vh;
@@ -485,54 +533,7 @@ section{
     color:#ffafd0;
 }
 
-/* MUSIC INDICATOR */
-
-.musicIndicator{
-    position:fixed;
-    right:25px;
-    bottom:25px;
-    z-index:40;
-    padding:12px 17px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(10,10,14,.65);
-    backdrop-filter:blur(15px);
-    border-radius:30px;
-    font-size:9px;
-    letter-spacing:2px;
-    opacity:0;
-    transform:translateY(20px);
-    transition:.5s;
-}
-
-.musicIndicator.active{
-    opacity:.8;
-    transform:translateY(0);
-}
-
-.musicBars{
-    display:inline-flex;
-    gap:3px;
-    margin-right:8px;
-    vertical-align:middle;
-}
-
-.musicBars span{
-    display:block;
-    width:2px;
-    height:10px;
-    background:#ffafd0;
-    animation:bars .7s infinite alternate;
-}
-
-.musicBars span:nth-child(2){animation-delay:.2s;}
-.musicBars span:nth-child(3){animation-delay:.4s;}
-
-@keyframes bars{
-    from{height:4px;}
-    to{height:14px;}
-}
-
-/* ================= SURPRISE ================= */
+/* SURPRISE */
 
 .surpriseSection{
     min-height:85vh;
@@ -585,7 +586,7 @@ section{
     font-size:20px;
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer{
     padding:80px 7%;
@@ -606,7 +607,7 @@ footer p{
     letter-spacing:4px;
 }
 
-/* ================= REVEAL ================= */
+/* REVEAL */
 
 .reveal{
     opacity:0;
@@ -619,7 +620,7 @@ footer p{
     transform:translateY(0);
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -668,7 +669,7 @@ footer p{
 
 <div id="heartLayer"></div>
 
-<!-- ================= ENTRY ================= -->
+<!-- ENTRY -->
 
 <div id="entry">
 
@@ -706,8 +707,7 @@ footer p{
 
 </div>
 
-
-<!-- ================= NAV ================= -->
+<!-- NAV -->
 
 <nav>
 
@@ -721,8 +721,7 @@ footer p{
 
 </nav>
 
-
-<!-- MUSIC STATUS -->
+<!-- MUSIC INDICATOR -->
 
 <div class="musicIndicator" id="musicIndicator">
 
@@ -732,14 +731,13 @@ footer p{
         <span></span>
     </span>
 
-    A LITTLE MUSIC FOR YOU
+    YOUR PIANO 🎹
 
 </div>
 
-
-<!-- ================= HERO ================= -->
-
 <main>
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -766,8 +764,7 @@ footer p{
 
 </section>
 
-
-<!-- ================= SPECIAL ================= -->
+<!-- SPECIAL -->
 
 <section class="special">
 
@@ -793,8 +790,7 @@ footer p{
 
 </section>
 
-
-<!-- ================= MEMORIES ================= -->
+<!-- MEMORIES -->
 
 <section>
 
@@ -814,7 +810,9 @@ footer p{
             <div class="card">
                 <div class="cardNumber">01</div>
 
-                <h3>The laughs.</h3>
+                <h3>
+                    The laughs.
+                </h3>
 
                 <p>
                     The random moments, ridiculous conversations,
@@ -823,11 +821,12 @@ footer p{
                 </p>
             </div>
 
-
             <div class="card">
                 <div class="cardNumber">02</div>
 
-                <h3>The friendship.</h3>
+                <h3>
+                    The friendship.
+                </h3>
 
                 <p>
                     Some friendships just feel different.
@@ -836,11 +835,12 @@ footer p{
                 </p>
             </div>
 
-
             <div class="card">
                 <div class="cardNumber">03</div>
 
-                <h3>The memories.</h3>
+                <h3>
+                    The memories.
+                </h3>
 
                 <p>
                     Not every great memory has to be dramatic.
@@ -855,8 +855,7 @@ footer p{
 
 </section>
 
-
-<!-- ================= ECO STAR ================= -->
+<!-- ECO STAR -->
 
 <section class="eco">
 
@@ -882,8 +881,7 @@ footer p{
 
 </section>
 
-
-<!-- ================= LITTLE MESSAGE ================= -->
+<!-- LITTLE MESSAGE -->
 
 <section class="letterSection">
 
@@ -904,7 +902,7 @@ footer p{
 
             <br><br>
 
-            Happy Birthday to someone genuinely special to me.
+            Happy Birthday to someone genuinely special.
 
             <br><br>
 
@@ -950,8 +948,7 @@ footer p{
 
 </section>
 
-
-<!-- ================= SURPRISE ================= -->
+<!-- SURPRISE -->
 
 <section class="surpriseSection">
 
@@ -974,9 +971,14 @@ footer p{
             There's one more little universe waiting for you.
         </p>
 
-        <a href="surprise.html" class="surpriseLink">
+        <a href="surprise.html" class="surpriseLink" id="surpriseLink">
+
             OPEN THE SURPRISE
-            <span class="arrow">💫</span>
+
+            <span class="arrow">
+                💫
+            </span>
+
         </a>
 
     </div>
@@ -985,8 +987,7 @@ footer p{
 
 </main>
 
-
-<!-- ================= FOOTER ================= -->
+<!-- FOOTER -->
 
 <footer>
 
@@ -1000,12 +1001,17 @@ footer p{
 
 </footer>
 
+<!-- YOUR REAL PIANO -->
+
+<audio
+    id="pianoRecording"
+    src="happy-birthday-piano.mp3"
+    preload="auto">
+</audio>
 
 <script>
 
-/* =========================================================
-   STARFIELD
-========================================================= */
+/* STARFIELD */
 
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
@@ -1021,25 +1027,28 @@ function resizeCanvas(){
 
 resizeCanvas();
 
-window.addEventListener("resize",resizeCanvas);
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
 
 function createStars(){
 
-    stars=[];
+    stars = [];
 
-    for(let i=0;i<180;i++){
+    for(let i = 0; i < 180; i++){
 
         stars.push({
 
-            x:Math.random()*canvas.width,
+            x:Math.random() * canvas.width,
 
-            y:Math.random()*canvas.height,
+            y:Math.random() * canvas.height,
 
-            r:Math.random()*1.5,
+            r:Math.random() * 1.5,
 
-            speed:Math.random()*.3+.05,
+            speed:Math.random() * .3 + .05,
 
-            opacity:Math.random()*.8+.1
+            opacity:Math.random() * .8 + .1
 
         });
 
@@ -1051,14 +1060,19 @@ createStars();
 
 function animateStars(){
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-    stars.forEach(star=>{
+    stars.forEach(star => {
 
-        star.y-=star.speed;
+        star.y -= star.speed;
 
-        if(star.y<0){
-            star.y=canvas.height;
+        if(star.y < 0){
+            star.y = canvas.height;
         }
 
         ctx.beginPath();
@@ -1068,27 +1082,29 @@ function animateStars(){
             star.y,
             star.r,
             0,
-            Math.PI*2
+            Math.PI * 2
         );
 
-        ctx.fillStyle=`rgba(255,255,255,${star.opacity})`;
+        ctx.fillStyle =
+            `rgba(255,255,255,${star.opacity})`;
 
         ctx.fill();
 
     });
 
-    requestAnimationFrame(animateStars);
+    requestAnimationFrame(
+        animateStars
+    );
 
 }
 
 animateStars();
 
 
-/* =========================================================
-   RISING HEARTS
-========================================================= */
+/* RISING HEARTS */
 
-const heartLayer = document.getElementById("heartLayer");
+const heartLayer =
+    document.getElementById("heartLayer");
 
 const heartSymbols = [
     "❤️",
@@ -1100,49 +1116,55 @@ const heartSymbols = [
 
 function createHeart(){
 
-    const heart=document.createElement("div");
+    const heart =
+        document.createElement("div");
 
-    heart.className="heart";
+    heart.className = "heart";
 
-    heart.innerText=
+    heart.innerText =
         heartSymbols[
-            Math.floor(Math.random()*heartSymbols.length)
+            Math.floor(
+                Math.random() *
+                heartSymbols.length
+            )
         ];
 
-    heart.style.left=
-        Math.random()*100+"vw";
+    heart.style.left =
+        Math.random() * 100 + "vw";
 
-    heart.style.fontSize=
-        (10+Math.random()*18)+"px";
+    heart.style.fontSize =
+        (10 + Math.random() * 18) + "px";
 
-    heart.style.animationDuration=
-        (7+Math.random()*7)+"s";
+    heart.style.animationDuration =
+        (7 + Math.random() * 7) + "s";
 
     heart.style.setProperty(
         "--drift",
-        ((Math.random()-.5)*180)+"px"
+        ((Math.random() - .5) * 180) + "px"
     );
 
     heart.style.setProperty(
         "--rotate",
-        ((Math.random()-.5)*90)+"deg"
+        ((Math.random() - .5) * 90) + "deg"
     );
 
-    heartLayer.appendChild(heart);
+    heartLayer.appendChild(
+        heart
+    );
 
-    setTimeout(()=>{
+    setTimeout(() => {
         heart.remove();
     },15000);
 
 }
 
-let heartTimer;
+let heartTimer = null;
 
 function startHearts(){
 
     if(heartTimer) return;
 
-    heartTimer=setInterval(
+    heartTimer = setInterval(
         createHeart,
         500
     );
@@ -1150,246 +1172,61 @@ function startHearts(){
 }
 
 
-/* =========================================================
-   ORIGINAL BIRTHDAY MUSIC
-   Loops while the little message is being read.
-========================================================= */
+/* PIANO */
 
-let audioContext;
-let masterGain;
-let musicTimer=null;
-let musicStarted=false;
-
-const notes = {
-
-    C4:261.63,
-    D4:293.66,
-    E4:329.63,
-    F4:349.23,
-    G4:392.00,
-    A4:440.00,
-    B4:493.88,
-
-    C5:523.25,
-    D5:587.33,
-    E5:659.25,
-    F5:698.46,
-    G5:783.99,
-    A5:880.00
-
-};
-
-const melody = [
-
-    ["C4",.45],
-    ["C4",.45],
-    ["D4",.7],
-    ["C4",.7],
-    ["F4",.7],
-    ["E4",1],
-
-    ["C4",.45],
-    ["C4",.45],
-    ["D4",.7],
-    ["C4",.7],
-    ["G4",.7],
-    ["F4",1],
-
-    ["C4",.45],
-    ["C4",.45],
-    ["C5",.7],
-    ["A4",.7],
-    ["F4",.7],
-    ["E4",.7],
-    ["D4",1],
-
-    ["A4",.45],
-    ["A4",.45],
-    ["G4",.7],
-    ["F4",.7],
-    ["G4",.7],
-    ["F4",1]
-];
-
-function setupAudio(){
-
-    if(audioContext) return;
-
-    audioContext =
-        new (window.AudioContext || window.webkitAudioContext)();
-
-    masterGain =
-        audioContext.createGain();
-
-    masterGain.gain.value=0.0001;
-
-    masterGain.connect(
-        audioContext.destination
+const piano =
+    document.getElementById(
+        "pianoRecording"
     );
+
+const musicIndicator =
+    document.getElementById(
+        "musicIndicator"
+    );
+
+let pianoStarted = false;
+
+function startPiano(){
+
+    if(pianoStarted) return;
+
+    pianoStarted = true;
+
+    piano.currentTime = 0;
+    piano.volume = .78;
+
+    piano.play()
+        .then(() => {
+
+            musicIndicator.classList.add(
+                "active"
+            );
+
+        })
+        .catch(() => {
+
+            pianoStarted = false;
+
+        });
 
 }
 
 
-/* PLAY ONE NOTE */
+/* LOOP FOREVER ON PAGE 1 */
 
-function playNote(name,time,duration,volume=.055){
+piano.addEventListener(
+    "ended",
+    () => {
 
-    if(!audioContext) return;
+        piano.currentTime = 0;
 
-    const oscillator =
-        audioContext.createOscillator();
+        piano.play().catch(() => {});
 
-    const gain =
-        audioContext.createGain();
-
-    oscillator.type="sine";
-
-    oscillator.frequency.value=
-        notes[name];
-
-    oscillator.connect(gain);
-
-    gain.connect(masterGain);
-
-    gain.gain.setValueAtTime(
-        0.0001,
-        time
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-        volume,
-        time+.04
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        time+duration-.04
-    );
-
-    oscillator.start(time);
-
-    oscillator.stop(
-        time+duration
-    );
-
-}
-
-
-/* CREATE ONE LOOP */
-
-function scheduleMelody(){
-
-    if(!audioContext) return;
-
-    const now =
-        audioContext.currentTime + .08;
-
-    let position=now;
-
-    melody.forEach(note=>{
-
-        playNote(
-            note[0],
-            position,
-            note[1]
-        );
-
-        position+=note[1];
-
-    });
-
-    const totalDuration =
-        melody.reduce(
-            (sum,n)=>sum+n[1],
-            0
-        );
-
-    musicTimer=setTimeout(
-        scheduleMelody,
-        totalDuration*1000
-    );
-
-}
-
-
-/* START MUSIC */
-
-function startMusic(){
-
-    setupAudio();
-
-    if(audioContext.state==="suspended"){
-        audioContext.resume();
     }
-
-    if(musicStarted) return;
-
-    musicStarted=true;
-
-    masterGain.gain.cancelScheduledValues(
-        audioContext.currentTime
-    );
-
-    masterGain.gain.setValueAtTime(
-        0.0001,
-        audioContext.currentTime
-    );
-
-    masterGain.gain.exponentialRampToValueAtTime(
-        0.065,
-        audioContext.currentTime+2
-    );
-
-    scheduleMelody();
-
-    document
-        .getElementById("musicIndicator")
-        .classList.add("active");
-
-}
+);
 
 
-/* STOP MUSIC */
-
-function stopMusic(){
-
-    if(!audioContext || !musicStarted)
-        return;
-
-    clearTimeout(musicTimer);
-
-    musicTimer=null;
-
-    masterGain.gain.cancelScheduledValues(
-        audioContext.currentTime
-    );
-
-    masterGain.gain.setValueAtTime(
-        masterGain.gain.value,
-        audioContext.currentTime
-    );
-
-    masterGain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        audioContext.currentTime+1.5
-    );
-
-    musicStarted=false;
-
-    setTimeout(()=>{
-
-        document
-            .getElementById("musicIndicator")
-            .classList.remove("active");
-
-    },1500);
-
-}
-
-
-/* =========================================================
-   ENTRY
-========================================================= */
+/* ENTRY */
 
 const entry =
     document.getElementById("entry");
@@ -1397,144 +1234,114 @@ const entry =
 const enterBtn =
     document.getElementById("enterBtn");
 
-enterBtn.addEventListener("click",()=>{
+enterBtn.addEventListener(
+    "click",
+    () => {
 
-    /*
-       This click unlocks the browser's audio permission.
-       The music itself does NOT start yet.
-    */
+        entry.classList.add("hide");
 
-    setupAudio();
+        startHearts();
 
-    if(audioContext.state==="suspended"){
-        audioContext.resume();
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
     }
-
-    entry.classList.add("hide");
-
-    startHearts();
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-});
+);
 
 
-/* =========================================================
-   REVEAL ANIMATIONS
-========================================================= */
+/* REVEALS */
 
 const reveals =
     document.querySelectorAll(".reveal");
 
 const revealObserver =
     new IntersectionObserver(
+        entries => {
 
-        entries=>{
-
-            entries.forEach(entry=>{
+            entries.forEach(entry => {
 
                 if(entry.isIntersecting){
 
-                    entry.target.classList.add("show");
+                    entry.target.classList.add(
+                        "show"
+                    );
 
                 }
 
             });
 
         },
-
         {
             threshold:.12
         }
-
     );
 
 reveals.forEach(
-    element=>revealObserver.observe(element)
+    element =>
+        revealObserver.observe(element)
 );
 
 
-/* =========================================================
-   MUSIC FOLLOWS THE LITTLE MESSAGE
-========================================================= */
+/* START MUSIC WHEN LITTLE MESSAGE APPEARS */
 
 const letterSection =
-    document.querySelector(".letterSection");
+    document.querySelector(
+        ".letterSection"
+    );
 
-const musicObserver =
+const messageObserver =
     new IntersectionObserver(
+        entries => {
 
-        entries=>{
-
-            entries.forEach(entry=>{
+            entries.forEach(entry => {
 
                 if(entry.isIntersecting){
 
-                    /*
-                       Esther reaches the little message.
-                       Music starts here and continues underneath
-                       the message.
-                    */
-
-                    startMusic();
-
-                }else{
-
-                    /*
-                       When she leaves the message,
-                       the music gently fades away.
-                    */
-
-                    stopMusic();
+                    startPiano();
 
                 }
 
             });
 
         },
-
         {
-            threshold:.35
+            threshold:.25
         }
-
     );
 
-musicObserver.observe(letterSection);
+messageObserver.observe(
+    letterSection
+);
 
 
-/* =========================================================
-   EXTRA HEART BURSTS
-========================================================= */
+/* REMEMBER THAT MUSIC IS ON */
 
-function heartBurst(){
+const surpriseLink =
+    document.getElementById(
+        "surpriseLink"
+    );
 
-    for(let i=0;i<25;i++){
+surpriseLink.addEventListener(
+    "click",
+    () => {
 
-        setTimeout(
-            createHeart,
-            i*80
+        /*
+          Save the fact that the piano was playing.
+          Page 2 uses the same recording.
+        */
+
+        sessionStorage.setItem(
+            "pianoWasPlaying",
+            "true"
         );
 
     }
-
-}
-
-
-/* =========================================================
-   START A FEW FLOATING HEARTS AFTER ENTER
-========================================================= */
-
-setTimeout(()=>{
-
-    if(!entry.classList.contains("hide"))
-        return;
-
-},1000);
+);
 
 </script>
 
 </body>
 </html>
+
