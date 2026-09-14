@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,15 +14,23 @@
 
 <style>
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
-    --pink:#ff8fcf;
+    --pink:#ff8dcc;
     --pink2:#ff4fa8;
     --purple:#9b72ff;
     --white:#fff8fd;
     --muted:#b9a9b9;
     --dark:#030208;
-    --line:rgba(255,150,215,.18);
+    --line:rgba(255,150,215,.16);
 }
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -40,20 +49,32 @@ body{
     overflow-x:hidden;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
+/* =========================================================
+   MASTER BACKGROUND
+========================================================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
-    z-index:-5;
+    z-index:-10;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(255,65,170,.18), transparent 28%),
-        radial-gradient(circle at 80% 15%, rgba(130,70,255,.16), transparent 30%),
-        radial-gradient(circle at 50% 90%, rgba(255,80,170,.12), transparent 35%),
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,60,170,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(130,70,255,.17),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(255,70,180,.12),
+            transparent 35%
+        ),
         #030208;
 }
 
@@ -61,62 +82,94 @@ body::after{
     content:"";
     position:fixed;
     inset:0;
-    z-index:-3;
+    z-index:-7;
     pointer-events:none;
 
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
 
     background-size:70px 70px;
 
-    mask-image:linear-gradient(to bottom, transparent, black 15%, black 80%, transparent);
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 15%,
+            black 80%,
+            transparent
+        );
 }
 
-/* STAR FIELD */
+/* =========================================================
+   STAR CANVAS
+========================================================= */
 
 #stars{
     position:fixed;
     inset:0;
     width:100%;
     height:100%;
-    z-index:-4;
+    z-index:-9;
     pointer-events:none;
 }
 
-/* NOISE */
+/* =========================================================
+   NOISE
+========================================================= */
 
 .noise{
     position:fixed;
     inset:0;
+
     z-index:100;
+
     pointer-events:none;
+
     opacity:.035;
 
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    background-image:url(
+        "data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"
+    );
 }
 
-/* =========================
+/* =========================================================
    RISING HEARTS
-========================= */
+========================================================= */
 
 #heartLayer{
     position:fixed;
     inset:0;
+
     pointer-events:none;
+
     z-index:90;
+
     overflow:hidden;
 }
 
 .heart{
     position:absolute;
-    bottom:-50px;
+
+    bottom:-60px;
+
+    opacity:0;
 
     animation:
         riseHeart var(--duration) linear forwards;
 
-    opacity:0;
-    filter:drop-shadow(0 0 12px rgba(255,100,190,.6));
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,100,190,.6)
+        );
 }
 
 @keyframes riseHeart{
@@ -131,7 +184,7 @@ body::after{
     }
 
     10%{
-        opacity:.8;
+        opacity:.85;
     }
 
     50%{
@@ -143,7 +196,11 @@ body::after{
 
     100%{
         transform:
-            translate3d(calc(var(--drift) * -1),-115vh,0)
+            translate3d(
+                calc(var(--drift) * -1),
+                -115vh,
+                0
+            )
             rotate(-20deg)
             scale(.8);
 
@@ -151,51 +208,288 @@ body::after{
     }
 }
 
-/* =========================
-   TOP NAV
-========================= */
+/* =========================================================
+   CINEMATIC ENTRY SCREEN
+========================================================= */
+
+#entry{
+    position:fixed;
+    inset:0;
+
+    z-index:200;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:30px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,70,170,.12),
+            transparent 30%
+        ),
+        #030208;
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+}
+
+#entry.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.entry-inner{
+    position:relative;
+
+    width:min(800px,92vw);
+}
+
+.entry-kicker{
+    font-size:10px;
+
+    letter-spacing:6px;
+
+    color:#cbb7ca;
+
+    margin-bottom:35px;
+}
+
+.star-ring{
+    width:130px;
+    height:130px;
+
+    margin:0 auto 35px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid rgba(255,130,205,.4);
+
+    box-shadow:
+        0 0 25px rgba(255,100,190,.2),
+        inset 0 0 30px rgba(255,100,190,.08);
+
+    position:relative;
+
+    animation:
+        starFloat 4s ease-in-out infinite;
+}
+
+.star-ring::before,
+.star-ring::after{
+    content:"";
+
+    position:absolute;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,130,205,.2);
+}
+
+.star-ring::before{
+    inset:-15px;
+}
+
+.star-ring::after{
+    inset:15px;
+}
+
+.star-ring span{
+    font-size:58px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255,180,230,.8)
+        );
+}
+
+@keyframes starFloat{
+
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+
+    50%{
+        transform:translateY(-12px) rotate(8deg);
+    }
+}
+
+.entry-name{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(
+            80px,
+            13vw,
+            170px
+        );
+
+    line-height:.7;
+
+    font-weight:500;
+
+    letter-spacing:-5px;
+
+    margin-bottom:25px;
+}
+
+.entry-name span{
+    color:var(--pink);
+
+    font-style:italic;
+}
+
+.eco-small{
+    font-size:11px;
+
+    letter-spacing:8px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    margin-bottom:30px;
+}
+
+.entry-message{
+    color:#bcaebc;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    margin-bottom:38px;
+}
+
+.enter-button{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 30px;
+
+    border-radius:100px;
+
+    border:1px solid rgba(255,130,205,.55);
+
+    background:
+        linear-gradient(
+            100deg,
+            rgba(255,80,170,.12),
+            rgba(150,80,255,.1)
+        );
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:4px;
+
+    cursor:pointer;
+
+    transition:.45s ease;
+
+    box-shadow:
+        0 0 35px rgba(255,70,180,.12);
+}
+
+.enter-button:hover{
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    box-shadow:
+        0 0 60px rgba(255,70,180,.3);
+}
+
+.enter-button span{
+    font-size:20px;
+}
+
+.entry-date{
+    margin-top:30px;
+
+    font-size:8px;
+
+    letter-spacing:5px;
+
+    color:#776977;
+}
+
+/* =========================================================
+   NAV
+========================================================= */
 
 .nav{
     position:absolute;
+
     top:0;
     left:0;
+
     width:100%;
 
     padding:28px 5vw;
 
     display:flex;
+
     justify-content:space-between;
     align-items:center;
 
-    z-index:20;
+    z-index:30;
 }
 
 .logo{
     font-family:"Cormorant Garamond",serif;
+
     font-size:30px;
-    color:#fff;
 }
 
 .nav-right{
     font-size:9px;
+
     letter-spacing:5px;
-    color:#fff;
+
+    color:#d8cbd7;
 }
 
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
     min-height:100vh;
-    padding:130px 7vw 80px;
+
+    padding:
+        130px
+        7vw
+        100px;
 
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
     align-items:center;
-    gap:60px;
+
+    gap:70px;
 
     position:relative;
+
     overflow:hidden;
 }
 
@@ -203,14 +497,18 @@ body::after{
     content:"ESTHER";
 
     position:absolute;
+
     left:-3vw;
-    bottom:-30px;
+    bottom:-20px;
 
     font-family:"Cormorant Garamond",serif;
+
     font-size:25vw;
+
     line-height:.7;
 
-    color:rgba(255,255,255,.025);
+    color:
+        rgba(255,255,255,.025);
 
     white-space:nowrap;
 
@@ -219,148 +517,203 @@ body::after{
 
 .hero-content{
     position:relative;
+
     z-index:5;
 }
 
 .kicker{
     color:var(--pink);
+
     font-size:10px;
+
     letter-spacing:6px;
+
     font-weight:700;
-    margin-bottom:22px;
+
+    margin-bottom:25px;
 }
 
 .hero h1{
     font-family:"Cormorant Garamond",serif;
-    font-size:clamp(65px,8vw,125px);
+
+    font-size:
+        clamp(
+            65px,
+            8vw,
+            125px
+        );
+
     line-height:.76;
+
     font-weight:500;
+
     letter-spacing:-4px;
 }
 
 .hero h1 span{
     display:block;
+
     color:var(--pink);
+
     font-style:italic;
 }
 
 .hero-text{
-    max-width:520px;
+    max-width:500px;
+
     margin-top:35px;
 
-    color:#d1c4d0;
-    font-size:14px;
+    color:#c9bcc8;
+
+    font-size:13px;
+
     line-height:1.9;
 }
 
-/* =========================
-   PHOTO
-========================= */
+/* =========================================================
+   HERO PHOTO
+========================================================= */
 
 .photo-zone{
+    width:min(470px,88vw);
+
+    margin:auto;
+
     position:relative;
 
-    width:min(480px,90vw);
-    margin:auto;
+    z-index:5;
 }
 
 .photo-glow{
     position:absolute;
-    inset:-70px;
+
+    inset:-80px;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,90,190,.35),
+            rgba(255,70,180,.3),
             transparent 65%
         );
 
-    filter:blur(25px);
-    z-index:-1;
+    filter:blur(30px);
 }
 
 .photo-frame{
     position:relative;
-    padding:8px;
 
-    transform:rotate(3deg);
+    padding:8px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.8),
-            rgba(255,105,190,.6),
-            rgba(145,90,255,.6)
+            rgba(255,255,255,.9),
+            rgba(255,110,195,.7),
+            rgba(145,90,255,.7),
+            rgba(255,255,255,.7)
         );
+
+    transform:rotate(3deg);
 
     box-shadow:
         0 40px 100px rgba(0,0,0,.7),
-        0 0 60px rgba(255,100,190,.25);
+        0 0 70px rgba(255,80,190,.25);
 
     animation:
         photoFloat 5s ease-in-out infinite;
 }
 
-@keyframes photoFloat{
-    0%,100%{
-        transform:rotate(3deg) translateY(0);
-    }
+.photo-frame::before{
+    content:"";
 
-    50%{
-        transform:rotate(1deg) translateY(-12px);
-    }
+    position:absolute;
+
+    inset:-15px;
+
+    border:1px solid
+        rgba(255,130,205,.22);
+
+    pointer-events:none;
 }
 
 .photo-frame img{
     width:100%;
+
     display:block;
 
     aspect-ratio:3/4;
-    object-fit:cover;
 
-    filter:saturate(.9) contrast(1.05);
+    object-fit:cover;
 
     background:#111;
 }
 
+@keyframes photoFloat{
+
+    0%,100%{
+        transform:
+            rotate(3deg)
+            translateY(0);
+    }
+
+    50%{
+        transform:
+            rotate(1deg)
+            translateY(-13px);
+    }
+}
+
 .photo-caption{
     position:absolute;
-    right:-70px;
-    bottom:50px;
+
+    right:-55px;
+
+    bottom:35px;
+
+    max-width:180px;
 
     color:var(--pink);
 
     font-family:"Cormorant Garamond",serif;
-    font-style:italic;
 
-    font-size:20px;
+    font-size:21px;
+
+    font-style:italic;
 
     transform:rotate(-8deg);
 
-    max-width:160px;
+    text-shadow:
+        0 0 20px rgba(255,90,190,.5);
 }
 
 .photo-caption::before{
     content:"♡";
+
     display:block;
-    font-size:35px;
+
+    font-size:36px;
 }
 
-/* =========================
-   SECTION
-========================= */
+/* =========================================================
+   SECTIONS
+========================================================= */
 
 .section{
     position:relative;
+
     padding:110px 9vw;
 
-    border-top:1px solid var(--line);
+    border-top:
+        1px solid var(--line);
 }
 
 .section-grid{
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:90px;
+
     align-items:center;
 }
 
@@ -368,7 +721,9 @@ body::after{
     color:var(--pink);
 
     font-size:9px;
+
     letter-spacing:5px;
+
     font-weight:700;
 
     margin-bottom:20px;
@@ -377,7 +732,13 @@ body::after{
 .section-title{
     font-family:"Cormorant Garamond",serif;
 
-    font-size:clamp(45px,5vw,75px);
+    font-size:
+        clamp(
+            45px,
+            5vw,
+            75px
+        );
+
     line-height:.95;
 
     font-weight:500;
@@ -388,18 +749,20 @@ body::after{
 
     max-width:500px;
 
-    color:#c6b9c5;
+    color:#c3b5c2;
 
     font-size:13px;
+
     line-height:1.9;
 }
 
-/* =========================
+/* =========================================================
    ORBIT
-========================= */
+========================================================= */
 
 .orbit{
     width:min(450px,85vw);
+
     aspect-ratio:1;
 
     position:relative;
@@ -412,7 +775,9 @@ body::after{
 
     inset:15%;
 
-    border:1px solid rgba(255,140,210,.35);
+    border:
+        1px solid
+        rgba(255,140,210,.35);
 
     border-radius:50%;
 
@@ -421,11 +786,13 @@ body::after{
 
 .orbit-ring.two{
     inset:25%;
+
     transform:rotate(60deg);
 }
 
 .orbit-ring.three{
     inset:35%;
+
     transform:rotate(120deg);
 }
 
@@ -443,6 +810,7 @@ body::after{
     border-radius:50%;
 
     display:grid;
+
     place-items:center;
 
     font-size:55px;
@@ -458,14 +826,29 @@ body::after{
     box-shadow:
         0 0 50px rgba(255,100,200,.35),
         inset 0 0 30px rgba(255,255,255,.08);
+
+    animation:
+        centerPulse 3s ease-in-out infinite;
+}
+
+@keyframes centerPulse{
+
+    50%{
+        transform:
+            translate(-50%,-50%)
+            scale(1.08);
+    }
 }
 
 .orbit-label{
     position:absolute;
 
     font-size:9px;
+
     letter-spacing:4px;
+
     color:#fff;
+
     font-weight:700;
 }
 
@@ -491,9 +874,9 @@ body::after{
     top:50%;
 }
 
-/* =========================
+/* =========================================================
    CARDS
-========================= */
+========================================================= */
 
 .cards{
     display:grid;
@@ -513,9 +896,11 @@ body::after{
 
     padding:35px 28px;
 
-    border:1px solid rgba(255,140,210,.2);
+    border:
+        1px solid
+        rgba(255,140,210,.2);
 
-    border-radius:10px;
+    border-radius:12px;
 
     background:
         linear-gradient(
@@ -544,7 +929,8 @@ body::after{
 
     border-radius:50%;
 
-    background:rgba(255,90,190,.15);
+    background:
+        rgba(255,90,190,.15);
 
     filter:blur(30px);
 }
@@ -552,7 +938,8 @@ body::after{
 .card:hover{
     transform:translateY(-10px);
 
-    border-color:rgba(255,140,210,.55);
+    border-color:
+        rgba(255,140,210,.55);
 
     box-shadow:
         0 25px 60px rgba(0,0,0,.4),
@@ -573,6 +960,7 @@ body::after{
     font-family:"Cormorant Garamond",serif;
 
     font-size:29px;
+
     font-weight:500;
 
     margin-bottom:15px;
@@ -582,20 +970,24 @@ body::after{
     color:#b8acb7;
 
     font-size:12px;
+
     line-height:1.8;
 }
 
-/* =========================
+/* =========================================================
    ECO STAR
-========================= */
+========================================================= */
 
 .eco{
     text-align:center;
 
     padding:100px 5vw;
 
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
+    border-top:
+        1px solid var(--line);
+
+    border-bottom:
+        1px solid var(--line);
 
     position:relative;
 }
@@ -603,7 +995,12 @@ body::after{
 .eco h2{
     font-family:"Cormorant Garamond",serif;
 
-    font-size:clamp(70px,13vw,180px);
+    font-size:
+        clamp(
+            70px,
+            13vw,
+            180px
+        );
 
     line-height:.8;
 
@@ -625,12 +1022,15 @@ body::after{
 
     color:transparent;
 
-    animation:shine 6s linear infinite;
+    animation:
+        shine 6s linear infinite;
 }
 
 @keyframes shine{
+
     to{
-        background-position:300% center;
+        background-position:
+            300% center;
     }
 }
 
@@ -638,51 +1038,15 @@ body::after{
     margin-top:25px;
 
     font-size:9px;
+
     letter-spacing:6px;
 
     color:#d5c8d5;
 }
 
-/* =========================
+/* =========================================================
    LETTER
-========================= */
-
-.letter-photo{
-    width:min(360px,80vw);
-
-    margin:auto;
-
-    position:relative;
-}
-
-.letter-photo img{
-    width:100%;
-
-    border-radius:50%;
-
-    aspect-ratio:1;
-
-    object-fit:cover;
-
-    border:1px solid rgba(255,150,215,.5);
-
-    box-shadow:
-        0 0 0 15px rgba(255,120,200,.03),
-        0 0 60px rgba(255,100,200,.2);
-}
-
-.letter-photo::before{
-    content:"💫";
-
-    position:absolute;
-
-    top:-35px;
-    right:10px;
-
-    font-size:45px;
-
-    filter:drop-shadow(0 0 15px rgba(255,100,200,.8));
-}
+========================================================= */
 
 .letter{
     font-family:"Cormorant Garamond",serif;
@@ -710,28 +1074,119 @@ body::after{
     color:var(--pink);
 }
 
-/* =========================
-   BESTIE
-========================= */
+/* =========================================================
+   LETTER PHOTO
+========================================================= */
+
+.letter-photo{
+    width:min(370px,80vw);
+
+    margin:auto;
+
+    position:relative;
+}
+
+.letter-photo img{
+    width:100%;
+
+    aspect-ratio:1;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,150,215,.5);
+
+    box-shadow:
+        0 0 0 15px
+        rgba(255,120,200,.03),
+
+        0 0 70px
+        rgba(255,100,200,.2);
+}
+
+.letter-photo::before{
+    content:"💫";
+
+    position:absolute;
+
+    top:-40px;
+    right:5px;
+
+    font-size:48px;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(255,100,200,.8)
+        );
+
+    z-index:3;
+}
+
+.letter-photo::after{
+    content:"Esther ♡";
+
+    position:absolute;
+
+    bottom:15px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        rotate(-5deg);
+
+    padding:10px 25px;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:25px;
+
+    font-style:italic;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,70,170,.8),
+            rgba(180,90,255,.8)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   BESTIE SECTION
+========================================================= */
 
 .bestie{
     display:grid;
 
-    grid-template-columns:1.4fr 1fr;
+    grid-template-columns:
+        1.4fr 1fr;
 
-    border-top:1px solid var(--line);
+    border-top:
+        1px solid var(--line);
 }
 
 .bestie-main{
     padding:90px 7vw;
 
-    border-right:1px solid var(--line);
+    border-right:
+        1px solid var(--line);
 }
 
 .bestie-main h2{
     font-family:"Cormorant Garamond",serif;
 
-    font-size:clamp(38px,4vw,65px);
+    font-size:
+        clamp(
+            38px,
+            4vw,
+            65px
+        );
 
     font-weight:500;
 
@@ -742,7 +1197,9 @@ body::after{
     padding:90px 5vw;
 
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
 }
 
@@ -756,14 +1213,15 @@ body::after{
     margin-bottom:18px;
 }
 
-/* =========================
+/* =========================================================
    SURPRISE
-========================= */
+========================================================= */
 
 .surprise{
     padding:90px 6vw;
 
-    border-top:1px solid var(--line);
+    border-top:
+        1px solid var(--line);
 
     display:grid;
 
@@ -800,11 +1258,14 @@ body::after{
     display:inline-flex;
 
     align-items:center;
+
     gap:18px;
 
     padding:18px 28px;
 
-    border:1px solid rgba(255,130,200,.6);
+    border:
+        1px solid
+        rgba(255,130,200,.6);
 
     border-radius:100px;
 
@@ -824,7 +1285,8 @@ body::after{
         );
 
     box-shadow:
-        0 0 35px rgba(255,80,180,.12);
+        0 0 35px
+        rgba(255,80,180,.12);
 
     transition:.4s ease;
 }
@@ -834,20 +1296,21 @@ body::after{
 }
 
 .surprise-button:hover{
-    transform:translateY(-5px) scale(1.03);
+    transform:
+        translateY(-5px)
+        scale(1.04);
 
     box-shadow:
-        0 0 50px rgba(255,80,180,.3);
-
-    background:rgba(255,100,190,.12);
+        0 0 50px
+        rgba(255,80,180,.3);
 }
 
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer{
-    min-height:380px;
+    min-height:430px;
 
     padding:100px 6vw 40px;
 
@@ -871,14 +1334,42 @@ body::after{
         );
 }
 
+.footer::before{
+    content:"";
+
+    position:absolute;
+
+    left:-10%;
+    right:-10%;
+    bottom:-80px;
+
+    height:180px;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,70,160,.25),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+}
+
 .footer h2{
     font-family:"Cormorant Garamond",serif;
 
-    font-size:clamp(70px,11vw,150px);
+    font-size:
+        clamp(
+            70px,
+            11vw,
+            150px
+        );
 
     line-height:.7;
 
     font-weight:500;
+
+    position:relative;
 }
 
 .footer p{
@@ -905,9 +1396,9 @@ body::after{
     color:#a99aa7;
 }
 
-/* =========================
+/* =========================================================
    MUSIC
-========================= */
+========================================================= */
 
 .music-pill{
     position:fixed;
@@ -919,11 +1410,14 @@ body::after{
 
     padding:12px 18px;
 
-    border:1px solid rgba(255,130,200,.4);
+    border:
+        1px solid
+        rgba(255,130,200,.4);
 
     border-radius:100px;
 
-    background:rgba(10,5,15,.65);
+    background:
+        rgba(10,5,15,.65);
 
     backdrop-filter:blur(15px);
 
@@ -934,7 +1428,8 @@ body::after{
     color:#fff;
 
     box-shadow:
-        0 0 25px rgba(255,90,180,.1);
+        0 0 25px
+        rgba(255,90,180,.1);
 }
 
 .music-dot{
@@ -949,26 +1444,29 @@ body::after{
 
     background:var(--pink);
 
-    box-shadow:0 0 15px var(--pink);
+    box-shadow:
+        0 0 15px var(--pink);
 
-    animation:pulse 1s infinite;
+    animation:
+        pulse 1s infinite;
 }
 
 @keyframes pulse{
+
     50%{
         opacity:.3;
         transform:scale(.7);
     }
 }
 
-/* =========================
+/* =========================================================
    REVEAL
-========================= */
+========================================================= */
 
 .reveal{
     opacity:0;
 
-    transform:translateY(40px);
+    transform:translateY(45px);
 
     transition:
         opacity 1s ease,
@@ -981,16 +1479,19 @@ body::after{
     transform:translateY(0);
 }
 
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media(max-width:800px){
 
     .hero{
         grid-template-columns:1fr;
 
-        padding-top:120px;
+        padding:
+            120px
+            7vw
+            80px;
 
         text-align:center;
     }
@@ -1006,6 +1507,7 @@ body::after{
 
     .photo-caption{
         right:-10px;
+
         bottom:25px;
     }
 
@@ -1029,7 +1531,9 @@ body::after{
 
     .bestie-main{
         border-right:none;
-        border-bottom:1px solid var(--line);
+
+        border-bottom:
+            1px solid var(--line);
     }
 
     .surprise{
@@ -1054,6 +1558,16 @@ body::after{
         left:15px;
         bottom:15px;
     }
+
+    .entry-name{
+        font-size:75px;
+    }
+
+    .star-ring{
+        width:110px;
+        height:110px;
+    }
+
 }
 
 </style>
@@ -1061,13 +1575,22 @@ body::after{
 
 <body>
 
+
+<!-- =========================================================
+     NOISE + STAR FIELD + HEARTS
+========================================================= -->
+
 <div class="noise"></div>
 
 <canvas id="stars"></canvas>
 
 <div id="heartLayer"></div>
 
-<!-- MUSIC -->
+
+<!-- =========================================================
+     PIANO RECORDING
+========================================================= -->
+
 <audio
     id="pianoRecording"
     src="happy-birthday-piano.mp3"
@@ -1075,18 +1598,83 @@ body::after{
 </audio>
 
 <div class="music-pill">
+
     <span class="music-dot"></span>
+
     YOUR PIANO 🎹
+
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
+     CINEMATIC ENTER THE MOMENT
+========================================================= -->
+
+<div id="entry">
+
+    <div class="entry-inner">
+
+        <div class="entry-kicker">
+            A LITTLE UNIVERSE MADE FOR SOMEONE SPECIAL
+        </div>
+
+
+        <div class="star-ring">
+
+            <span>💫</span>
+
+        </div>
+
+
+        <div class="entry-name">
+
+            Esther<span>.</span>
+
+        </div>
+
+
+        <div class="eco-small">
+            ECO STAR
+        </div>
+
+
+        <div class="entry-message">
+
+            Before you continue...<br>
+            I made something special for you.
+
+        </div>
+
+
+        <button
+            class="enter-button"
+            id="enterButton">
+
+            ENTER THE MOMENT
+
+            <span>↗</span>
+
+        </button>
+
+
+        <div class="entry-date">
+            OCTOBER · 07 · ECO STAR DAY
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
      NAV
-========================= -->
+========================================================= -->
 
 <nav class="nav">
 
-    <div class="logo">E.</div>
+    <div class="logo">
+        E.
+    </div>
 
     <div class="nav-right">
         07 · 10 · ECO STAR
@@ -1095,9 +1683,9 @@ body::after{
 </nav>
 
 
-<!-- =========================
+<!-- =========================================================
      HERO
-========================= -->
+========================================================= -->
 
 <section class="hero">
 
@@ -1107,35 +1695,52 @@ body::after{
             OCTOBER 07 · A SPECIAL DAY
         </div>
 
+
         <h1>
+
             Happy Birthday,
-            <span>Esther.</span>
+
+            <span>
+                Esther.
+            </span>
+
         </h1>
 
+
         <p class="hero-text">
+
             Today isn't just another date on the calendar.
+
             It's the day the world got one more reason to shine.
+
             And somehow, that reason became my ECO STAR. 💫
+
         </p>
 
     </div>
 
 
+    <!-- PHOTO -->
+
     <div class="photo-zone reveal">
 
         <div class="photo-glow"></div>
+
 
         <div class="photo-frame">
 
             <img
                 src="ECO.jpg"
-                alt="Esther">
+                alt="Esther — ECO STAR">
 
         </div>
 
+
         <div class="photo-caption">
+
             The ECO STAR,
             herself. ♡
+
         </div>
 
     </div>
@@ -1143,13 +1748,14 @@ body::after{
 </section>
 
 
-<!-- =========================
-     LITTLE SOMETHING
-========================= -->
+<!-- =========================================================
+     A LITTLE SOMETHING
+========================================================= -->
 
 <section class="section">
 
     <div class="section-grid">
+
 
         <div class="reveal">
 
@@ -1157,31 +1763,44 @@ body::after{
                 A LITTLE SOMETHING
             </div>
 
+
             <h2 class="section-title">
+
                 Some people deserve
                 more than a simple
                 “Happy Birthday.”
+
             </h2>
 
+
             <p class="section-text">
+
                 So instead of sending you an ordinary message,
                 I wanted to create a tiny universe for you.
+
                 Something you could open, explore, smile at,
                 and hopefully remember.
+
             </p>
 
         </div>
 
 
+        <!-- ORBIT -->
+
         <div class="orbit reveal">
 
             <div class="orbit-ring"></div>
+
             <div class="orbit-ring two"></div>
+
             <div class="orbit-ring three"></div>
+
 
             <div class="orbit-center">
                 💫
             </div>
+
 
             <div class="orbit-label label-top">
                 LAUGHS
@@ -1206,9 +1825,9 @@ body::after{
 </section>
 
 
-<!-- =========================
-     CARDS
-========================= -->
+<!-- =========================================================
+     THREE MEMORY CARDS
+========================================================= -->
 
 <section class="section">
 
@@ -1216,7 +1835,9 @@ body::after{
         THINGS THAT MATTER
     </div>
 
+
     <div class="cards">
+
 
         <div class="card reveal">
 
@@ -1224,16 +1845,20 @@ body::after{
                 01
             </div>
 
+
             <h3>
                 The laughs.
             </h3>
 
+
             <p>
+
                 The random conversations,
                 the unexpected jokes,
                 the moments that somehow
                 become memories without
                 us even trying.
+
             </p>
 
         </div>
@@ -1245,16 +1870,22 @@ body::after{
                 02
             </div>
 
+
             <h3>
                 The friendship.
             </h3>
 
+
             <p>
+
                 Some friendships don't need
                 a complicated explanation.
+
                 They simply feel right.
+
                 That's what makes a bestie
                 a bestie.
+
             </p>
 
         </div>
@@ -1266,33 +1897,39 @@ body::after{
                 03
             </div>
 
+
             <h3>
                 The memories.
             </h3>
 
+
             <p>
+
                 The best part is knowing
                 there are still so many
                 moments ahead of us
                 that haven't happened yet.
+
             </p>
 
         </div>
+
 
     </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      ECO STAR
-========================= -->
+========================================================= -->
 
 <section class="eco reveal">
 
     <h2>
         ECO STAR
     </h2>
+
 
     <p>
         NOT JUST A NICKNAME · A WHOLE VIBE 💫
@@ -1301,13 +1938,14 @@ body::after{
 </section>
 
 
-<!-- =========================
-     LETTER
-========================= -->
+<!-- =========================================================
+     LITTLE LETTER + SECOND PHOTO
+========================================================= -->
 
 <section class="section">
 
     <div class="section-grid">
+
 
         <div class="reveal">
 
@@ -1315,54 +1953,73 @@ body::after{
                 A LITTLE LETTER
             </div>
 
+
             <h2 class="section-title">
                 A little letter.
             </h2>
 
+
             <div class="letter">
 
                 <p>
+
                     Esther, I hope this new chapter brings you
                     moments that make you genuinely happy,
                     people who appreciate you, opportunities
                     that surprise you, and memories you'll
                     look back on with a smile.
+
                 </p>
 
+
                 <p>
+
                     Keep being yourself.
                     <br>
+
                     Keep growing.
                     <br>
+
                     Keep dreaming.
                     <br>
+
                     Keep shining.
+
                 </p>
 
+
                 <p>
+
                     And whenever life gets busy, I hope you
                     remember that somewhere in this little
                     corner of the internet, there is a birthday
                     page that exists simply because someone
                     thought you deserved something special.
+
                 </p>
 
             </div>
 
+
             <div class="signature">
+
                 WITH LOTS OF GOOD WISHES
                 <br>
+
                 FOR THE ONE AND ONLY ECO STAR 💫
+
             </div>
 
         </div>
 
 
+        <!-- SECOND PHOTO -->
+
         <div class="letter-photo reveal">
 
             <img
                 src="ECO.jpg"
-                alt="Esther - ECO STAR">
+                alt="Esther — ECO STAR">
 
         </div>
 
@@ -1371,11 +2028,12 @@ body::after{
 </section>
 
 
-<!-- =========================
-     BESTIE
-========================= -->
+<!-- =========================================================
+     FROM YOUR BESTIE
+========================================================= -->
 
 <section class="bestie">
+
 
     <div class="bestie-main reveal">
 
@@ -1383,11 +2041,14 @@ body::after{
             FROM YOUR BESTIE ❤️
         </div>
 
+
         <h2>
+
             For all the laughs,
             all the random moments,
             and all the memories
             still waiting to happen.
+
         </h2>
 
     </div>
@@ -1396,28 +2057,42 @@ body::after{
     <div class="bestie-side reveal">
 
         <p>
+
             I hope this birthday reminds you just how
             special you are.
+
         </p>
 
+
         <p>
+
             Thank you for being the kind of person who makes
             friendship feel easy, fun, genuine, and worth
             remembering.
+
         </p>
 
+
         <p>
+
             There are still plenty of laughs ahead,
             plenty of stories we haven't told yet,
             and plenty of memories waiting for us.
+
         </p>
 
+
         <p>
+
             Happy Birthday, ECO STAR. 💫
+
         </p>
 
+
         <p>
+
             — Your Bestie ❤️
+
         </p>
 
     </div>
@@ -1425,11 +2100,12 @@ body::after{
 </section>
 
 
-<!-- =========================
-     SURPRISE
-========================= -->
+<!-- =========================================================
+     SECRET SURPRISE
+========================================================= -->
 
 <section class="surprise">
+
 
     <div class="reveal">
 
@@ -1437,16 +2113,24 @@ body::after{
             BUT WAIT...
         </div>
 
+
         <h2>
+
             There's
             more.
+
         </h2>
 
+
         <p>
+
             You thought that was everything?
+
             Absolutely not.
+
             There's another side of this little
             universe waiting for you.
+
         </p>
 
     </div>
@@ -1467,26 +2151,35 @@ body::after{
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      FOOTER
-========================= -->
+========================================================= -->
 
 <footer class="footer">
 
+
     <h2>
-        Happy<br>
+
+        Happy
+        <br>
         Birthday
+
     </h2>
 
+
     <p>
+
         ESTHER · ECO STAR ⭐ · OCTOBER 07
+
     </p>
+
 
     <div class="footer-bottom">
 
         <span>
             MADE FOR ESTHER
         </span>
+
 
         <span>
             ESTHER · ECO STAR 💫
@@ -1499,25 +2192,42 @@ body::after{
 
 <script>
 
-/* =========================
+/* =========================================================
    STAR FIELD
-========================= */
+========================================================= */
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
 
 let stars = [];
 
+
 function resizeCanvas(){
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
 
 }
 
+
 resizeCanvas();
 
-window.addEventListener("resize", resizeCanvas);
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        resizeCanvas();
+        createStars();
+
+    }
+);
 
 
 function createStars(){
@@ -1526,35 +2236,49 @@ function createStars(){
 
     const amount =
         Math.min(
-            420,
+            450,
             Math.floor(
                 window.innerWidth *
                 window.innerHeight /
-                6500
+                6000
             )
         );
+
 
     for(let i=0;i<amount;i++){
 
         stars.push({
 
-            x:Math.random()*canvas.width,
+            x:
+                Math.random() *
+                canvas.width,
 
-            y:Math.random()*canvas.height,
+            y:
+                Math.random() *
+                canvas.height,
 
-            r:Math.random()*1.5+.2,
+            r:
+                Math.random() *
+                1.5 + .2,
 
-            speed:Math.random()*.35+.05,
+            speed:
+                Math.random() *
+                .35 + .05,
 
-            alpha:Math.random()*.8+.2,
+            alpha:
+                Math.random() *
+                .8 + .2,
 
-            phase:Math.random()*Math.PI*2
+            phase:
+                Math.random() *
+                Math.PI * 2
 
         });
 
     }
 
 }
+
 
 createStars();
 
@@ -1568,135 +2292,307 @@ function animateStars(time){
         canvas.height
     );
 
+
     for(const star of stars){
 
         star.y += star.speed;
 
+
         if(star.y > canvas.height){
 
             star.y = -5;
-            star.x = Math.random()*canvas.width;
+
+            star.x =
+                Math.random() *
+                canvas.width;
 
         }
+
 
         const twinkle =
             star.alpha +
             Math.sin(
-                time*.001 +
+                time * .001 +
                 star.phase
-            )*.25;
+            ) * .25;
+
 
         ctx.beginPath();
+
 
         ctx.arc(
             star.x,
             star.y,
             star.r,
             0,
-            Math.PI*2
+            Math.PI * 2
         );
 
+
         ctx.fillStyle =
-            `rgba(255,220,245,${Math.max(.05,twinkle)})`;
+            `rgba(
+                255,
+                220,
+                245,
+                ${Math.max(.05,twinkle)}
+            )`;
+
 
         ctx.fill();
 
     }
 
-    requestAnimationFrame(animateStars);
+
+    requestAnimationFrame(
+        animateStars
+    );
 
 }
 
-requestAnimationFrame(animateStars);
+
+requestAnimationFrame(
+    animateStars
+);
 
 
-/* =========================
-   RISING HEARTS
-========================= */
+/* =========================================================
+   HEARTS
+========================================================= */
 
 const heartLayer =
-    document.getElementById("heartLayer");
+    document.getElementById(
+        "heartLayer"
+    );
+
 
 const heartTypes = [
+
     "❤️",
     "🩷",
     "💗",
     "💖",
     "💕"
+
 ];
+
 
 function createHeart(){
 
     const heart =
         document.createElement("div");
 
-    heart.className = "heart";
+
+    heart.className =
+        "heart";
+
 
     heart.textContent =
         heartTypes[
             Math.floor(
-                Math.random()*heartTypes.length
+                Math.random() *
+                heartTypes.length
             )
         ];
 
+
     heart.style.left =
-        Math.random()*100 + "%";
+        Math.random() * 100 + "%";
+
 
     heart.style.fontSize =
-        (Math.random()*18+12) + "px";
+        Math.random() * 18 + 12 + "px";
+
 
     heart.style.setProperty(
         "--duration",
-        (Math.random()*6+7) + "s"
+        Math.random() * 6 + 7 + "s"
     );
+
 
     heart.style.setProperty(
         "--drift",
-        (Math.random()*180-90) + "px"
+        Math.random() * 180 - 90 + "px"
     );
 
-    heart.style.transform =
-        `rotate(${Math.random()*30-15}deg)`;
 
-    heartLayer.appendChild(heart);
+    heartLayer.appendChild(
+        heart
+    );
 
-    setTimeout(()=>{
-        heart.remove();
-    },14000);
+
+    setTimeout(
+        () => heart.remove(),
+        15000
+    );
 
 }
 
 
-/* Start gentle heart stream */
+/* =========================================================
+   START HEARTS
+========================================================= */
 
-setInterval(
-    createHeart,
-    900
+let heartInterval = null;
+
+
+function startHearts(){
+
+    if(heartInterval) return;
+
+
+    heartInterval =
+        setInterval(
+            createHeart,
+            650
+        );
+
+
+    for(let i=0;i<15;i++){
+
+        setTimeout(
+            createHeart,
+            i * 120
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ENTRY SCREEN
+========================================================= */
+
+const entry =
+    document.getElementById("entry");
+
+
+const enterButton =
+    document.getElementById(
+        "enterButton"
+    );
+
+
+const piano =
+    document.getElementById(
+        "pianoRecording"
+    );
+
+
+let pianoStarted = false;
+
+
+function startPiano(){
+
+    if(pianoStarted)
+        return;
+
+
+    pianoStarted = true;
+
+
+    piano.volume = .65;
+
+
+    piano.play().catch(
+        () => {
+
+            pianoStarted = false;
+
+        }
+    );
+
+}
+
+
+/*
+    Enter button:
+
+    - removes cinematic screen
+    - starts hearts
+    - starts piano
+*/
+
+enterButton.addEventListener(
+    "click",
+    () => {
+
+        entry.classList.add(
+            "hide"
+        );
+
+
+        startHearts();
+
+
+        startPiano();
+
+
+        /*
+            Little burst immediately
+            after entering.
+        */
+
+        for(let i=0;i<20;i++){
+
+            setTimeout(
+                createHeart,
+                i * 70
+            );
+
+        }
+
+    }
 );
 
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+/* =========================================================
+   PIANO LOOP
+========================================================= */
+
+piano.addEventListener(
+    "ended",
+    () => {
+
+        piano.currentTime = 0;
+
+        piano.play().catch(
+            () => {}
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SCROLL REVEALS
+========================================================= */
 
 const revealElements =
-    document.querySelectorAll(".reveal");
+    document.querySelectorAll(
+        ".reveal"
+    );
+
 
 const observer =
     new IntersectionObserver(
         entries => {
 
-            entries.forEach(entry => {
+            entries.forEach(
+                entry => {
 
-                if(entry.isIntersecting){
+                    if(
+                        entry.isIntersecting
+                    ){
 
-                    entry.target.classList.add(
-                        "visible"
-                    );
+                        entry.target
+                            .classList
+                            .add("visible");
+
+                    }
 
                 }
-
-            });
+            );
 
         },
         {
@@ -1711,114 +2607,43 @@ revealElements.forEach(
 );
 
 
-/* =========================
-   PIANO RECORDING
-========================= */
-
-const piano =
-    document.getElementById(
-        "pianoRecording"
-    );
-
-piano.volume = .65;
-
-let pianoStarted = false;
-
-
-/*
-    The piano begins automatically
-    after the page receives user interaction.
-
-    This avoids browser autoplay blocking.
-*/
-
-function startPiano(){
-
-    if(pianoStarted) return;
-
-    pianoStarted = true;
-
-    piano.volume = .65;
-
-    piano.play().catch(()=>{
-
-        pianoStarted = false;
-
-    });
-
-}
-
-
-/* Start after first interaction */
-
-document.addEventListener(
-    "click",
-    startPiano,
-    {once:true}
-);
-
-
-/* Keep recording looping */
-
-piano.addEventListener(
-    "ended",
-    () => {
-
-        piano.currentTime = 0;
-
-        piano.play().catch(()=>{});
-
-    }
-);
-
-
-/* =========================
-   LITTLE HEART BURSTS
-========================= */
-
-function heartBurst(){
-
-    for(let i=0;i<14;i++){
-
-        setTimeout(
-            createHeart,
-            i*90
-        );
-
-    }
-
-}
+/* =========================================================
+   INITIAL HEART BURST
+========================================================= */
 
 window.addEventListener(
     "load",
     () => {
 
         setTimeout(
-            heartBurst,
-            1800
+            () => {
+
+                /*
+                    Don't reveal hearts
+                    before entering.
+                */
+
+            },
+            1000
         );
 
     }
 );
 
 
-/* =========================
-   SURPRISE LINK
-========================= */
+/* =========================================================
+   SURPRISE BUTTON
+========================================================= */
 
 const surpriseButton =
     document.querySelector(
         ".surprise-button"
     );
 
+
 surpriseButton.addEventListener(
     "click",
     () => {
-
-        /*
-            Tell Page 2 that the piano
-            was already playing.
-        */
 
         sessionStorage.setItem(
             "pianoWasPlaying",
