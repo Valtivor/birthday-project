@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#030306">
 <title>Esther — The Secret ✦</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -28,9 +26,9 @@ body{
     color:white;
     font-family:'Manrope',sans-serif;
     overflow-x:hidden;
+    min-height:100vh;
+    -webkit-text-size-adjust:100%;
 }
-
-/* ================= BACKGROUND ================= */
 
 body::before{
     content:"";
@@ -38,7 +36,6 @@ body::before{
     inset:0;
     pointer-events:none;
     z-index:-10;
-
     background:
         radial-gradient(circle at 20% 20%,rgba(255,80,160,.13),transparent 30%),
         radial-gradient(circle at 80% 25%,rgba(100,80,255,.15),transparent 32%),
@@ -51,11 +48,9 @@ body::after{
     inset:0;
     pointer-events:none;
     z-index:-8;
-
     background-image:
         linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
         linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
-
     background-size:80px 80px;
 }
 
@@ -73,962 +68,734 @@ body::after{
     pointer-events:none;
     z-index:100;
     opacity:.035;
-
     background-image:url(
         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E"
     );
 }
 
-/* ================= HEARTS ================= */
-
 #heartLayer{
     position:fixed;
     inset:0;
     pointer-events:none;
+    z-index:50;
     overflow:hidden;
-    z-index:90;
 }
 
-.heart{
+.rising-heart{
     position:absolute;
     bottom:-50px;
-    opacity:0;
-
     animation:riseHeart linear forwards;
-
-    filter:
-        drop-shadow(
-            0 0 12px
-            rgba(255,100,180,.45)
-        );
+    opacity:0;
+    font-size:18px;
 }
 
 @keyframes riseHeart{
-
     0%{
-        transform:
-            translateY(0)
-            translateX(0)
-            scale(.5)
-            rotate(0deg);
+        transform:translateY(0) scale(.5) rotate(0);
         opacity:0;
     }
-
     10%{
-        opacity:.9;
+        opacity:.8;
     }
-
-    80%{
-        opacity:.7;
+    90%{
+        opacity:.6;
     }
-
     100%{
-        transform:
-            translateY(-115vh)
-            translateX(var(--drift))
-            scale(1.15)
-            rotate(var(--rotation));
+        transform:translateY(-110vh) scale(1.3) rotate(25deg);
         opacity:0;
     }
 }
 
-/* ================= ENTRY ================= */
+/* ENTRY */
 
 #secretEntry{
     position:fixed;
     inset:0;
     z-index:200;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     text-align:center;
-
     background:
-        radial-gradient(
-            circle at center,
-            rgba(255,90,170,.13),
-            transparent 28%
-        ),
+        radial-gradient(circle at center,rgba(120,80,255,.12),transparent 38%),
         #030306;
-
-    transition:
-        opacity 1.5s ease,
-        visibility 1.5s ease;
+    transition:opacity 1.2s ease,visibility 1.2s ease;
+    padding:30px;
 }
 
 .secret-content{
-    width:min(950px,90%);
+    max-width:850px;
+    width:100%;
 }
 
 .secret-top{
     font-size:10px;
-    letter-spacing:.5em;
+    letter-spacing:5px;
     color:rgba(255,255,255,.5);
-    text-transform:uppercase;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .secret-star{
-    width:150px;
-    height:150px;
-
-    margin:auto;
-
+    width:130px;
+    height:130px;
     border:1px solid rgba(255,255,255,.18);
     border-radius:50%;
-
+    margin:0 auto 35px;
     display:flex;
     align-items:center;
     justify-content:center;
-
     position:relative;
-
-    animation:
-        celestialSpin 18s linear infinite;
-
     box-shadow:
-        0 0 70px rgba(255,100,180,.12),
-        inset 0 0 50px rgba(255,255,255,.04);
+        0 0 40px rgba(150,100,255,.15),
+        inset 0 0 35px rgba(255,255,255,.03);
 }
 
-.secret-star::before{
-    content:"";
-    position:absolute;
-    inset:15px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:50%;
-}
-
+.secret-star::before,
 .secret-star::after{
     content:"";
     position:absolute;
-    inset:32px;
+    inset:-12px;
     border:1px solid rgba(255,255,255,.07);
     border-radius:50%;
 }
 
+.secret-star::after{
+    inset:-25px;
+    border-color:rgba(255,255,255,.035);
+}
+
 .secret-star span{
-    font-size:50px;
-    animation:starPulse 2.5s ease-in-out infinite;
+    font-size:48px;
+    animation:floatStar 3s ease-in-out infinite;
 }
 
-@keyframes celestialSpin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-@keyframes starPulse{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.2);
-    }
+@keyframes floatStar{
+    0%,100%{transform:translateY(0) rotate(0);}
+    50%{transform:translateY(-8px) rotate(8deg);}
 }
 
 .secret-name{
-    margin-top:55px;
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(85px,16vw,210px);
-
-    line-height:.75;
-    letter-spacing:-.08em;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(60px,12vw,130px);
+    line-height:.8;
+    font-weight:500;
+    letter-spacing:-4px;
 }
 
 .secret-sub{
-    margin-top:28px;
-
-    font-size:11px;
-    letter-spacing:.6em;
-    color:#f2a4c9;
+    margin-top:25px;
+    letter-spacing:10px;
+    font-size:12px;
+    color:rgba(255,255,255,.6);
 }
 
 .secret-enter{
-    margin-top:55px;
-
-    padding:18px 36px;
-
-    border:1px solid rgba(255,255,255,.22);
-    border-radius:100px;
-
-    background:rgba(255,255,255,.035);
-
+    margin-top:45px;
+    padding:17px 30px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.04);
     color:white;
-
-    font-size:10px;
-    letter-spacing:.25em;
-
+    border-radius:100px;
+    font-family:inherit;
+    font-size:11px;
+    letter-spacing:3px;
     cursor:pointer;
-
-    transition:.5s;
-
-    backdrop-filter:blur(20px);
+    transition:.4s;
+    -webkit-tap-highlight-color:transparent;
 }
 
 .secret-enter:hover{
-
     background:white;
-    color:#030306;
-
-    transform:
-        translateY(-5px)
-        scale(1.04);
-
-    box-shadow:
-        0 20px 70px
-        rgba(255,100,180,.22);
+    color:#050507;
+    transform:translateY(-3px);
+    box-shadow:0 15px 50px rgba(255,255,255,.12);
 }
 
 .secret-date{
-    margin-top:30px;
-
+    margin-top:25px;
     font-size:9px;
-    letter-spacing:.4em;
-
-    color:rgba(255,255,255,.3);
+    letter-spacing:3px;
+    color:rgba(255,255,255,.35);
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
-main{
+#main{
     opacity:0;
-    transition:opacity 2s ease;
+    visibility:hidden;
+    transition:opacity 1.5s ease;
 }
 
-main.visible{
+#main.visible{
     opacity:1;
+    visibility:visible;
 }
-
-/* ================= NAV ================= */
 
 nav{
-
     position:fixed;
     top:0;
     left:0;
-    right:0;
-
-    z-index:50;
-
-    padding:28px 5%;
-
+    width:100%;
+    z-index:80;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    padding:
+        max(24px,env(safe-area-inset-top))
+        5vw
+        24px;
+    padding-top:max(24px,env(safe-area-inset-top));
+    mix-blend-mode:screen;
 }
 
-.nav-logo{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
+.logo{
+    font-family:'Cormorant Garamond',serif;
     font-size:30px;
 }
 
-.nav-text{
-
+.nav-date{
     font-size:9px;
-    letter-spacing:.3em;
-
-    color:rgba(255,255,255,.45);
+    letter-spacing:3px;
+    color:rgba(255,255,255,.5);
 }
 
-/* ================= MUSIC ================= */
-
-.music-status{
-
-    position:fixed;
-
-    left:25px;
-    bottom:25px;
-
-    z-index:60;
-
-    padding:11px 17px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:100px;
-
-    background:rgba(0,0,0,.35);
-
-    backdrop-filter:blur(18px);
-
-    font-size:9px;
-    letter-spacing:.2em;
-
-    color:rgba(255,255,255,.55);
-
-    transition:.5s;
-}
-
-.music-status.playing{
-
-    color:white;
-
-    border-color:
-        rgba(255,160,200,.4);
-
-    box-shadow:
-        0 0 30px
-        rgba(255,100,180,.15);
-}
-
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
-
     min-height:100vh;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     text-align:center;
-
-    padding:130px 7%;
-}
-
-.hero-inner{
-    max-width:1200px;
-}
-
-.hero-kicker{
-
-    font-size:10px;
-    letter-spacing:.55em;
-
-    color:#f2a4c9;
-
-    margin-bottom:35px;
-}
-
-.hero h1{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(80px,14vw,190px);
-
-    font-weight:500;
-
-    line-height:.75;
-
-    letter-spacing:-.08em;
-}
-
-.hero h1 span{
-
-    display:block;
-    font-style:italic;
-}
-
-.hero-text{
-
-    max-width:580px;
-
-    margin:50px auto 0;
-
-    color:rgba(255,255,255,.55);
-
-    font-size:14px;
-    line-height:2;
-}
-
-/* ================= ORBIT ================= */
-
-.orbit-section{
-
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:120px 5%;
-}
-
-.orbit-wrap{
-
-    width:min(650px,85vw);
-
-    aspect-ratio:1;
-
+    padding:120px 7vw 80px;
     position:relative;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 
-.orbit{
-
-    position:absolute;
-
-    inset:0;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius:50%;
-
-    animation:
-        orbitRotate 20s linear infinite;
-}
-
-.orbit::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:9px;
-    height:9px;
-
-    border-radius:50%;
-
-    background:#fff;
-
-    box-shadow:
-        0 0 20px #fff,
-        0 0 40px rgba(255,100,180,.8);
-
-    top:-4px;
-    left:50%;
-}
-
-.orbit.two{
-
-    inset:70px;
-
-    animation-duration:28s;
-
-    animation-direction:reverse;
-}
-
-.orbit.three{
-
-    inset:140px;
-
-    animation-duration:36s;
-}
-
-@keyframes orbitRotate{
-
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.orbit-center{
-
-    width:190px;
-    height:190px;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,120,190,.2),
-            rgba(255,255,255,.025) 55%,
-            transparent 70%
-        );
-
-    box-shadow:
-        0 0 100px
-        rgba(255,90,170,.14);
-}
-
-.orbit-center span{
-
-    font-size:75px;
-
-    animation:
-        starPulse 2.5s ease-in-out infinite;
-}
-
-.orbit-label{
-
-    position:absolute;
-
+.hero-small{
     font-size:10px;
-
-    letter-spacing:.25em;
-
+    letter-spacing:5px;
     color:rgba(255,255,255,.45);
-
-    white-space:nowrap;
-}
-
-.label-top{
-    top:5%;
-    left:50%;
-    transform:translateX(-50%);
-}
-
-.label-right{
-    right:-2%;
-    top:50%;
-    transform:translateY(-50%);
-}
-
-.label-bottom{
-    bottom:5%;
-    left:50%;
-    transform:translateX(-50%);
-}
-
-.label-left{
-    left:-2%;
-    top:50%;
-    transform:translateY(-50%);
-}
-
-/* ================= MESSAGE ================= */
-
-.message{
-
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:120px 7%;
-}
-
-.message-inner{
-    max-width:1000px;
-}
-
-.message-small{
-
-    font-size:10px;
-
-    letter-spacing:.5em;
-
-    color:#f2a4c9;
-
-    margin-bottom:35px;
-}
-
-.message h2{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(60px,10vw,130px);
-
-    line-height:.8;
-
-    font-weight:500;
-
-    letter-spacing:-.07em;
-}
-
-.message h2 span{
-
-    display:block;
-
-    font-style:italic;
-}
-
-.message p{
-
-    max-width:650px;
-
-    margin:50px auto 0;
-
-    color:rgba(255,255,255,.58);
-
-    line-height:2;
-
-    font-size:14px;
-}
-
-/* ================= VOICE ================= */
-
-.voice-section{
-
-    min-height:80vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:120px 7%;
-
-    text-align:center;
-}
-
-.voice-card{
-
-    width:min(800px,100%);
-
-    padding:70px 45px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.015)
-        );
-
-    backdrop-filter:blur(25px);
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.voice-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:250px;
-    height:250px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,90,170,.12);
-
-    filter:blur(70px);
-
-    top:-120px;
-    right:-100px;
-}
-
-.voice-label{
-
-    font-size:10px;
-
-    letter-spacing:.5em;
-
-    color:#f2a4c9;
-
     margin-bottom:25px;
 }
 
-.voice-card h2{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(55px,8vw,90px);
-
+.hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(70px,13vw,170px);
     font-weight:500;
-
-    line-height:.9;
+    line-height:.8;
+    letter-spacing:-5px;
 }
 
-.voice-card p{
-
-    max-width:520px;
-
-    margin:30px auto;
-
-    color:rgba(255,255,255,.5);
-
-    line-height:1.8;
-}
-
-.voice-button{
-
-    padding:17px 30px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.2);
-
-    border-radius:100px;
-
-    background:
-        rgba(255,255,255,.04);
-
-    color:white;
-
-    cursor:pointer;
-
-    font-size:10px;
-
-    letter-spacing:.2em;
-
-    transition:.5s;
-}
-
-.voice-button:hover{
-
-    background:white;
-
-    color:#030306;
-
-    transform:translateY(-4px);
-
-    box-shadow:
-        0 20px 60px
-        rgba(255,100,180,.2);
-}
-
-.voice-button:disabled{
-    cursor:default;
+.hero h1 span{
+    display:block;
+    font-style:italic;
     opacity:.8;
 }
 
-/* ================= FINAL ================= */
+.hero-text{
+    max-width:560px;
+    margin:40px auto 0;
+    color:rgba(255,255,255,.6);
+    font-size:14px;
+    line-height:1.9;
+}
 
-.final{
+/* PHOTO */
 
-    min-height:100vh;
+.photo-section{
+    padding:100px 7vw;
+    display:flex;
+    justify-content:center;
+}
 
+.photo-frame{
+    width:min(600px,90vw);
+    position:relative;
+}
+
+.photo-frame::before{
+    content:"";
+    position:absolute;
+    inset:-15px;
+    border:1px solid rgba(255,255,255,.12);
+    z-index:-1;
+}
+
+.photo-frame img{
+    width:100%;
+    display:block;
+    filter:saturate(.9) contrast(1.05);
+}
+
+.photo-caption{
+    text-align:center;
+    margin-top:18px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;
+    color:rgba(255,255,255,.65);
+}
+
+/* SECTIONS */
+
+.section{
+    padding:150px 8vw;
+    max-width:1300px;
+    margin:auto;
+}
+
+.section-label{
+    font-size:9px;
+    letter-spacing:5px;
+    color:rgba(255,255,255,.4);
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(50px,8vw,100px);
+    font-weight:500;
+    line-height:.9;
+}
+
+.section-text{
+    max-width:600px;
+    margin-top:35px;
+    color:rgba(255,255,255,.58);
+    line-height:2;
+    font-size:14px;
+}
+
+/* ORBIT */
+
+.orbit-wrap{
+    min-height:650px;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    text-align:center;
-
-    padding:100px 5%;
+    position:relative;
 }
 
-.final-inner{
-    max-width:1300px;
+.orbit{
+    width:320px;
+    height:320px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 80px rgba(120,80,255,.08);
 }
 
-.final-top{
-
-    font-size:10px;
-
-    letter-spacing:.5em;
-
-    color:#f2a4c9;
-
-    margin-bottom:40px;
+.orbit::before{
+    content:"";
+    position:absolute;
+    inset:35px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
 }
 
-.final h2{
+.orbit-center{
+    font-size:45px;
+    animation:floatStar 3s ease-in-out infinite;
+}
 
-    font-family:
-        'Cormorant Garamond',
-        serif;
+.orbit-word{
+    position:absolute;
+    font-size:9px;
+    letter-spacing:4px;
+    color:rgba(255,255,255,.5);
+}
 
-    font-size:
-        clamp(85px,17vw,230px);
+.orbit-word:nth-child(2){top:-30px;}
+.orbit-word:nth-child(3){right:-80px;}
+.orbit-word:nth-child(4){bottom:-30px;}
+.orbit-word:nth-child(5){left:-80px;}
 
-    line-height:.7;
+/* CARDS */
 
-    letter-spacing:-.09em;
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:70px;
+}
 
+.card{
+    min-height:270px;
+    padding:35px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.025);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    transition:.5s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,255,255,.25);
+    background:rgba(255,255,255,.045);
+}
+
+.card-number{
+    font-size:9px;
+    color:rgba(255,255,255,.35);
+    letter-spacing:3px;
+    margin-bottom:auto;
+}
+
+.card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:38px;
     font-weight:500;
 }
 
-.final h2 span{
-
-    display:block;
-
-    font-style:italic;
+.card p{
+    margin-top:12px;
+    color:rgba(255,255,255,.48);
+    line-height:1.7;
+    font-size:12px;
 }
 
-.final-sub{
+/* ECO STAR */
 
-    margin-top:55px;
+.eco-star{
+    padding:130px 5vw;
+    text-align:center;
+    overflow:hidden;
+}
 
+.eco-star h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(70px,18vw,230px);
+    font-weight:500;
+    line-height:.75;
+    letter-spacing:-8px;
+    white-space:nowrap;
+    opacity:.9;
+}
+
+/* LETTER */
+
+.letter{
+    max-width:850px;
+    margin:auto;
+    padding:100px 7vw;
+}
+
+.letter-photo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 60px;
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.letter-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.letter-content{
+    text-align:center;
+}
+
+.letter-content p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(24px,3vw,38px);
+    line-height:1.5;
+    color:rgba(255,255,255,.82);
+}
+
+/* VOICE */
+
+.voice-section{
+    text-align:center;
+    padding:130px 7vw;
+}
+
+.voice-card{
+    max-width:700px;
+    margin:50px auto 0;
+    padding:60px 30px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.025);
+}
+
+.voice-icon{
+    font-size:40px;
+    margin-bottom:25px;
+}
+
+.voice-card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:42px;
+    font-weight:500;
+}
+
+.voice-card p{
+    max-width:500px;
+    margin:20px auto 30px;
+    color:rgba(255,255,255,.5);
+    line-height:1.8;
+    font-size:13px;
+}
+
+.voice-button{
+    padding:18px 30px;
+    border-radius:100px;
+    border:1px solid rgba(255,255,255,.25);
+    color:white;
+    background:rgba(255,255,255,.05);
+    cursor:pointer;
+    font-family:inherit;
     font-size:10px;
-
-    letter-spacing:.45em;
-
-    color:rgba(255,255,255,.4);
+    letter-spacing:3px;
+    transition:.4s;
+    -webkit-tap-highlight-color:transparent;
 }
 
-/* ================= HEART EXPLOSION ================= */
+.voice-button:hover:not(:disabled){
+    background:white;
+    color:#030306;
+    transform:translateY(-3px);
+}
+
+.voice-button:disabled{
+    opacity:.5;
+    cursor:wait;
+}
+
+.voice-status{
+    min-height:20px;
+    margin-top:18px;
+    color:rgba(255,255,255,.4);
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+/* SURPRISE */
+
+.surprise-section{
+    padding:160px 7vw;
+    text-align:center;
+}
+
+.surprise-button{
+    display:inline-block;
+    margin-top:40px;
+    padding:20px 35px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:100px;
+    color:white;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:3px;
+    transition:.4s;
+}
+
+.surprise-button:hover{
+    background:white;
+    color:#030306;
+    transform:translateY(-4px);
+}
+
+/* FOOTER */
+
+footer{
+    padding:120px 7vw max(60px,env(safe-area-inset-bottom));
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+footer h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(55px,10vw,130px);
+    font-weight:500;
+}
+
+footer p{
+    margin-top:25px;
+    color:rgba(255,255,255,.35);
+    font-size:9px;
+    letter-spacing:4px;
+}
+
+/* MUSIC */
+
+.music-status{
+    position:fixed;
+    left:20px;
+    bottom:max(20px,env(safe-area-inset-bottom));
+    z-index:70;
+    font-size:9px;
+    letter-spacing:2px;
+    color:rgba(255,255,255,.35);
+}
+
+.music-status.playing{
+    color:rgba(255,255,255,.65);
+}
+
+/* EXPLOSION */
 
 .explosion-heart{
-
     position:fixed;
-
     left:50%;
     top:50%;
-
+    z-index:300;
     pointer-events:none;
-
-    z-index:150;
-
-    font-size:30px;
-
-    animation:
-        explodeHeart 2.5s ease-out forwards;
+    font-size:20px;
+    animation:explodeHeart 2s ease-out forwards;
 }
 
 @keyframes explodeHeart{
-
     0%{
-
-        transform:
-            translate(-50%,-50%)
-            scale(.2);
-
-        opacity:0;
-    }
-
-    15%{
         opacity:1;
+        transform:translate(-50%,-50%) scale(.4) rotate(0);
     }
-
     100%{
-
+        opacity:0;
         transform:
             translate(
                 calc(-50% + var(--x)),
                 calc(-50% + var(--y))
             )
-            scale(1.2)
+            scale(1.4)
             rotate(var(--rot));
-
-        opacity:0;
     }
 }
 
-/* ================= REVEAL ================= */
+/* REVEAL */
 
 .reveal{
-
     opacity:0;
-
-    transform:translateY(60px);
-
-    transition:1.3s ease;
+    transform:translateY(35px);
+    transition:opacity 1s ease,transform 1s ease;
 }
 
 .reveal.show{
-
     opacity:1;
-
     transform:translateY(0);
 }
 
-/* ================= FOOTER ================= */
-
-footer{
-
-    padding:60px 7%;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.06);
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:rgba(255,255,255,.3);
-
-    font-size:9px;
-
-    letter-spacing:.25em;
-}
-
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:700px){
 
-    .secret-name{
-        font-size:90px;
+    body::after{
+        background-size:45px 45px;
     }
 
-    .secret-star{
-        width:120px;
-        height:120px;
+    nav{
+        padding-left:20px;
+        padding-right:20px;
     }
 
-    .orbit-wrap{
-        width:90vw;
+    .nav-date{
+        font-size:7px;
+        letter-spacing:2px;
     }
 
-    .orbit.two{
-        inset:45px;
+    .hero{
+        padding-left:25px;
+        padding-right:25px;
     }
 
-    .orbit.three{
-        inset:90px;
+    .hero h1{
+        letter-spacing:-3px;
     }
 
-    .orbit-center{
-        width:130px;
-        height:130px;
+    .hero-text{
+        font-size:13px;
     }
 
-    .orbit-center span{
-        font-size:55px;
+    .section{
+        padding:100px 25px;
     }
 
-    .label-right{
-        right:-5%;
+    .cards{
+        grid-template-columns:1fr;
     }
 
-    .label-left{
-        left:-5%;
+    .orbit{
+        width:260px;
+        height:260px;
+    }
+
+    .orbit-word:nth-child(3){
+        right:-50px;
+    }
+
+    .orbit-word:nth-child(5){
+        left:-50px;
+    }
+
+    .eco-star{
+        overflow:hidden;
+    }
+
+    .eco-star h2{
+        letter-spacing:-4px;
+        font-size:23vw;
+    }
+
+    .letter{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+    .voice-section{
+        padding-left:25px;
+        padding-right:25px;
     }
 
     .voice-card{
-        padding:55px 25px;
+        padding:45px 20px;
     }
 
-    footer{
-        flex-direction:column;
-        gap:15px;
+    .voice-card h3{
+        font-size:34px;
     }
 
-    .music-status{
-        left:15px;
-        bottom:15px;
+    .surprise-section{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+    .secret-top{
+        letter-spacing:3px;
+        font-size:8px;
+    }
+
+    .secret-name{
+        letter-spacing:-2px;
     }
 }
 
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <div class="noise"></div>
-
 <canvas id="stars"></canvas>
-
 <div id="heartLayer"></div>
 
-
-<!-- =====================================================
-     ENTRY
-===================================================== -->
+<!-- ENTRY -->
 
 <div id="secretEntry">
 
@@ -1050,12 +817,8 @@ footer{
             ECO STAR
         </div>
 
-        <button
-            class="secret-enter"
-            id="secretEnter">
-
+        <button class="secret-enter" id="secretEnter">
             ENTER THE SECRET ✦
-
         </button>
 
         <div class="secret-date">
@@ -1066,110 +829,126 @@ footer{
 
 </div>
 
-
-<!-- =====================================================
-     PIANO RECORDING
-===================================================== -->
+<!-- PIANO -->
 
 <audio
     id="pianoRecording"
     src="happy-birthday-piano.mp3"
-    preload="auto">
+    preload="auto"
+    playsinline>
 </audio>
 
+<!-- OPTIONAL REAL VOICE RECORDING -->
+<!--
+     If you have a real recording, put:
+     birthday-message.mp3
+     in the SAME folder as this HTML file.
 
-<div
-    class="music-status"
-    id="musicStatus">
+     The website will automatically try the real recording first.
+     If it doesn't exist or cannot play, browser speech will be used.
+-->
 
-    YOUR PIANO 🎹
+<audio
+    id="realVoiceRecording"
+    src="birthday-message.mp3"
+    preload="metadata"
+    playsinline>
+</audio>
 
+<div class="music-status" id="musicStatus">
+    PIANO READY 🎹
 </div>
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<!-- MAIN -->
 
 <main id="main">
 
-
 <nav>
-
-    <div class="nav-logo">
-        E.
-    </div>
-
-    <div class="nav-text">
-        THE SECRET · ECO STAR
-    </div>
-
+    <div class="logo">E.</div>
+    <div class="nav-date">07 · 10 · ECO STAR</div>
 </nav>
-
 
 <!-- HERO -->
 
 <section class="hero">
 
-    <div class="hero-inner reveal">
+    <div>
 
-        <div class="hero-kicker">
-            YOU MADE IT HERE
+        <div class="hero-small">
+            A LITTLE UNIVERSE MADE FOR SOMEONE SPECIAL
         </div>
 
         <h1>
-            Happy Birthday.
+            Happy Birthday,
             <span>Esther.</span>
         </h1>
 
         <p class="hero-text">
-
-            This is the part I couldn't fit into the first page.
-
-            The part where the birthday message gets a little
-            bigger, the stars get a little brighter, and the
-            ECO STAR gets her own universe. 💫
-
+            Some people deserve more than a simple birthday wish.
+            They deserve a whole little universe made just for them.
         </p>
 
     </div>
 
 </section>
 
+<!-- PHOTO -->
+
+<section class="photo-section reveal">
+
+    <div class="photo-frame">
+
+        <img src="ECO.jpg" alt="Esther">
+
+        <div class="photo-caption">
+            The ECO STAR, herself. ♡
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SOMETHING -->
+
+<section class="section reveal">
+
+    <div class="section-label">
+        A LITTLE SOMETHING
+    </div>
+
+    <h2 class="section-title">
+        Some people deserve<br>
+        more than a simple<br>
+        “Happy Birthday.”
+    </h2>
+
+    <p class="section-text">
+        And you are definitely one of those people.
+        So instead of just sending a message,
+        I decided to make you a tiny corner of the internet.
+        A place where one very special person gets to be celebrated.
+    </p>
+
+</section>
 
 <!-- ORBIT -->
 
-<section class="orbit-section">
+<section class="section reveal">
 
-    <div class="orbit-wrap reveal">
+    <div class="section-label">
+        THE ECO STAR UNIVERSE
+    </div>
 
-        <div class="orbit"></div>
+    <div class="orbit-wrap">
 
-        <div class="orbit two"></div>
+        <div class="orbit">
 
-        <div class="orbit three"></div>
+            <div class="orbit-center">💫</div>
 
-        <div class="orbit-label label-top">
-            LAUGHS
-        </div>
-
-        <div class="orbit-label label-right">
-            MEMORIES
-        </div>
-
-        <div class="orbit-label label-bottom">
-            FRIENDSHIP
-        </div>
-
-        <div class="orbit-label label-left">
-            CHAOS
-        </div>
-
-        <div class="orbit-center">
-
-            <span>
-                💫
-            </span>
+            <div class="orbit-word">LAUGHS</div>
+            <div class="orbit-word">MEMORIES</div>
+            <div class="orbit-word">FRIENDSHIP</div>
+            <div class="orbit-word">CHAOS</div>
 
         </div>
 
@@ -1177,73 +956,179 @@ footer{
 
 </section>
 
+<!-- CARDS -->
 
-<!-- MESSAGE -->
+<section class="section reveal">
 
-<section class="message">
+    <div class="cards">
 
-    <div class="message-inner reveal">
+        <div class="card">
 
-        <div class="message-small">
-            THE LITTLE MESSAGE
+            <div class="card-number">01</div>
+
+            <div>
+                <h3>The laughs.</h3>
+
+                <p>
+                    The random conversations, jokes,
+                    silly moments and everything that
+                    somehow becomes funny when we're together.
+                </p>
+            </div>
+
         </div>
 
-        <h2>
+        <div class="card">
 
-            Some people
-            <span>are simply special.</span>
+            <div class="card-number">02</div>
 
-        </h2>
+            <div>
+                <h3>The friendship.</h3>
+
+                <p>
+                    The kind that feels natural.
+                    Genuine, comfortable and simply
+                    good to have.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-number">03</div>
+
+            <div>
+                <h3>The memories.</h3>
+
+                <p>
+                    The ones already made,
+                    and all the ones still waiting
+                    somewhere in the future.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ECO STAR -->
+
+<section class="eco-star reveal">
+
+    <h2>ECO STAR</h2>
+
+</section>
+
+<!-- LETTER -->
+
+<section class="letter reveal">
+
+    <div class="letter-photo">
+
+        <img src="ECO.jpg" alt="Esther">
+
+    </div>
+
+    <div class="letter-content">
 
         <p>
+            Happy Birthday, Esther.
+        </p>
 
-            Esther, today is your day.
+        <br>
 
-            I hope this new chapter of your life brings you happiness,
-            beautiful memories, exciting opportunities,
-            genuine friendships, and countless reasons to smile.
+        <p>
+            Today is your day, ECO STAR.
+            And I genuinely hope this new chapter
+            brings you happiness, beautiful memories,
+            big opportunities, and many reasons to smile.
+        </p>
 
-            <br><br>
+        <br>
 
+        <p>
+            Never forget how amazing it is to simply
+            be yourself.
+        </p>
+
+        <br>
+
+        <p>
             Keep shining.
             Keep dreaming.
             Keep growing.
-
-            <br><br>
-
-            And most importantly...
-
-            never forget that you are someone's ECO STAR. 💫
-
+            And keep being the wonderful person you are.
         </p>
 
     </div>
 
 </section>
 
+<!-- FROM BESTIE -->
+
+<section class="section reveal">
+
+    <div class="section-label">
+        FROM YOUR BESTIE ❤️
+    </div>
+
+    <h2 class="section-title">
+        For all the laughs,<br>
+        all the random moments,<br>
+        and all the memories<br>
+        still waiting to happen.
+    </h2>
+
+    <p class="section-text">
+
+        I hope this birthday reminds you just how special you are.
+        Thank you for being the kind of person who makes friendship
+        feel easy, fun, genuine, and worth remembering.
+
+        <br><br>
+
+        There are still plenty of laughs ahead,
+        plenty of stories we haven't told yet,
+        and plenty of memories waiting for us.
+
+        <br><br>
+
+        Happy Birthday, ECO STAR. 💫
+
+        <br><br>
+
+        — Your Bestie ❤️
+
+    </p>
+
+</section>
 
 <!-- VOICE -->
 
-<section class="voice-section">
+<section class="voice-section reveal">
 
-    <div class="voice-card reveal">
+    <div class="section-label">
+        ONE MORE THING
+    </div>
 
-        <div class="voice-label">
-            ONE MORE THING
+    <div class="voice-card">
+
+        <div class="voice-icon">
+            🎙️
         </div>
 
-        <h2>
-            Hear this
-            from me.
-        </h2>
+        <h3>
+            A message for you.
+        </h3>
 
         <p>
-
-            I wanted this part to feel a little more personal.
-
-            Press the button and let the birthday message
-            speak for itself.
-
+            Tap below and hear your birthday message.
+            The site will use a real recorded voice when
+            available, and automatically fall back to your
+            device's built-in voice when it isn't.
         </p>
 
         <button
@@ -1254,53 +1139,49 @@ footer{
 
         </button>
 
-    </div>
-
-</section>
-
-
-<!-- FINAL -->
-
-<section class="final">
-
-    <div class="final-inner reveal">
-
-        <div class="final-top">
-            FOR THE ONE AND ONLY
-        </div>
-
-        <h2>
-
-            HAPPY
-            <span>BIRTHDAY.</span>
-
-        </h2>
-
-        <div class="final-sub">
-
-            ESTHER · ECO STAR ⭐ · OCTOBER 07
-
+        <div
+            class="voice-status"
+            id="voiceStatus">
         </div>
 
     </div>
 
 </section>
 
+<!-- SURPRISE -->
 
-<footer>
+<section class="surprise-section reveal">
 
-    <div>
-        MADE WITH CARE
+    <div class="section-label">
+        THERE'S STILL MORE
     </div>
 
-    <div>
-        FOR ESTHER 💫
-    </div>
+    <h2 class="section-title">
+        You thought<br>
+        that was it?
+    </h2>
 
-</footer>
+    <a
+        href="surprise.html"
+        class="surprise-button">
+
+        OPEN THE SURPRISE 💫
+
+    </a>
+
+</section>
 
 </main>
 
+<footer>
+
+    <h2>Happy Birthday</h2>
+
+    <p>
+        MADE WITH ❤️ FOR ECO STAR
+    </p>
+
+</footer>
 
 <script>
 
@@ -1320,18 +1201,143 @@ const main =
 const piano =
     document.getElementById("pianoRecording");
 
-const musicStatus =
-    document.getElementById("musicStatus");
+const realVoice =
+    document.getElementById("realVoiceRecording");
 
 const voiceButton =
     document.getElementById("voiceButton");
 
+const voiceStatus =
+    document.getElementById("voiceStatus");
+
+const musicStatus =
+    document.getElementById("musicStatus");
+
 const heartLayer =
     document.getElementById("heartLayer");
 
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
 
 /* =========================================================
-   HEARTS
+   STARFIELD
+========================================================= */
+
+let stars = [];
+
+function resizeCanvas(){
+
+    const dpr =
+        Math.min(window.devicePixelRatio || 1,2);
+
+    canvas.width =
+        window.innerWidth * dpr;
+
+    canvas.height =
+        window.innerHeight * dpr;
+
+    canvas.style.width =
+        window.innerWidth + "px";
+
+    canvas.style.height =
+        window.innerHeight + "px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    stars = [];
+
+    const amount =
+        Math.min(
+            320,
+            Math.floor(
+                window.innerWidth *
+                window.innerHeight /
+                5000
+            )
+        );
+
+    for(let i=0;i<amount;i++){
+
+        stars.push({
+
+            x:Math.random()*window.innerWidth,
+
+            y:Math.random()*window.innerHeight,
+
+            size:Math.random()*1.7+.2,
+
+            alpha:Math.random()*.7+.1,
+
+            speed:Math.random()*.25+.03
+
+        });
+
+    }
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function animateStars(){
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    for(const star of stars){
+
+        star.y -= star.speed;
+
+        if(star.y < -5){
+            star.y =
+                window.innerHeight + 5;
+        }
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,255,255,${star.alpha})`;
+
+        ctx.fill();
+    }
+
+    requestAnimationFrame(
+        animateStars
+    );
+}
+
+animateStars();
+
+
+/* =========================================================
+   RISING HEARTS
 ========================================================= */
 
 const heartTypes = [
@@ -1342,13 +1348,15 @@ const heartTypes = [
     "💕"
 ];
 
+let heartEngineStarted = false;
+
 function createHeart(){
 
     const heart =
         document.createElement("div");
 
     heart.className =
-        "heart";
+        "rising-heart";
 
     heart.textContent =
         heartTypes[
@@ -1359,37 +1367,29 @@ function createHeart(){
         ];
 
     heart.style.left =
-        Math.random() * 100 + "vw";
+        Math.random()*100 + "%";
 
     heart.style.fontSize =
-        (12 + Math.random() * 22) + "px";
+        12 + Math.random()*16 + "px";
 
     heart.style.animationDuration =
-        (6 + Math.random() * 8) + "s";
+        5 + Math.random()*6 + "s";
 
-    heart.style.setProperty(
-        "--drift",
-        ((Math.random() - .5) * 200) + "px"
+    heartLayer.appendChild(
+        heart
     );
 
-    heart.style.setProperty(
-        "--rotation",
-        ((Math.random() - .5) * 140) + "deg"
+    setTimeout(
+        () => heart.remove(),
+        12000
     );
-
-    heartLayer.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    },15000);
-
 }
 
-let heartEngineStarted = false;
 
 function startHearts(){
 
-    if(heartEngineStarted) return;
+    if(heartEngineStarted)
+        return;
 
     heartEngineStarted = true;
 
@@ -1407,7 +1407,6 @@ function startHearts(){
         }
 
     },650);
-
 }
 
 
@@ -1417,24 +1416,16 @@ function startHearts(){
 
 let pianoStarted = false;
 
-/*
-   NORMAL VOLUME
-*/
-
 const NORMAL_VOLUME = 0.8;
-
-/*
-   QUIET VOLUME DURING VOICE
-*/
-
 const DUCKED_VOLUME = 0.15;
 
+function fadePianoTo(
+    targetVolume,
+    duration=900
+){
 
-/* =========================================================
-   FADE PIANO VOLUME
-========================================================= */
-
-function fadePianoTo(targetVolume,duration=900){
+    if(!piano)
+        return;
 
     const startVolume =
         piano.volume;
@@ -1452,26 +1443,22 @@ function fadePianoTo(targetVolume,duration=900){
 
         const progress =
             Math.min(
-                elapsed / duration,
+                elapsed/duration,
                 1
             );
 
-        /*
-           Smooth easing
-        */
-
         const eased =
             progress < .5
-            ? 2 * progress * progress
+            ? 2*progress*progress
             : 1 -
               Math.pow(
-                  -2 * progress + 2,
+                  -2*progress+2,
                   2
-              ) / 2;
+              )/2;
 
         piano.volume =
             startVolume +
-            difference * eased;
+            difference*eased;
 
         if(progress < 1){
 
@@ -1489,37 +1476,44 @@ function fadePianoTo(targetVolume,duration=900){
 }
 
 
-/* =========================================================
-   START PIANO
-========================================================= */
-
 function startPiano(){
 
-    if(pianoStarted) return;
+    if(pianoStarted)
+        return;
 
     pianoStarted = true;
 
     piano.volume = 0;
 
-    piano.play()
-    .then(() => {
+    const playPromise =
+        piano.play();
 
-        musicStatus.classList.add(
-            "playing"
-        );
+    if(playPromise){
 
-        fadePianoTo(
-            NORMAL_VOLUME,
-            1800
-        );
+        playPromise
+        .then(() => {
 
-    })
-    .catch(() => {
+            musicStatus.textContent =
+                "PIANO PLAYING 🎹";
 
-        musicStatus.textContent =
-            "TAP TO PLAY 🎹";
+            musicStatus.classList.add(
+                "playing"
+            );
 
-    });
+            fadePianoTo(
+                NORMAL_VOLUME,
+                1800
+            );
+
+        })
+        .catch(() => {
+
+            musicStatus.textContent =
+                "TAP TO PLAY 🎹";
+
+        });
+
+    }
 
 }
 
@@ -1534,7 +1528,16 @@ piano.addEventListener(
 
         piano.currentTime = 0;
 
-        piano.play();
+        const playPromise =
+            piano.play();
+
+        if(playPromise){
+
+            playPromise.catch(
+                () => {}
+            );
+
+        }
 
     }
 );
@@ -1559,6 +1562,12 @@ enterButton.addEventListener(
         );
 
         startHearts();
+
+        /*
+            Starting the piano here means
+            the browser sees it as a direct
+            user interaction.
+        */
 
         startPiano();
 
@@ -1603,190 +1612,462 @@ From your bestie.
 
 
 /* =========================================================
-   FIND VOICE
+   REAL VOICE RECORDING
 ========================================================= */
 
-function getVoice(){
+/*
+    We don't assume the recording exists.
+
+    If birthday-message.mp3 is missing,
+    audio.error will happen and we automatically
+    use browser speech instead.
+*/
+
+let realVoiceAvailable = false;
+
+realVoice.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        if(
+            realVoice.duration &&
+            isFinite(realVoice.duration)
+        ){
+
+            realVoiceAvailable = true;
+
+        }
+
+    }
+);
+
+realVoice.addEventListener(
+    "error",
+    () => {
+
+        realVoiceAvailable = false;
+
+    }
+);
+
+
+/* =========================================================
+   VOICE SELECTION
+========================================================= */
+
+function getBestVoice(){
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+        return null;
+    }
 
     const voices =
         speechSynthesis.getVoices();
 
-    if(!voices.length){
+    if(!voices.length)
         return null;
-    }
 
-    const preferred =
+    const premium =
         voices.find(
             voice =>
-                /en/i.test(voice.lang) &&
+                /^en/i.test(voice.lang) &&
                 /natural|enhanced|premium/i.test(
                     voice.name
                 )
         );
 
-    if(preferred){
-        return preferred;
-    }
+    if(premium)
+        return premium;
 
-    const english =
+    const US =
         voices.find(
             voice =>
-                /^en/i.test(voice.lang)
+                /^en-US/i.test(
+                    voice.lang
+                )
         );
 
-    return english || voices[0];
+    if(US)
+        return US;
+
+    const English =
+        voices.find(
+            voice =>
+                /^en/i.test(
+                    voice.lang
+                )
+        );
+
+    return English || voices[0];
+}
+
+
+/* =========================================================
+   RESTORE AFTER VOICE
+========================================================= */
+
+function finishVoice(){
+
+    fadePianoTo(
+        NORMAL_VOLUME,
+        1200
+    );
+
+    voiceButton.textContent =
+        "HEAR YOUR MESSAGE 🎙️";
+
+    voiceButton.disabled =
+        false;
 
 }
 
 
 /* =========================================================
-   SPEAK MESSAGE
+   PLAY REAL RECORDING
 ========================================================= */
 
-function speakBirthdayMessage(){
+function playRealVoice(){
 
-    if(
-        !("speechSynthesis" in window)
-    ){
+    return new Promise(
+        (resolve,reject) => {
 
-        alert(
-            "Sorry, this phone/browser does not support spoken messages."
-        );
+            /*
+                Reset recording.
+            */
 
-        return;
+            realVoice.pause();
 
-    }
+            try{
+                realVoice.currentTime = 0;
+            }catch(e){}
 
+            const cleanup = () => {
 
-    /*
-       Stop any previous message
-    */
+                realVoice.onended = null;
+                realVoice.onerror = null;
 
-    speechSynthesis.cancel();
+            };
 
+            realVoice.onended = () => {
 
-    /*
-       LOWER THE PIANO
-       BEFORE THE VOICE STARTS
-    */
+                cleanup();
 
-    fadePianoTo(
-        DUCKED_VOLUME,
-        1200
+                resolve(true);
+
+            };
+
+            realVoice.onerror = () => {
+
+                cleanup();
+
+                reject(
+                    new Error(
+                        "Real voice could not play."
+                    )
+                );
+
+            };
+
+            const promise =
+                realVoice.play();
+
+            if(promise){
+
+                promise.catch(
+                    error => {
+
+                        cleanup();
+
+                        reject(error);
+
+                    }
+                );
+
+            }
+
+        }
     );
 
-
-    const message =
-        new SpeechSynthesisUtterance(
-            birthdayMessage
-        );
+}
 
 
-    message.lang =
-        "en-US";
+/* =========================================================
+   BROWSER VOICE FALLBACK
+========================================================= */
+
+function speakWithBrowserVoice(){
+
+    return new Promise(
+        (resolve,reject) => {
+
+            if(
+                !("speechSynthesis" in window)
+            ){
+
+                reject(
+                    new Error(
+                        "Speech synthesis unavailable."
+                    )
+                );
+
+                return;
+
+            }
+
+            /*
+                Cancel anything already speaking.
+            */
+
+            speechSynthesis.cancel();
+
+            const message =
+                new SpeechSynthesisUtterance(
+                    birthdayMessage.trim()
+                );
+
+            message.lang =
+                "en-US";
+
+            message.rate =
+                0.9;
+
+            message.pitch =
+                1;
+
+            /*
+                Voice may not be loaded yet on
+                Safari. If one is available,
+                use the best one.
+
+                IMPORTANT:
+                We do NOT wait for voiceschanged
+                before speaking because iPhone Safari
+                can be sensitive to delayed speech.
+            */
+
+            const voice =
+                getBestVoice();
+
+            if(voice){
+
+                message.voice =
+                    voice;
+
+            }
+
+            let finished = false;
+
+            function cleanup(){
+
+                message.onend = null;
+                message.onerror = null;
+
+            }
+
+            message.onend = () => {
+
+                if(finished)
+                    return;
+
+                finished = true;
+
+                cleanup();
+
+                resolve(true);
+
+            };
+
+            message.onerror = event => {
+
+                if(finished)
+                    return;
+
+                finished = true;
+
+                cleanup();
+
+                reject(
+                    new Error(
+                        event.error ||
+                        "Browser voice failed."
+                    )
+                );
+
+            };
+
+            /*
+                DIRECTLY SPEAK.
+
+                No setTimeout here.
+                This is important for mobile Safari.
+            */
+
+            try{
+
+                speechSynthesis.speak(
+                    message
+                );
+
+                /*
+                    Compatibility nudge for some
+                    Safari/Chrome versions.
+                */
+
+                if(
+                    typeof speechSynthesis.resume ===
+                    "function"
+                ){
+
+                    speechSynthesis.resume();
+
+                }
+
+            }catch(error){
+
+                reject(error);
+
+            }
+
+        }
+    );
+
+}
 
 
-    /*
-       Calm cinematic speech
-    */
+/* =========================================================
+   MAIN VOICE FUNCTION
+========================================================= */
 
-    message.rate =
-        0.9;
-
-    message.pitch =
-        1;
-
-
-    const voice =
-        getVoice();
-
-    if(voice){
-
-        message.voice =
-            voice;
-
-    }
-
-
-    voiceButton.textContent =
-        "MESSAGE PLAYING 🎙️";
+async function speakBirthdayMessage(){
 
     voiceButton.disabled =
         true;
 
+    voiceButton.textContent =
+        "MESSAGE PLAYING 🎙️";
+
+    voiceStatus.textContent =
+        "";
 
     /*
-       Small delay so the piano
-       has time to become quieter.
+        Lower piano immediately.
     */
 
-    setTimeout(() => {
-
-        speechSynthesis.speak(
-            message
-        );
-
-    },700);
-
+    fadePianoTo(
+        DUCKED_VOLUME,
+        700
+    );
 
     /*
-       WHEN MESSAGE FINISHES
+        Stop previous browser speech.
     */
 
-    message.onend = () => {
+    if(
+        "speechSynthesis" in window
+    ){
+
+        speechSynthesis.cancel();
+
+    }
+
+    /*
+        Stop previous real recording.
+    */
+
+    realVoice.pause();
+
+    /*
+        TRY REAL VOICE FIRST
+    */
+
+    try{
 
         /*
-           Bring piano back up
+            load() makes the browser check the
+            actual recording again.
         */
 
-        fadePianoTo(
-            NORMAL_VOLUME,
-            1500
-        );
+        realVoice.load();
+
+        /*
+            Give the browser a moment to determine
+            whether the audio file exists.
+        */
+
+        if(realVoiceAvailable){
+
+            voiceStatus.textContent =
+                "PLAYING RECORDED MESSAGE 🎙️";
+
+            await playRealVoice();
+
+            voiceStatus.textContent =
+                "RECORDED MESSAGE COMPLETE ❤️";
+
+            finishVoice();
+
+            return;
+
+        }
+
+    }catch(error){
+
+        /*
+            Ignore and continue to browser voice.
+        */
+
+    }
 
 
-        voiceButton.textContent =
-            "HEAR YOUR MESSAGE 🎙️";
+    /*
+        BROWSER VOICE FALLBACK
+    */
 
-        voiceButton.disabled =
-            false;
+    try{
 
+        voiceStatus.textContent =
+            "USING DEVICE VOICE 🗣️";
+
+        await speakWithBrowserVoice();
+
+        voiceStatus.textContent =
+            "MESSAGE COMPLETE ❤️";
+
+        finishVoice();
 
         heartExplosion();
 
-    };
+    }catch(error){
 
-
-    /*
-       If speech fails,
-       restore piano.
-    */
-
-    message.onerror = () => {
-
-        fadePianoTo(
-            NORMAL_VOLUME,
-            1200
+        console.log(
+            "Voice fallback error:",
+            error
         );
 
-        voiceButton.textContent =
-            "HEAR YOUR MESSAGE 🎙️";
+        voiceStatus.textContent =
+            "VOICE IS NOT AVAILABLE — TAP AGAIN ❤️";
 
-        voiceButton.disabled =
-            false;
+        finishVoice();
 
-    };
+    }
 
 }
 
 
 /* =========================================================
-   LOAD VOICES
+   LOAD AVAILABLE BROWSER VOICES
 ========================================================= */
 
 if(
     "speechSynthesis" in window
 ){
+
+    /*
+        Safari and some browsers populate
+        their voices asynchronously.
+    */
 
     speechSynthesis.onvoiceschanged =
         () => {
@@ -1794,6 +2075,12 @@ if(
             speechSynthesis.getVoices();
 
         };
+
+    /*
+        Ask once immediately too.
+    */
+
+    speechSynthesis.getVoices();
 
 }
 
@@ -1805,6 +2092,12 @@ if(
 voiceButton.addEventListener(
     "click",
     () => {
+
+        /*
+            This click is the direct user
+            interaction needed by mobile
+            browsers.
+        */
 
         heartExplosion();
 
@@ -1830,8 +2123,8 @@ function heartExplosion(){
     ];
 
     for(
-        let i = 0;
-        i < 35;
+        let i=0;
+        i<35;
         i++
     ){
 
@@ -1851,7 +2144,6 @@ function heartExplosion(){
                 )
             ];
 
-
         const angle =
             Math.random() *
             Math.PI *
@@ -1859,9 +2151,7 @@ function heartExplosion(){
 
         const distance =
             180 +
-            Math.random() *
-            500;
-
+            Math.random()*500;
 
         const x =
             Math.cos(angle) *
@@ -1871,11 +2161,9 @@ function heartExplosion(){
             Math.sin(angle) *
             distance;
 
-
         const rotation =
-            (Math.random() - .5) *
+            (Math.random()-.5) *
             500;
-
 
         heart.style.setProperty(
             "--x",
@@ -1892,23 +2180,20 @@ function heartExplosion(){
             rotation + "deg"
         );
 
-
         heart.style.animationDuration =
-            (1.5 +
-             Math.random() * 1.5) +
-            "s";
-
+            (
+                1.5 +
+                Math.random()*1.5
+            ) + "s";
 
         document.body.appendChild(
             heart
         );
 
-
-        setTimeout(() => {
-
-            heart.remove();
-
-        },3500);
+        setTimeout(
+            () => heart.remove(),
+            3500
+        );
 
     }
 
@@ -1916,10 +2201,10 @@ function heartExplosion(){
 
 
 /* =========================================================
-   SCROLL REVEALS
+   SCROLL REVEAL
 ========================================================= */
 
-const revealElements =
+const revealItems =
     document.querySelectorAll(
         ".reveal"
     );
@@ -1939,6 +2224,10 @@ const revealObserver =
                             "show"
                         );
 
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
                     }
 
                 }
@@ -1950,185 +2239,36 @@ const revealObserver =
         }
     );
 
-
-revealElements.forEach(
-    element => {
-
-        revealObserver.observe(
-            element
-        );
-
-    }
+revealItems.forEach(
+    item =>
+        revealObserver.observe(item)
 );
 
 
 /* =========================================================
-   STARFIELD
+   STOP AUDIO WHEN PAGE IS LEFT
 ========================================================= */
-
-const canvas =
-    document.getElementById(
-        "stars"
-    );
-
-const ctx =
-    canvas.getContext("2d");
-
-let stars = [];
-
-
-function resizeCanvas(){
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-}
 
 window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+    "pagehide",
+    () => {
 
-resizeCanvas();
+        piano.pause();
 
+        realVoice.pause();
 
-for(
-    let i = 0;
-    i < 320;
-    i++
-){
+        if(
+            "speechSynthesis" in window
+        ){
 
-    stars.push({
-
-        x:
-            Math.random() *
-            canvas.width,
-
-        y:
-            Math.random() *
-            canvas.height,
-
-        r:
-            Math.random() *
-            1.5 + .2,
-
-        a:
-            Math.random(),
-
-        speed:
-            Math.random() *
-            .45 + .08
-
-    });
-
-}
-
-
-function drawStars(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    stars.forEach(
-        star => {
-
-            star.y -=
-                star.speed;
-
-
-            if(
-                star.y < 0
-            ){
-
-                star.y =
-                    canvas.height;
-
-                star.x =
-                    Math.random() *
-                    canvas.width;
-
-            }
-
-
-            star.a +=
-                (Math.random() - .5) *
-                .025;
-
-
-            star.a =
-                Math.max(
-                    .15,
-                    Math.min(
-                        1,
-                        star.a
-                    )
-                );
-
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                star.x,
-                star.y,
-                star.r,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.fillStyle =
-                `rgba(
-                    255,
-                    255,
-                    255,
-                    ${star.a}
-                )`;
-
-
-            ctx.fill();
+            speechSynthesis.cancel();
 
         }
-    );
-
-
-    requestAnimationFrame(
-        drawStars
-    );
-
-}
-
-drawStars();
-
-
-/* =========================================================
-   EXTRA HEART BURST
-========================================================= */
-
-setTimeout(() => {
-
-    if(
-        main.classList.contains(
-            "visible"
-        )
-    ){
-
-        heartExplosion();
 
     }
-
-},4500);
+);
 
 </script>
 
 </body>
 </html>
-
