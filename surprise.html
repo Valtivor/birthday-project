@@ -1422,31 +1422,7 @@ footer{
 
 <!-- VOICE -->
 
-<section class="voice-section">
 
-    <div class="voice-card reveal">
-
-        <div class="voice-label">
-            ONE MORE THING
-        </div>
-
-        <h2>
-            Hear this
-            from me.
-        </h2>
-
-        <p>
-
-            I wanted this part to feel a little more personal.
-
-            Press the button and let the birthday message
-            speak for itself.
-
-        </p>
-
-    </div>
-
-</section>
 
 
 <!-- FINAL -->
@@ -1571,9 +1547,6 @@ const piano =
 
 const musicStatus =
     document.getElementById("musicStatus");
-
-const voiceButton =
-    document.getElementById("voiceButton");
 
 const heartLayer =
     document.getElementById("heartLayer");
@@ -2047,21 +2020,6 @@ if(
 }
 
 
-/* =========================================================
-   VOICE BUTTON
-========================================================= */
-
-voiceButton.addEventListener(
-    "click",
-    () => {
-
-        heartExplosion();
-
-        speakBirthdayMessage();
-
-    }
-);
-
 
 /* =========================================================
    HEART EXPLOSION
@@ -2430,3 +2388,4 @@ window.addEventListener("beforeunload", stopPageMedia);
 
 </body>
 </html>
+
