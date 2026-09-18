@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#030306">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Esther — ECO STAR 💫</title>
 
@@ -75,29 +75,30 @@ body::after{
     align-items:center;
     justify-content:center;
     text-align:center;
-    background:#020205;
+    background:#ffffff;
+    color:#030306;
     padding:30px;
     transition:opacity 1.4s ease,visibility 1.4s ease;
 }
 #opening.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.opening-inner{width:min(900px,94vw)}
+.opening-inner{width:min(900px,94vw);display:flex;justify-content:center;align-items:center}
 .opening-kicker{
     font-size:9px;
     letter-spacing:.48em;
-    color:rgba(255,255,255,.42);
+    color:rgba(3,3,6,.42);
     margin-bottom:30px;
 }
 .opening-orb{
     width:145px;height:145px;margin:auto;
-    border:1px solid rgba(255,255,255,.18);
+    border:1px solid rgba(3,3,6,.18);
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     position:relative;
-    box-shadow:0 0 80px rgba(255,100,180,.12),inset 0 0 50px rgba(255,255,255,.04);
+    box-shadow:0 0 50px rgba(3,3,6,.06),inset 0 0 30px rgba(3,3,6,.025);
     animation:spin 18s linear infinite;
 }
 .opening-orb::before,.opening-orb::after{
-    content:"";position:absolute;border:1px solid rgba(255,255,255,.07);border-radius:50%;
+    content:"";position:absolute;border:1px solid rgba(3,3,6,.07);border-radius:50%;
 }
 .opening-orb::before{inset:16px}.opening-orb::after{inset:33px}
 .opening-orb span{font-size:52px;animation:pulse 2.5s ease-in-out infinite}
@@ -114,26 +115,26 @@ body::after{
 .opening-copy{
     max-width:570px;
     margin:35px auto 0;
-    color:rgba(255,255,255,.52);
+    color:rgba(3,3,6,.52);
     line-height:1.8;
     font-size:14px;
 }
 #startExperience{
     margin-top:38px;
     padding:17px 34px;
-    border:1px solid rgba(255,255,255,.2);
+    border:1px solid rgba(3,3,6,.22);
     border-radius:100px;
-    background:rgba(255,255,255,.035);
-    color:#fff;
+    background:transparent;
+    color:#030306;
     cursor:pointer;
     font-size:10px;
     letter-spacing:.25em;
     transition:.5s;
 }
-#startExperience:hover{background:#fff;color:#030306;transform:translateY(-4px)}
+#startExperience:hover{background:#030306;color:#fff;transform:translateY(-4px)}
 .opening-note{
     margin-top:22px;
-    color:rgba(255,255,255,.25);
+    color:rgba(3,3,6,.28);
     font-size:9px;
     letter-spacing:.25em;
 }
@@ -392,9 +393,9 @@ footer{
 
 <body>
 
-        <button id="startExperience">CONTINUE ➡</button>
-
-        <div class="opening-note"></div>
+<div id="opening">
+    <div class="opening-inner">
+        <button id="startExperience">CONTINUE →</button>
     </div>
 </div>
 
@@ -404,11 +405,13 @@ footer{
 
 <audio id="pianoRecording" src="happy-birthday-piano.mp3" preload="auto" playsinline></audio>
 
+<div class="music-status" id="musicStatus">YOUR PIANO 🎹</div>
+
 <main id="main">
 
 <nav>
     <div class="nav-logo">E.</div>
-    <div class="nav-text">ON THE 07 · 10 · ESTHER CHIOMA ONYEWENJO(aka)ECO STAR WAS BORN</div>
+    <div class="nav-text">07 · 10 · ECO STAR</div>
 </nav>
 
 <section class="hero">
@@ -487,7 +490,7 @@ footer{
 
 <section class="eco-section reveal">
     <div class="eco-title">ECO<span>STAR</span></div>
-    <div class="eco-sub">NOT JUST A NICKNAME · BUT THE NAME OF A STAR THAT WILL SHINE 💫</div>
+    <div class="eco-sub">NOT JUST A NICKNAME · A WHOLE VIBE 💫</div>
 </section>
 
 <section class="letter-section">
@@ -611,7 +614,7 @@ piano.addEventListener("ended", () => {
    OPENING FINISH
 ========================= */
 function openingFinished(){
-    startButton.textContent = "ENTER THE MOMENT ↗";
+    startButton.textContent = "CONTINUE →";
 
     /*
        The speech has finished.
