@@ -628,11 +628,19 @@ function openingFinished(){
     }, 450);
 }
 
-/* One user tap starts BOTH the speech and piano.
-   This is important for iPhone/mobile autoplay rules. */
+/* First CONTINUE reveals a second CONTINUE.
+   The experience only begins after the second tap. */
 startButton.addEventListener("click", () => {
-    startPiano();
-    openingFinished();
+    const openingInner = document.querySelector(".opening-inner");
+
+    openingInner.innerHTML = `<button id="secondContinue" type="button">CONTINUE →</button>`;
+
+    const secondContinue = document.getElementById("secondContinue");
+
+    secondContinue.addEventListener("click", () => {
+        startPiano();
+        openingFinished();
+    });
 });
 
 /* =========================
