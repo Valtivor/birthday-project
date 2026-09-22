@@ -1129,13 +1129,14 @@ footer{
 
 
 <!-- =====================================================
-     PIANO RECORDING
+     FLAVOUR MUSIC
 ===================================================== -->
 
 <audio 
     id="pianoRecording" 
     src="Flavour - Virtuous Woman (Official Video) (128k).mp3"
-    preload="auto">
+    preload="auto"
+    playsinline>
 </audio>
 
 
@@ -1345,14 +1346,20 @@ footer{
     </div>
 
     <div class="final-reveal-inner">
-        <div class="final-reveal-kicker reveal-line">One last moment</div>
+
+        <div class="final-reveal-kicker reveal-line">
+            One last moment
+        </div>
 
         <h2 class="reveal-line">
+
             ECO
             <span>STAR ⭐</span>
+
         </h2>
 
         <p class="final-message reveal-line">
+
             And through life's hardest storms, I want you to remember this:
             God's grace and mercy will always be greater than the storm.
             And whenever those difficult seasons come, I hope you remember
@@ -1361,14 +1368,19 @@ footer{
             the difficult days, the laughter, and everything in between.
             Keep trusting God. Keep shining. Keep becoming everything He created
             you to be.
+
         </p>
 
         <div class="final-signature reveal-line">
+
             Happy Birthday, Esther · From your bestie ❤️
+
         </div>
+
     </div>
 
 </section>
+
 
 <footer>
 
@@ -1492,29 +1504,158 @@ function startHearts(){
 
 
 /* =========================================================
-   PIANO
+   FLAVOUR MUSIC
 ========================================================= */
 
 let pianoStarted = false;
 
-/*
-   NORMAL VOLUME
-*/
-
 const NORMAL_VOLUME = 0.8;
+const DUCKED_VOLUME = 0.15;
 
 /*
-   QUIET VOLUME DURING VOICE
+   This is the key used to remember where
+   Flavour stopped on the previous page.
 */
 
-const DUCKED_VOLUME = 0.15;
+const FLAVOUR_TIME_KEY = "flavourTime";
 
 
 /* =========================================================
-   FADE PIANO VOLUME
+   RESTORE FLAVOUR POSITION
 ========================================================= */
 
-function fadePianoTo(targetVolume,duration=900){
+function restoreFlavourPosition(){
+
+    const savedTime =
+        parseFloat(
+            localStorage.getItem(
+                FLAVOUR_TIME_KEY
+            )
+        );
+
+    if(
+        !Number.isFinite(savedTime) ||
+        savedTime < 0
+    ){
+        return;
+    }
+
+    function setPosition(){
+
+        try{
+
+            /*
+               Make sure we never try to seek
+               beyond the length of the song.
+            */
+
+            if(
+                Number.isFinite(piano.duration) &&
+                savedTime < piano.duration
+            ){
+
+                piano.currentTime =
+                    savedTime;
+
+            }
+
+        }catch(error){
+
+            console.log(
+                "Could not restore Flavour position."
+            );
+
+        }
+
+    }
+
+
+    /*
+       If the audio information is already loaded,
+       seek immediately.
+    */
+
+    if(
+        piano.readyState >= 1
+    ){
+
+        setPosition();
+
+    }else{
+
+        /*
+           Otherwise wait until the browser knows
+           the song's duration.
+        */
+
+        piano.addEventListener(
+            "loadedmetadata",
+            setPosition,
+            { once:true }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE FLAVOUR POSITION
+========================================================= */
+
+function saveFlavourPosition(){
+
+    if(
+        piano &&
+        Number.isFinite(
+            piano.currentTime
+        )
+    ){
+
+        localStorage.setItem(
+            FLAVOUR_TIME_KEY,
+            piano.currentTime
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE POSITION WHILE PLAYING
+========================================================= */
+
+/*
+   Saving every second makes the position more
+   reliable, especially on phones.
+*/
+
+setInterval(() => {
+
+    if(
+        piano &&
+        !piano.paused &&
+        Number.isFinite(
+            piano.currentTime
+        )
+    ){
+
+        saveFlavourPosition();
+
+    }
+
+},1000);
+
+
+/* =========================================================
+   FADE FLAVOUR VOLUME
+========================================================= */
+
+function fadePianoTo(
+    targetVolume,
+    duration=900
+){
 
     const startVolume =
         piano.volume;
@@ -1525,7 +1666,9 @@ function fadePianoTo(targetVolume,duration=900){
     const startTime =
         performance.now();
 
-    function animateVolume(currentTime){
+    function animateVolume(
+        currentTime
+    ){
 
         const elapsed =
             currentTime - startTime;
@@ -1535,10 +1678,6 @@ function fadePianoTo(targetVolume,duration=900){
                 elapsed / duration,
                 1
             );
-
-        /*
-           Smooth easing
-        */
 
         const eased =
             progress < .5
@@ -1553,7 +1692,9 @@ function fadePianoTo(targetVolume,duration=900){
             startVolume +
             difference * eased;
 
-        if(progress < 1){
+        if(
+            progress < 1
+        ){
 
             requestAnimationFrame(
                 animateVolume
@@ -1566,11 +1707,12 @@ function fadePianoTo(targetVolume,duration=900){
     requestAnimationFrame(
         animateVolume
     );
+
 }
 
 
 /* =========================================================
-   START PIANO
+   START FLAVOUR
 ========================================================= */
 
 function startPiano(){
@@ -1578,6 +1720,13 @@ function startPiano(){
     if(pianoStarted) return;
 
     pianoStarted = true;
+
+    /*
+       Restore the exact position saved
+       from the previous page.
+    */
+
+    restoreFlavourPosition();
 
     piano.volume = 0;
 
@@ -1588,6 +1737,9 @@ function startPiano(){
             "playing"
         );
 
+        musicStatus.textContent =
+            "NOW PLAYING 🎶";
+
         fadePianoTo(
             NORMAL_VOLUME,
             1800
@@ -1597,7 +1749,7 @@ function startPiano(){
     .catch(() => {
 
         musicStatus.textContent =
-            "TAP TO PLAY 🎹";
+            "TAP TO PLAY 🎶";
 
     });
 
@@ -1605,16 +1757,26 @@ function startPiano(){
 
 
 /* =========================================================
-   PIANO LOOP
+   FLAVOUR LOOP
 ========================================================= */
 
 piano.addEventListener(
     "ended",
     () => {
 
+        /*
+           Save that the song reached the end.
+        */
+
+        localStorage.setItem(
+            FLAVOUR_TIME_KEY,
+            "0"
+        );
+
         piano.currentTime = 0;
 
-        piano.play();
+        piano.play()
+        .catch(() => {});
 
     }
 );
@@ -1639,6 +1801,12 @@ enterButton.addEventListener(
         );
 
         startHearts();
+
+        /*
+           Because this happens after the user's
+           button click, the browser allows audio
+           playback on phones more reliably.
+        */
 
         startPiano();
 
@@ -1970,50 +2138,145 @@ setTimeout(() => {
    HIDDEN FINAL EXPERIENCE
 ========================================================= */
 
-const finalTrigger = document.getElementById("finalTrigger");
-const finalReveal = document.getElementById("finalReveal");
-let finalMomentUnlocked = false;
+const finalTrigger =
+    document.getElementById(
+        "finalTrigger"
+    );
 
-if (finalTrigger && finalReveal) {
-    const finalObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting && !finalMomentUnlocked) {
-                finalMomentUnlocked = true;
-                finalReveal.classList.add("unlocked");
-                heartExplosion();
-                setTimeout(() => heartExplosion(), 900);
+const finalReveal =
+    document.getElementById(
+        "finalReveal"
+    );
+
+let finalMomentUnlocked =
+    false;
+
+if(
+    finalTrigger &&
+    finalReveal
+){
+
+    const finalObserver =
+        new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(
+                    (entry) => {
+
+                        if(
+                            entry.isIntersecting &&
+                            !finalMomentUnlocked
+                        ){
+
+                            finalMomentUnlocked =
+                                true;
+
+                            finalReveal.classList.add(
+                                "unlocked"
+                            );
+
+                            heartExplosion();
+
+                            setTimeout(
+                                () => heartExplosion(),
+                                900
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:.35
             }
-        });
-    }, { threshold: 0.35 });
+        );
 
-    finalObserver.observe(finalReveal);
+    finalObserver.observe(
+        finalReveal
+    );
+
 }
 
 
 /* =========================================================
-   STOP MUSIC + VOICE WHEN THE VISITOR LEAVES THE PAGE
+   STOP MUSIC WHEN VISITOR LEAVES
 ========================================================= */
 
 function stopPageMedia(){
-    if (piano) {
+
+    /*
+       IMPORTANT:
+       Save the position BEFORE pausing.
+    */
+
+    saveFlavourPosition();
+
+    if(piano){
+
         piano.pause();
+
     }
 
-    if ("speechSynthesis" in window) {
+    if(
+        "speechSynthesis" in window
+    ){
+
         speechSynthesis.cancel();
+
     }
+
 }
 
-/* Stop when the tab/browser is hidden. */
-document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
-        stopPageMedia();
-    }
-});
 
-/* Stop when navigating away, closing the tab, or refreshing. */
-window.addEventListener("pagehide", stopPageMedia);
-window.addEventListener("beforeunload", stopPageMedia);
+/* =========================================================
+   VISIBILITY CHANGE
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if(
+            document.visibilityState ===
+            "hidden"
+        ){
+
+            stopPageMedia();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PAGE HIDE
+========================================================= */
+
+window.addEventListener(
+    "pagehide",
+    () => {
+
+        stopPageMedia();
+
+    }
+);
+
+
+/* =========================================================
+   BEFORE UNLOAD
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        stopPageMedia();
+
+    }
+);
 
 </script>
 
