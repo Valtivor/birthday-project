@@ -404,6 +404,7 @@ footer{
 <div id="heartLayer"></div>
 
 <audio id="pianoRecording" src="Happy Birthday.mp3" preload="auto" playsinline></audio>
+<audio id="afterBirthdaySong" src="Virtuous Woman.mp3" preload="auto" playsinline></audio>
 
 <div class="music-status" id="musicStatus">YOUR PIANO 🎹</div>
 
@@ -576,6 +577,7 @@ const opening = document.getElementById("opening");
 const startButton = document.getElementById("startExperience");
 const main = document.getElementById("main");
 const piano = document.getElementById("pianoRecording");
+const afterBirthdaySong = document.getElementById("afterBirthdaySong");
 const musicStatus = document.getElementById("musicStatus");
 const heartLayer = document.getElementById("heartLayer");
 
@@ -606,8 +608,21 @@ function startPiano(){
 piano.addEventListener("ended", () => {
     if(!pageIsVisible || !musicWasStartedByUser) return;
 
-    piano.currentTime = 0;
-    piano.play().catch(() => {});
+    musicStatus.textContent = "NOW PLAYING 🎶";
+    afterBirthdaySong.currentTime = 0;
+
+    afterBirthdaySong.play().then(() => {
+        musicStatus.classList.add("playing");
+    }).catch(() => {
+        musicStatus.textContent = "SONG READY 🎶";
+    });
+});
+
+afterBirthdaySong.addEventListener("ended", () => {
+    if(!pageIsVisible) return;
+
+    musicStatus.classList.remove("playing");
+    musicStatus.textContent = "YOUR PIANO 🎹";
 });
 
 /* =========================
@@ -650,6 +665,7 @@ function stopAllMediaWhenHidden(){
     pageIsVisible = false;
 
     piano.pause();
+    afterBirthdaySong.pause();
 
     if("speechSynthesis" in window){
         speechSynthesis.cancel();
@@ -665,7 +681,7 @@ function markPageVisible(){
        The user asked for music to stop when they leave.
     */
     pageIsVisible = true;
-    musicStatus.textContent = piano.paused ? "YOUR PIANO 🎹" : "YOUR PIANO 🎹";
+    musicStatus.textContent = "YOUR PIANO 🎹";
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -681,6 +697,7 @@ document.addEventListener("visibilitychange", () => {
 */
 window.addEventListener("pagehide", () => {
     piano.pause();
+    afterBirthdaySong.pause();
     if("speechSynthesis" in window) speechSynthesis.cancel();
 });
 
